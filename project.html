@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="icon.png">
+<title>AI/ML Engineering — 10 Major Projects · 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@300;400;500;600;700&family=Google+Sans+Display:wght@400;700&family=Google+Sans+Mono&display=swap" rel="stylesheet" onerror="this.remove()">
+<style>
+:root {
+  --font:  'Google Sans','DM Sans',Inter,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  --font-d:'Google Sans Display','Google Sans',Inter,'Segoe UI',sans-serif;
+  --font-m:'Google Sans Mono','DM Mono',Consolas,'Courier New',monospace;
+  --bg:    #0b0d11; --bg2:#111318; --bg3:#181c23;
+  --card:  #1a1e27; --card2:#20252f;
+  --bdr:   #2a2f3d; --bdr2:#343b4f;
+  --txt:   #e8eaf0; --txt2:#9ba3b5; --txt3:#5f6880;
+  --acc:   #5c7cfa; --acc2:#748ffc;
+  --grn:   #40c057; --grn2:#2f9e44;
+  --org:   #fd7e14; --red:#fa5252;
+  --pur:   #cc5de8; --cyn:#22b8cf; --ylw:#ffd43b;
+  --sh:    0 4px 24px rgba(0,0,0,.4);
+  --sh2:   0 2px 8px rgba(0,0,0,.3);
+  --r:12px; --r2:8px; --tr:.2s ease;
+}
+[data-theme=light]{
+  --bg:#f0f2f7;--bg2:#e8eaf0;--bg3:#dde1ea;
+  --card:#fff;--card2:#f5f7fb;
+  --bdr:#d0d5e3;--bdr2:#bcc4d8;
+  --txt:#1a1e2e;--txt2:#4a5068;--txt3:#8892ab;
+  --sh:0 4px 24px rgba(0,0,0,.08);--sh2:0 2px 8px rgba(0,0,0,.06);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--txt);min-height:100vh;
+  -webkit-font-smoothing:antialiased;transition:background var(--tr),color var(--tr)}
+
+/* TOPBAR */
+.topbar{background:var(--bg2);border-bottom:1px solid var(--bdr);padding:14px 32px;
+  display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;
+  backdrop-filter:blur(10px)}
+.logo{font-family:var(--font-d);font-size:18px;font-weight:700;color:var(--acc2)}
+.logo-sub{font-size:11px;color:var(--txt3);margin-top:1px;letter-spacing:.5px}
+.topbar-right{display:flex;align-items:center;gap:10px}
+.btn{padding:7px 14px;border-radius:var(--r2);border:1px solid var(--bdr);background:var(--card);
+  color:var(--txt2);font-size:12.5px;cursor:pointer;font-family:var(--font);font-weight:500;
+  transition:all var(--tr);display:inline-flex;align-items:center;gap:6px;text-decoration:none}
+.btn:hover{background:var(--card2);color:var(--txt)}
+.btn-p{background:var(--acc);border-color:var(--acc);color:#fff}
+.btn-p:hover{background:var(--acc2);border-color:var(--acc2);color:#fff}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,rgba(92,124,250,.08),rgba(204,93,232,.06));
+  border-bottom:1px solid var(--bdr);padding:40px 32px 32px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-60px;right:-60px;width:240px;height:240px;
+  background:radial-gradient(circle,rgba(92,124,250,.12),transparent 70%);border-radius:50%;pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:-40px;left:20%;width:180px;height:180px;
+  background:radial-gradient(circle,rgba(204,93,232,.08),transparent 70%);border-radius:50%;pointer-events:none}
+.hero-label{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--acc2);
+  font-weight:700;margin-bottom:10px}
+.hero-title{font-family:var(--font-d);font-size:32px;font-weight:700;line-height:1.2;
+  margin-bottom:10px;background:linear-gradient(135deg,var(--txt),var(--txt2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:14px;color:var(--txt2);max-width:600px;line-height:1.7;margin-bottom:20px}
+.hero-stats{display:flex;gap:20px;flex-wrap:wrap}
+.h-stat{background:var(--card);border:1px solid var(--bdr);border-radius:var(--r2);
+  padding:10px 16px;text-align:center;min-width:90px}
+.h-stat-val{font-family:var(--font-m);font-size:22px;font-weight:600;color:var(--acc2);line-height:1}
+.h-stat-lbl{font-size:10px;color:var(--txt3);margin-top:3px;text-transform:uppercase;letter-spacing:.8px}
+
+/* FILTER TABS */
+.filter-bar{background:var(--bg2);border-bottom:1px solid var(--bdr);padding:12px 32px;
+  display:flex;gap:8px;align-items:center;flex-wrap:wrap;position:sticky;top:56px;z-index:40}
+.ftab{padding:5px 13px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid var(--bdr);
+  background:var(--card);color:var(--txt2);cursor:pointer;transition:all var(--tr)}
+.ftab:hover{border-color:var(--bdr2);color:var(--txt)}
+.ftab.active{color:#fff;border-color:transparent}
+.filter-lbl{font-size:11px;color:var(--txt3);font-weight:600;margin-right:4px}
+
+/* MAIN LAYOUT */
+.main{max-width:1200px;margin:0 auto;padding:32px}
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:20px}
+
+/* PROJECT CARD */
+.pcard{background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);
+  overflow:hidden;transition:all var(--tr);display:flex;flex-direction:column}
+.pcard:hover{border-color:var(--bdr2);box-shadow:var(--sh2);transform:translateY(-2px)}
+.pcard.hidden{display:none}
+
+.pc-stripe{height:4px}
+.pc-head{padding:18px 20px 14px}
+.pc-badge-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.pc-num-badge{font-family:var(--font-m);font-size:10px;color:var(--txt3);font-weight:600;
+  background:var(--bg3);border:1px solid var(--bdr);border-radius:20px;padding:2px 8px}
+.pc-phase-badge{font-size:10px;font-weight:700;padding:2px 9px;border-radius:20px;border:1px solid}
+.pc-title{font-family:var(--font-d);font-size:15px;font-weight:700;margin-bottom:4px;color:var(--txt);line-height:1.3}
+.pc-overview{font-size:12.5px;color:var(--txt2);line-height:1.65}
+
+.pc-body{padding:0 20px 18px;flex:1;display:flex;flex-direction:column;gap:14px}
+
+/* DELIVERABLES */
+.pc-section-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;
+  color:var(--txt3);margin-bottom:8px}
+.deliverable{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r2);
+  padding:12px 14px;margin-bottom:7px}
+.deliv-title{font-size:12.5px;font-weight:700;color:var(--txt);margin-bottom:4px}
+.deliv-desc{font-size:12px;color:var(--txt2);line-height:1.6}
+
+/* EVALUATION LEVELS */
+.eval-row{display:flex;flex-direction:column;gap:6px;margin-top:2px}
+.eval-item{border-radius:var(--r2);padding:10px 12px;border:1px solid}
+.eval-dist{background:rgba(255,212,59,.06);border-color:rgba(255,212,59,.25)}
+.eval-prof{background:rgba(64,192,87,.06);border-color:rgba(64,192,87,.2)}
+.eval-dev{background:rgba(92,124,250,.06);border-color:rgba(92,124,250,.2)}
+.eval-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;margin-bottom:3px}
+.eval-dist .eval-label{color:var(--ylw)}
+.eval-prof .eval-label{color:var(--grn)}
+.eval-dev .eval-label{color:var(--acc2)}
+.eval-text{font-size:11.5px;color:var(--txt2);line-height:1.55}
+
+/* ACCORDION */
+.acc-btn{width:100%;background:none;border:none;border-top:1px solid var(--bdr);
+  padding:11px 20px;display:flex;justify-content:space-between;align-items:center;
+  font-family:var(--font);font-size:12.5px;font-weight:600;color:var(--txt2);cursor:pointer;
+  transition:all var(--tr)}
+.acc-btn:hover{background:var(--bg3);color:var(--txt)}
+.acc-arrow{transition:transform var(--tr);font-size:10px}
+.acc-content{display:none;padding:14px 20px;background:var(--bg2);border-top:1px solid var(--bdr)}
+.acc-content.open{display:block}
+.acc-btn.open .acc-arrow{transform:rotate(180deg)}
+
+/* COMPLETION TOGGLE */
+.complete-btn{margin:0 20px 16px;padding:8px;background:rgba(64,192,87,.07);
+  border:1px solid rgba(64,192,87,.2);border-radius:var(--r2);color:var(--grn);
+  font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font);
+  transition:all var(--tr);display:flex;align-items:center;justify-content:center;gap:6px}
+.complete-btn:hover{background:rgba(64,192,87,.15)}
+.complete-btn.done{background:rgba(64,192,87,.2);border-color:var(--grn2)}
+.progress-ring{position:relative;display:inline-flex;align-items:center;justify-content:center}
+
+/* OVERALL PROGRESS */
+.overall-bar{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r);
+  padding:16px 20px;margin-bottom:24px}
+.ob-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.ob-title{font-family:var(--font-d);font-size:14px;font-weight:700}
+.ob-pct{font-family:var(--font-m);font-size:18px;font-weight:600;color:var(--acc2)}
+.ob-bg{background:var(--bg3);border-radius:6px;height:8px;overflow:hidden}
+.ob-fill{height:8px;border-radius:6px;background:linear-gradient(90deg,var(--acc),var(--pur));
+  transition:width .6s ease}
+.ob-phases{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.ob-phase{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--txt2)}
+.ob-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+
+/* POPUP / TOAST */
+.toast{position:fixed;bottom:20px;right:20px;background:var(--card);border:1px solid var(--grn2);
+  border-radius:10px;padding:12px 16px;box-shadow:var(--sh);z-index:999;
+  font-size:13px;font-weight:600;color:var(--grn);
+  transform:translateX(calc(100% + 30px));transition:transform .4s cubic-bezier(.4,0,.2,1)}
+.toast.show{transform:translateX(0)}
+
+/* THEME TOGGLE */
+.theme-btn{background:var(--bg3);border:1px solid var(--bdr);border-radius:var(--r2);
+  padding:7px 11px;cursor:pointer;color:var(--txt2);font-size:13px;font-family:var(--font);
+  transition:all var(--tr)}
+.theme-btn:hover{background:var(--bdr);color:var(--txt)}
+
+/* BACK LINK */
+.back-link{color:var(--acc2);text-decoration:none;font-size:13px;font-weight:600;
+  display:flex;align-items:center;gap:5px}
+.back-link:hover{color:var(--acc)}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .main{padding:16px}
+  .hero{padding:24px 16px 20px}
+  .hero-title{font-size:24px}
+  .filter-bar{padding:10px 16px}
+  .topbar{padding:12px 16px}
+  .proj-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body data-theme="dark">
+
+<div class="toast" id="toast">🎉</div>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div>
+    <div class="logo">∇ ML Journey · Projects</div>
+    <div class="logo-sub">10 Major Projects · 75-Day AI/ML Roadmap 2026</div>
+  </div>
+  <div class="topbar-right">
+    <button class="theme-btn" onclick="toggleTheme()">🌙 Theme</button>
+    <a href="roadmap.html" class="btn back-link">← Back to Roadmap</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-label">Production-First Portfolio</div>
+  <div class="hero-title">10 Major Engineering Projects</div>
+  <div class="hero-sub">From mathematical foundations to autonomous agentic systems — each project is a production-grade deliverable that demonstrates engineering depth across the full AI/ML lifecycle.</div>
+  <div class="hero-stats">
+    <div class="h-stat"><div class="h-stat-val">10</div><div class="h-stat-lbl">Projects</div></div>
+    <div class="h-stat"><div class="h-stat-val">5</div><div class="h-stat-lbl">Phases</div></div>
+    <div class="h-stat"><div class="h-stat-val" id="doneCount">0</div><div class="h-stat-lbl">Completed</div></div>
+    <div class="h-stat"><div class="h-stat-val">75</div><div class="h-stat-lbl">Days</div></div>
+  </div>
+</div>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <span class="filter-lbl">Filter:</span>
+  <div class="ftab active" data-filter="all" onclick="filterProjects('all',this)">All Projects</div>
+  <div class="ftab" data-filter="math" onclick="filterProjects('math',this)" style="--acc-c:#5c7cfa">Math & Python</div>
+  <div class="ftab" data-filter="ml" onclick="filterProjects('ml',this)" style="--acc-c:#40c057">Classical ML</div>
+  <div class="ftab" data-filter="dl" onclick="filterProjects('dl',this)" style="--acc-c:#cc5de8">Deep Learning</div>
+  <div class="ftab" data-filter="genai" onclick="filterProjects('genai',this)" style="--acc-c:#fd7e14">GenAI & LLMs</div>
+  <div class="ftab" data-filter="mlops" onclick="filterProjects('mlops',this)" style="--acc-c:#22b8cf">MLOps</div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- OVERALL PROGRESS -->
+  <div class="overall-bar">
+    <div class="ob-hdr">
+      <div class="ob-title">Portfolio Completion</div>
+      <div class="ob-pct" id="obPct">0 / 10</div>
+    </div>
+    <div class="ob-bg"><div class="ob-fill" id="obFill" style="width:0%"></div></div>
+    <div class="ob-phases">
+      <div class="ob-phase"><div class="ob-dot" style="background:#5c7cfa"></div>Phase 1: Math &amp; Python</div>
+      <div class="ob-phase"><div class="ob-dot" style="background:#40c057"></div>Phase 2: Classical ML</div>
+      <div class="ob-phase"><div class="ob-dot" style="background:#cc5de8"></div>Phase 3: Deep Learning</div>
+      <div class="ob-phase"><div class="ob-dot" style="background:#fd7e14"></div>Phase 4: GenAI &amp; LLMs</div>
+      <div class="ob-phase"><div class="ob-dot" style="background:#22b8cf"></div>Phase 5: MLOps</div>
+    </div>
+  </div>
+
+  <!-- PROJECTS GRID -->
+  <div class="proj-grid" id="projGrid"></div>
+</div>
+
+<script>
+/* ── DATA ──────────────────────────────────────────────── */
+const PROJECTS = [
+  {
+    id: 1,
+    num: 'Project 01',
+    title: 'Statistical Feature Scaling Engine',
+    phase: 'Phase 1 · Math & Python',
+    phaseKey: 'math',
+    phaseColor: '#5c7cfa',
+    days: 'Days 1–7 · Week 1',
+    overview: 'Construction of a custom Python library using only NumPy that mimics professional scaling tools. The engine must ingest raw high-dimensional data and output normalized and standardized feature sets while handling edge cases such as collinearity through determinant checks.',
+    deliverables: [
+      {
+        title: 'Class Architecture Implementation',
+        desc: 'Design a modular class structure (e.g., FeatureScaler) following the fit-transform API pattern. Implement state management to store mean and standard deviation parameters for use during inference on unseen data, preventing data leakage.'
+      },
+      {
+        title: 'Diagnostic Tool Integration',
+        desc: 'Develop a diagnostic utility that calculates the determinant of the covariance matrix. Implement an automated warning system that alerts the user of singular or near-singular matrices (det ≈ 0), identifying redundant features.'
+      },
+      {
+        title: 'Validation and Unit Testing',
+        desc: 'Construct a pytest suite to verify the custom library\'s mathematical outputs against standard Scikit-Learn scaling outputs. Perform performance benchmarking for large-scale matrix operations using pure NumPy vectorization.'
+      }
+    ],
+    evaluation: {
+      distinction: 'Coverage of 3+ scaling methods (Z-score, Min-Max, Robust), successful singular matrix detection, 100% test coverage including zero-variance features, and an audit-ready technical report documenting the mathematical derivations.',
+      proficient: 'Successful implementation of Z-score and Min-Max scaling with basic unit testing that validates against Scikit-Learn outputs.',
+      developing: 'Covers only one scaling method without diagnostic checks or modular design patterns.'
+    }
+  },
+  {
+    id: 2,
+    num: 'Project 02',
+    title: 'Production-Ready Ingestion Pipeline',
+    phase: 'Phase 1 · Math & Python',
+    phaseKey: 'math',
+    phaseColor: '#5c7cfa',
+    days: 'Days 8–14 · Week 2',
+    overview: 'Automation of data preparation for scalable ML systems. Build a containerized Python application that fetches data from a public API, performs validation checks against schema expectations, and saves results to a SQL database. The entire pipeline must be reproducible and environment-agnostic via Docker.',
+    deliverables: [
+      {
+        title: 'Automated Data Retrieval',
+        desc: 'Use the requests library with failure handling, including retries with exponential backoff and timeout management. Manage the development environment using Poetry to ensure consistent dependency resolution across machines.'
+      },
+      {
+        title: 'Transformation and Cleaning Layer',
+        desc: 'Apply a transformation layer using Pandas to handle null values, remove duplicates, and normalize data types. Implement outlier detection logic using Z-score or IQR methods to flag suspect data points before insertion.'
+      },
+      {
+        title: 'Schema Validation and Persistence',
+        desc: 'Integrate Great Expectations to validate ingested data against defined schema rules. Automate the insertion of cleaned records into a relational database using SQLAlchemy. Package the entire pipeline into an optimized Docker image using multi-stage builds.'
+      }
+    ],
+    evaluation: {
+      distinction: 'Handling at least three specific failure modes (404, 429, 500 errors), generating a data quality report for each run, providing a docker-compose setup for one-command deployment, and including an automated CI test in the README.',
+      proficient: 'Successful execution of the full ETL loop with basic error handling and data validation gates that check schema correctness.',
+      developing: 'Basic API script that saves data without validation, containerization, or error resilience.'
+    }
+  },
+  {
+    id: 3,
+    num: 'Project 03',
+    title: 'Real Estate Valuation Engine',
+    phase: 'Phase 2 · Classical ML',
+    phaseKey: 'ml',
+    phaseColor: '#40c057',
+    days: 'Days 15–21 · Week 3',
+    overview: 'A comprehensive regression engine for house price prediction. Requires the integration of multiple algorithms and a final justification of the best-performing model based on rigorous statistical evaluation. The project integrates advanced feature engineering, ensemble benchmarking, and model interpretability into a polished deliverable.',
+    deliverables: [
+      {
+        title: 'Advanced Feature Engineering',
+        desc: 'Select a complex dataset (e.g., Zillow or Ames Housing) and perform exploratory data analysis. Implement interaction terms (e.g., area × age) and perform log transformations on skewed targets to meet regression assumptions and improve model performance.'
+      },
+      {
+        title: 'Ensemble Model Benchmarking',
+        desc: 'Train and tune XGBoost, Random Forest, and SVM models using 5-fold cross-validation. Implement an automated hyperparameter tuning loop using Randomized Search or Optuna to find optimal configurations for each algorithm.'
+      },
+      {
+        title: 'Model Interpretability and Reporting',
+        desc: 'Use SHAP (SHapley Additive exPlanations) values to explain the top three features driving predictions. Draft a technical report that correlates model predictions with local economic factors, making findings accessible to non-technical stakeholders.'
+      }
+    ],
+    evaluation: {
+      distinction: 'Test RMSE 15%+ better than the mean-based baseline, zero data leakage in the pipeline confirmed by temporal validation, and an interpretability report suitable for presentation to technical stakeholders.',
+      proficient: 'Successful comparison of three models with tuned hyperparameters and a functional SHAP visualization that identifies the top features.',
+      developing: 'Basic model training with one algorithm and standard metrics without any hyperparameter tuning or interpretability analysis.'
+    }
+  },
+  {
+    id: 4,
+    num: 'Project 04',
+    title: 'Scalable Anomaly Detection Service',
+    phase: 'Phase 2 · Classical ML',
+    phaseKey: 'ml',
+    phaseColor: '#40c057',
+    days: 'Days 22–28 · Week 4',
+    overview: 'Deploy an unsupervised model as a containerized microservice. This mimics a real-world cybersecurity or fraud detection application where rare events must be identified in near-real-time streams of network or transaction data, served through a production FastAPI endpoint.',
+    deliverables: [
+      {
+        title: 'Isolation Forest Model Training',
+        desc: 'Train an Isolation Forest model on a network traffic dataset. Optimize the contamination parameter using a small set of labeled anomalies to minimize false positives while maintaining high recall on true anomalous events.'
+      },
+      {
+        title: 'API Service Development',
+        desc: 'Wrap the trained model in a high-performance FastAPI endpoint. Implement an "Anomaly Score" return value that provides a continuous measure of outlier intensity alongside a binary classification flag. Implement Pydantic-based input schema validation.'
+      },
+      {
+        title: 'Containerization and Deployment',
+        desc: 'Create a Dockerfile to containerize the service using a minimal base image. Implement health-check endpoints and robust error handling for malformed inputs. Document the service architecture in a technical whitepaper with a sequence diagram.'
+      }
+    ],
+    evaluation: {
+      distinction: 'Container startup time under 5 seconds, graceful handling of batch inference requests (accepting lists of feature vectors), 95%+ test coverage including edge cases, and a documented decision boundary analysis with contamination rationale.',
+      proficient: 'Successful deployment of the model in a Docker container with functional API endpoints that return predictions and scores.',
+      developing: 'Model runs locally in a script but lacks the API wrapper or containerized deployment environment.'
+    }
+  },
+  {
+    id: 5,
+    num: 'Project 05',
+    title: 'Manual Neural Network Framework',
+    phase: 'Phase 3 · Deep Learning',
+    phaseKey: 'dl',
+    phaseColor: '#cc5de8',
+    days: 'Days 29–35 · Week 5',
+    overview: 'Implementation of a neural network framework from scratch using only NumPy. This ensures the engineer understands the low-level mathematics of partial derivatives and gradient updates before relying on PyTorch\'s abstractions. The framework must solve the non-linear XOR classification problem to verify correctness.',
+    deliverables: [
+      {
+        title: 'Fundamental Layer Classes',
+        desc: 'Implement Linear (Dense) and ReLU activation layers as distinct Python classes. Each class must contain forward methods to calculate activations and backward methods to compute the local gradient with respect to both inputs and weights for proper chain rule propagation.'
+      },
+      {
+        title: 'Trainer and Optimizer Development',
+        desc: 'Write a Trainer class that handles the orchestration of the training loop, including mini-batch construction and loss computation. Implement a simple Stochastic Gradient Descent (SGD) optimizer with configurable learning rate and optional momentum.'
+      },
+      {
+        title: 'XOR Convergence Test',
+        desc: 'Design a two-hidden-layer network to solve the non-linear XOR problem using the manually implemented framework. Track and plot the loss over 1,000 epochs to demonstrate successful convergence of the manually derived gradients to near-zero loss.'
+      }
+    ],
+    evaluation: {
+      distinction: 'Mathematical correctness of the manually derived gradients as verified by numerical gradient checking (comparing analytical vs numerical gradients, diff < 1e-5), and a documented loss curve showing stable convergence to near-zero loss on the XOR dataset.',
+      proficient: 'Successful forward and backward pass implementation resulting in the model learning and correctly classifying the XOR dataset.',
+      developing: 'Incorrect backward pass logic that leads to exploding or vanishing gradients and failure to converge on the XOR task.'
+    }
+  },
+  {
+    id: 6,
+    num: 'Project 06',
+    title: 'Real-Time Traffic Analysis System',
+    phase: 'Phase 3 · Deep Learning',
+    phaseKey: 'dl',
+    phaseColor: '#cc5de8',
+    days: 'Days 36–42 · Week 6',
+    overview: 'Building a real-time object detection and semantic segmentation system for traffic monitoring using the state-of-the-art YOLO26 architecture. The system must simultaneously detect vehicles, pedestrians, and lane markers in a video stream while maintaining real-time latency targets on standard hardware.',
+    deliverables: [
+      {
+        title: 'YOLO26-N Integration',
+        desc: 'Load and configure the YOLO26-N model for inference, targeting real-time performance on a CPU. Implement "oriented object detection" capability to handle vehicles captured at various angles, including rear-facing and side-profile perspectives.'
+      },
+      {
+        title: 'Multi-Task Pipeline Development',
+        desc: 'Build a vision pipeline that simultaneously performs object detection (bounding boxes) and semantic segmentation (pixel-level masking for lane detection). Optimize the frame processing loop to maintain end-to-end latency under 40ms per frame.'
+      },
+      {
+        title: 'Performance Benchmarking',
+        desc: 'Compare the inference speed and accuracy (mAP@0.50) of YOLO26 against YOLO11 and YOLOv8 on the same hardware. Document the trade-offs between zero-shot flexibility and task-specialized fine-tuning for both speed and accuracy dimensions.'
+      }
+    ],
+    evaluation: {
+      distinction: 'Inference speed exceeding 30 FPS on standard hardware (e.g., laptop CPU or Colab T4), successful semantic segmentation of lane markings under variable lighting conditions, and a quantitative benchmark report with mAP, FPS, and latency percentiles.',
+      proficient: 'Successful detection and segmentation on sample video clips with accurate class labeling for vehicles and pedestrians.',
+      developing: 'Basic bounding box detection on static images without segmentation capability or real-time optimization.'
+    }
+  },
+  {
+    id: 7,
+    num: 'Project 07',
+    title: 'Enterprise RAG Documentation Assistant',
+    phase: 'Phase 4 · GenAI & LLMs',
+    phaseKey: 'genai',
+    phaseColor: '#fd7e14',
+    days: 'Days 43–49 · Week 7',
+    overview: 'A professional Retrieval-Augmented Generation system for a technical knowledge base. Requires advanced hybrid retrieval logic and automated evaluation using the RAGAS framework to ensure responses are factually grounded and hallucinations are systematically minimized before production deployment.',
+    deliverables: [
+      {
+        title: 'Hybrid Retrieval Engine Development',
+        desc: 'Implement a retrieval system that combines dense vector search (using embeddings like BGE or OpenAI) with sparse keyword search (BM25) to maximize context recall across diverse query types. Integrate a cross-encoder re-ranking step to improve the precision of the top-k retrieved chunks.'
+      },
+      {
+        title: 'Context-Aware Generation Pipeline',
+        desc: 'Develop a generation pipeline that injects the retrieved chunks into the prompt context, utilizing Chain-of-Thought prompting to encourage source citation in responses. Implement metadata filtering to restrict searches by document type, date, or user role (RBAC simulation).'
+      },
+      {
+        title: 'Automated Quality Evaluation',
+        desc: 'Utilize the RAGAS framework to compute Faithfulness, Answer Relevancy, and Context Precision scores on a golden evaluation set. Target a faithfulness score of ≥0.85 for production readiness. Configure automated alerts to flag responses falling below the threshold.'
+      }
+    ],
+    evaluation: {
+      distinction: 'RAGAS Faithfulness ≥ 0.85, Context Precision ≥ 0.80 on the evaluation set, functional hybrid retrieval (BM25 + dense vectors) with re-ranking, metadata-based access control, and a full architecture diagram documenting the ingestion and retrieval flows.',
+      proficient: 'Functional end-to-end RAG pipeline with basic dense retrieval and a RAGAS evaluation showing measurable faithfulness scores.',
+      developing: 'A simple prompt-stuffing approach without vector retrieval, chunking strategy, or systematic evaluation.'
+    }
+  },
+  {
+    id: 8,
+    num: 'Project 08',
+    title: 'Self-Healing Research Agent',
+    phase: 'Phase 4 · GenAI & LLMs',
+    phaseKey: 'genai',
+    phaseColor: '#fd7e14',
+    days: 'Days 50–56 · Week 8',
+    overview: 'An autonomous research agent that can investigate complex topics, identify missing information gaps, and refine its search queries iteratively until a specific confidence score is reached. The agent must recover from tool errors deterministically using the Reflexion pattern and LangGraph state management.',
+    deliverables: [
+      {
+        title: 'Multi-Agent Workflow Configuration',
+        desc: 'Use LangGraph to define a "Researcher" agent and a "Validator" agent connected via cyclic graph edges. Implement a "Planner" node that decomposes complex user requests into ordered sub-tasks before delegating to the Researcher.'
+      },
+      {
+        title: 'Reflection and Self-Healing Loop',
+        desc: 'Implement a Validator reflection step that rejects research outputs if source citations are missing or confidence is below threshold. Develop a deterministic self-healing pattern: when a search tool fails (timeout or empty results), the agent must rewrite the query with different keywords and retry.'
+      },
+      {
+        title: 'State Persistence and Reporting',
+        desc: 'Use LangGraph\'s Checkpointer persistence to allow the agent to resume interrupted long-form research tasks from the last successful checkpoint. Automate the final report generation in well-structured Markdown format with citations, summaries, and confidence scores.'
+      }
+    ],
+    evaluation: {
+      distinction: 'Successful completion of a 5-step research task with automated recovery from at least 2 simulated tool failures, final report with citations achieving a RAGAS faithfulness score ≥ 0.80, and LangSmith tracing showing the complete reasoning trace.',
+      proficient: 'A functional multi-agent loop that can complete a research task and produce a basic written report with source citations.',
+      developing: 'A simple sequential chain that calls search tools without reflection, self-correction, or state persistence capabilities.'
+    }
+  },
+  {
+    id: 9,
+    num: 'Project 09',
+    title: 'Automated Retraining Pipeline',
+    phase: 'Phase 5 · MLOps',
+    phaseKey: 'mlops',
+    phaseColor: '#22b8cf',
+    days: 'Days 57–63 · Week 9',
+    overview: 'A "closed-loop" MLOps system that monitors production model performance and automatically triggers retraining when statistical drift is detected. This project demonstrates production engineering maturity by automating the full model lifecycle from drift detection to model promotion.',
+    deliverables: [
+      {
+        title: 'Production Monitoring and Drift Detection',
+        desc: 'Utilize Evidently AI to monitor a live prediction stream against the training data distribution. Set up an automated alert (e.g., a webhook or Slack notification) that triggers when the Population Stability Index (PSI) exceeds a configured threshold (e.g., PSI > 0.2).'
+      },
+      {
+        title: 'CI/CD Retraining Integration',
+        desc: 'Set up a GitHub Actions workflow or an Airflow DAG that is triggered by a drift alert webhook and automatically launches a retraining script inside a Docker container with the latest data version. Implement full dataset lineage tracking using DVC with a remote storage backend.'
+      },
+      {
+        title: 'Automated Model Promotion',
+        desc: 'Register the newly retrained model version in the MLflow Model Registry. Implement a "shadow deployment" strategy where the new model processes a fraction of production traffic in parallel, comparing its outputs to the incumbent model before automatic promotion.'
+      }
+    ],
+    evaluation: {
+      distinction: 'Full automation from drift detection webhook to model promotion with zero manual intervention, shadow deployment correctly routing and logging 10% traffic to the challenger model, and a complete audit trail in MLflow showing all experiment lineage.',
+      proficient: 'Functional drift detection with automated retraining trigger and successful model registration in MLflow Registry.',
+      developing: 'Manual retraining script that requires a human to run it; no automated monitoring or drift-based triggering mechanism.'
+    }
+  },
+  {
+    id: 10,
+    num: 'Project 10',
+    title: 'The Masterpiece: LLM Security & Audit Agent',
+    phase: 'Phase 5 · MLOps',
+    phaseKey: 'mlops',
+    phaseColor: '#22b8cf',
+    days: 'Days 64–70 · Week 10',
+    overview: 'A comprehensive security assessment and orchestration system for an LLM-powered application. This Capstone combines every skill from the 75-day journey — from mathematical foundations and containerization to multi-agent orchestration — into one high-availability production system. The system performs systematic red-teaming against a taxonomy of LLM vulnerabilities while implementing defense-in-depth patterns at every layer.',
+    deliverables: [
+      {
+        title: 'Vulnerability Assessment (6-Category Red-Teaming)',
+        desc: 'Systematically test the target LLM application against 6 vulnerability categories from the OWASP Top 10 for LLMs: (1) Direct prompt injection, (2) Insecure output handling, (3) Model theft via extraction attacks, (4) Sensitive information disclosure, (5) Insecure plugin/tool execution, and (6) Excessive agency. Document attack vectors, success rates, and evidence for each category.'
+      },
+      {
+        title: 'Defense-in-Depth Implementation',
+        desc: 'Apply layered defense patterns including: input sanitization and prompt/data separation at the ingestion layer, rate limiting and PII detection at the API gateway layer, sandboxed tool execution with READ-ONLY SQL permissions at the agent layer, and output validation with hallucination checks at the generation layer. Implement RBAC for RAG knowledge base access.'
+      },
+      {
+        title: 'Technical Security Audit Report',
+        desc: 'Produce a comprehensive technical audit report for technical leadership. The report must include a full threat model diagram, a prioritized list of findings with CVSS-like severity ratings, specific remediation recommendations for each vulnerability, and a quantified residual risk score after all defenses are applied. Every agent decision must be logged via audit trails for compliance.'
+      }
+    ],
+    evaluation: {
+      distinction: 'Successful identification and documented exploitation of all 6 vulnerability categories, all defense layers functioning correctly under adversarial test inputs, RAGAS Faithfulness ≥ 0.85 on live traffic, complete audit trails for every agent action, and a deployable live demo with a public URL.',
+      proficient: 'A functional multi-agent security auditing system deployed in a Docker container that can test at least 4 vulnerability categories and produce a structured report.',
+      developing: 'A basic RAG system or single-agent tool that can test 1-2 attack types without structured reporting, defense implementation, or audit logging.'
+    }
+  }
+];
+
+/* ── STATE ──────────────────────────────────────────────── */
+let done = {};
+
+function loadDone() {
+  try { const d = localStorage.getItem('mlProj26'); if (d) done = JSON.parse(d); } catch(e) {}
+}
+function saveDone() {
+  try { localStorage.setItem('mlProj26', JSON.stringify(done)); } catch(e) {}
+}
+
+/* ── RENDER ──────────────────────────────────────────────── */
+function render() {
+  const grid = document.getElementById('projGrid');
+  grid.innerHTML = PROJECTS.map(p => buildCard(p)).join('');
+  updateProgress();
+}
+
+function buildCard(p) {
+  const isDone = done[p.id];
+  return `<div class="pcard" data-phase="${p.phaseKey}" id="card-${p.id}">
+    <div class="pc-stripe" style="background:${p.phaseColor}"></div>
+    <div class="pc-head">
+      <div class="pc-badge-row">
+        <span class="pc-num-badge">${p.num}</span>
+        <span class="pc-phase-badge" style="background:${p.phaseColor}18;color:${p.phaseColor};border-color:${p.phaseColor}44">${p.phase}</span>
+      </div>
+      <div class="pc-title">${isDone ? '✓ ' : ''}${p.title}</div>
+      <div style="font-size:10px;color:var(--txt3);margin-top:3px;font-family:var(--font-m)">📅 ${p.days}</div>
+    </div>
+
+    <div class="pc-body">
+      <!-- OVERVIEW -->
+      <div>
+        <div class="pc-section-title">📋 Project Overview</div>
+        <div style="font-size:12.5px;color:var(--txt2);line-height:1.65">${p.overview}</div>
+      </div>
+
+      <!-- DELIVERABLES ACCORDION -->
+      <div>
+        <button class="acc-btn" onclick="toggleAcc(this)" style="border-top:1px solid var(--bdr);border-radius:0 0 0 0;margin:0 -20px;width:calc(100% + 40px)">
+          <span>📦 Detailed Deliverables (${p.deliverables.length})</span>
+          <span class="acc-arrow">▼</span>
+        </button>
+        <div class="acc-content" style="margin:0 -20px;width:calc(100% + 40px)">
+          ${p.deliverables.map(d => `
+            <div class="deliverable">
+              <div class="deliv-title">▸ ${d.title}</div>
+              <div class="deliv-desc">${d.desc}</div>
+            </div>`).join('')}
+        </div>
+      </div>
+
+      <!-- EVALUATION LEVELS -->
+      <div>
+        <div class="pc-section-title">🏅 Evaluation Levels</div>
+        <div class="eval-row">
+          <div class="eval-item eval-dist">
+            <div class="eval-label">⭐ Distinction</div>
+            <div class="eval-text">${p.evaluation.distinction}</div>
+          </div>
+          <div class="eval-item eval-prof">
+            <div class="eval-label">✅ Proficient</div>
+            <div class="eval-text">${p.evaluation.proficient}</div>
+          </div>
+          <div class="eval-item eval-dev">
+            <div class="eval-label">📘 Developing</div>
+            <div class="eval-text">${p.evaluation.developing}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMPLETE BUTTON -->
+    <button class="complete-btn ${isDone ? 'done' : ''}" onclick="toggleDone(${p.id})">
+      ${isDone ? '✓ Project Completed!' : '○ Mark as Complete'}
+    </button>
+  </div>`;
+}
+
+function toggleAcc(btn) {
+  btn.classList.toggle('open');
+  btn.nextElementSibling.classList.toggle('open');
+}
+
+function toggleDone(id) {
+  done[id] = !done[id];
+  saveDone();
+  const card = document.getElementById('card-' + id);
+  const proj = PROJECTS.find(p => p.id === id);
+  const isDone = done[id];
+  const btn = card.querySelector('.complete-btn');
+  btn.classList.toggle('done', isDone);
+  btn.textContent = isDone ? '✓ Project Completed!' : '○ Mark as Complete';
+  const titleEl = card.querySelector('.pc-title');
+  titleEl.textContent = (isDone ? '✓ ' : '') + proj.title;
+  if (isDone) showToast('🎉 Project ' + id + ' marked complete!');
+  updateProgress();
+}
+
+function updateProgress() {
+  const total = PROJECTS.length;
+  const doneCount = PROJECTS.filter(p => done[p.id]).length;
+  const pct = Math.round((doneCount / total) * 100);
+  document.getElementById('doneCount').textContent = doneCount;
+  document.getElementById('obPct').textContent = `${doneCount} / ${total}`;
+  document.getElementById('obFill').style.width = pct + '%';
+}
+
+/* ── FILTER ──────────────────────────────────────────────── */
+function filterProjects(key, el) {
+  document.querySelectorAll('.ftab').forEach(t => {
+    t.classList.remove('active');
+    t.style.background = '';
+    t.style.color = '';
+    t.style.borderColor = '';
+  });
+  el.classList.add('active');
+
+  const phaseColors = {
+    math:'#5c7cfa', ml:'#40c057', dl:'#cc5de8', genai:'#fd7e14', mlops:'#22b8cf'
+  };
+  if (key !== 'all') {
+    el.style.background = phaseColors[key];
+    el.style.color = '#fff';
+    el.style.borderColor = phaseColors[key];
+  } else {
+    el.style.background = 'var(--acc)';
+    el.style.color = '#fff';
+    el.style.borderColor = 'var(--acc)';
+  }
+
+  document.querySelectorAll('.pcard').forEach(c => {
+    c.classList.toggle('hidden', key !== 'all' && c.dataset.phase !== key);
+  });
+}
+
+/* ── TOAST ──────────────────────────────────────────────── */
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+/* ── THEME ──────────────────────────────────────────────── */
+function toggleTheme() {
+  const cur = document.body.getAttribute('data-theme');
+  const next = cur === 'dark' ? 'light' : 'dark';
+  document.body.setAttribute('data-theme', next);
+  try { localStorage.setItem('mlTheme', next); } catch(e) {}
+  document.querySelector('.theme-btn').textContent = next === 'dark' ? '🌙 Theme' : '☀️ Theme';
+}
+
+/* ── INIT ──────────────────────────────────────────────── */
+function init() {
+  loadDone();
+  // sync theme with roadmap
+  try {
+    const t = localStorage.getItem('mlTheme') || (matchMedia('(prefers-color-scheme:light)').matches ? 'light' : 'dark');
+    document.body.setAttribute('data-theme', t);
+    document.querySelector('.theme-btn').textContent = t === 'dark' ? '🌙 Theme' : '☀️ Theme';
+  } catch(e) {}
+
+  // set initial active filter styling
+  const firstTab = document.querySelector('.ftab.active');
+  if (firstTab) { firstTab.style.background = 'var(--acc)'; firstTab.style.color = '#fff'; firstTab.style.borderColor = 'var(--acc)'; }
+
+  render();
+}
+init();
+</script>
+</body>
+</html>

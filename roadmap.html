@@ -1,0 +1,1916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="icon.png">
+<title>AI/ML 75-Day Roadmap Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@300;400;500;600;700&family=Google+Sans+Display:wght@400;700&family=Google+Sans+Mono&display=swap" rel="stylesheet" onerror="this.remove()">
+<style>
+/* ── FONT STACK ─────────────────────────────────────────── */
+:root {
+  --font: 'Google Sans','DM Sans',Inter,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  --font-d: 'Google Sans Display','Google Sans',Inter,'Segoe UI',sans-serif;
+  --font-m: 'Google Sans Mono','DM Mono',Consolas,'Courier New',monospace;
+  /* dark theme */
+  --bg:    #0b0d11; --bg2: #111318; --bg3: #181c23;
+  --card:  #1a1e27; --card2:#20252f;
+  --bdr:   #2a2f3d; --bdr2:#343b4f;
+  --txt:   #e8eaf0; --txt2:#9ba3b5; --txt3:#5f6880;
+  --acc:   #5c7cfa; --acc2:#748ffc;
+  --grn:   #40c057; --grn2:#2f9e44;
+  --org:   #fd7e14; --red:#fa5252;
+  --pur:   #cc5de8; --cyn:#22b8cf; --ylw:#ffd43b;
+  --sh:    0 4px 24px rgba(0,0,0,.4);
+  --sh2:   0 2px 8px rgba(0,0,0,.3);
+  --r:     12px; --r2:8px;
+  --tr:    .2s ease;
+  --sw:    260px;
+}
+[data-theme=light]{
+  --bg:#f0f2f7;--bg2:#e8eaf0;--bg3:#dde1ea;
+  --card:#fff;--card2:#f5f7fb;
+  --bdr:#d0d5e3;--bdr2:#bcc4d8;
+  --txt:#1a1e2e;--txt2:#4a5068;--txt3:#8892ab;
+  --sh:0 4px 24px rgba(0,0,0,.08);--sh2:0 2px 8px rgba(0,0,0,.06);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--txt);min-height:100vh;
+  transition:background var(--tr),color var(--tr);overflow-x:hidden;
+  -webkit-font-smoothing:antialiased}
+
+/* ── LAYOUT ─────────────────────────────────────────────── */
+.app{display:flex;min-height:100vh}
+
+/* SIDEBAR */
+.sidebar{width:var(--sw);background:var(--bg2);border-right:1px solid var(--bdr);
+  display:flex;flex-direction:column;position:fixed;top:0;left:0;height:100vh;
+  z-index:100;transition:transform var(--tr),background var(--tr);overflow-y:auto}
+.sb-logo{padding:18px 20px 12px;border-bottom:1px solid var(--bdr)}
+.logo-txt{font-family:var(--font-d);font-weight:700;font-size:18px;color:var(--acc2);letter-spacing:-.3px}
+.logo-sub{font-size:10px;color:var(--txt3);letter-spacing:1.2px;text-transform:uppercase;margin-top:2px}
+
+/* CLOCK WIDGET */
+.sb-clock{padding:10px 20px 12px;border-bottom:1px solid var(--bdr);text-align:center}
+.clk-time{font-family:var(--font-m);font-size:24px;font-weight:400;color:var(--txt);letter-spacing:2px;line-height:1}
+.clk-ampm{font-family:var(--font-m);font-size:11px;color:var(--acc2);margin-left:3px;font-weight:600}
+.clk-date{font-size:11px;color:var(--txt3);margin-top:3px}
+.clk-day-badge{display:inline-flex;align-items:center;gap:5px;
+  background:rgba(92,124,250,.12);border:1px solid rgba(92,124,250,.25);
+  border-radius:20px;padding:3px 10px;margin-top:5px;font-size:11px;color:var(--acc2);font-weight:600}
+.clk-countdown{font-size:10px;color:var(--txt3);margin-top:3px}
+
+.nav-sec{padding:10px 12px 4px}
+.nav-lbl{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--txt3);padding:0 8px;margin-bottom:4px;font-weight:600}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:var(--r2);
+  cursor:pointer;font-size:13.5px;color:var(--txt2);transition:background var(--tr),color var(--tr);
+  margin-bottom:2px;font-weight:500;font-family:var(--font)}
+.nav-item:hover{background:var(--bg3);color:var(--txt)}
+.nav-item.active{background:rgba(92,124,250,.12);color:var(--acc2)}
+.nav-item .ic{font-size:15px;width:18px;text-align:center}
+
+.sb-bottom{margin-top:auto;padding:14px 12px;border-top:1px solid var(--bdr)}
+.theme-tog{display:flex;align-items:center;justify-content:space-between;
+  padding:8px 12px;background:var(--bg3);border-radius:var(--r2);
+  cursor:pointer;font-size:13px;color:var(--txt2);font-family:var(--font)}
+.tog-sw{width:36px;height:20px;background:var(--bdr2);border-radius:10px;
+  position:relative;transition:background var(--tr);flex-shrink:0}
+.tog-sw::after{content:'';position:absolute;top:2px;left:2px;width:16px;height:16px;
+  background:#fff;border-radius:50%;transition:transform var(--tr)}
+[data-theme=light] .tog-sw{background:var(--acc)}
+[data-theme=light] .tog-sw::after{transform:translateX(16px)}
+.kbhint{font-size:10px;color:var(--txt3);padding:7px 0;font-family:var(--font-m)}
+kbd{background:var(--bg3);border:1px solid var(--bdr);border-radius:3px;padding:1px 5px;font-family:var(--font-m);font-size:10px}
+
+/* MAIN */
+.main{margin-left:var(--sw);flex:1;min-height:100vh}
+.topbar{display:flex;align-items:center;justify-content:space-between;
+  padding:13px 28px;background:var(--bg2);border-bottom:1px solid var(--bdr);
+  position:sticky;top:0;z-index:50;backdrop-filter:blur(10px)}
+.topbar-title{font-family:var(--font-d);font-size:16px;font-weight:700;color:var(--txt)}
+.topbar-act{display:flex;align-items:center;gap:9px}
+.btn{padding:7px 13px;border:1px solid var(--bdr);border-radius:var(--r2);
+  background:var(--card);color:var(--txt2);font-size:12.5px;cursor:pointer;
+  font-family:var(--font);font-weight:500;transition:all var(--tr);
+  display:inline-flex;align-items:center;gap:6px}
+.btn:hover{background:var(--card2);color:var(--txt);border-color:var(--bdr2)}
+.btn-p{background:var(--acc);border-color:var(--acc);color:#fff}
+.btn-p:hover{background:var(--acc2);border-color:var(--acc2);color:#fff}
+.btn-ext{background:rgba(92,124,250,.1);border-color:rgba(92,124,250,.3);color:var(--acc2)}
+.btn-ext:hover{background:rgba(92,124,250,.2)}
+
+.page{display:none;padding:26px}
+.page.active{display:block}
+
+/* ── DASHBOARD ─────────────────────────────────────────── */
+.wgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:14px;margin-bottom:22px}
+.widget{background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);
+  padding:18px;transition:border-color var(--tr),box-shadow var(--tr);position:relative;overflow:hidden}
+.widget:hover{border-color:var(--bdr2);box-shadow:var(--sh2)}
+.widget::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--acc),var(--pur));opacity:0;transition:opacity var(--tr)}
+.widget:hover::before{opacity:1}
+.w-lbl{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--txt3);margin-bottom:7px;font-weight:600}
+.w-val{font-family:var(--font-d);font-size:26px;font-weight:700;color:var(--txt);line-height:1}
+.w-sub{font-size:11px;color:var(--txt3);margin-top:5px}
+.w-ic{position:absolute;top:14px;right:14px;font-size:18px;opacity:.25}
+
+/* TODAY HERO */
+.today-hero{background:linear-gradient(135deg,rgba(92,124,250,.1),rgba(204,93,232,.08));
+  border:1px solid rgba(92,124,250,.25);border-radius:var(--r);padding:20px 24px;
+  margin-bottom:22px;position:relative;overflow:hidden}
+.today-hero::before{content:'';position:absolute;top:-30px;right:-30px;width:120px;height:120px;
+  background:radial-gradient(circle,rgba(92,124,250,.15),transparent);border-radius:50%}
+.th-label{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--acc2);
+  font-weight:700;margin-bottom:6px}
+.th-title{font-family:var(--font-d);font-size:20px;font-weight:700;color:var(--txt);margin-bottom:4px}
+.th-sub{font-size:13px;color:var(--txt2);margin-bottom:12px}
+.th-meta{display:flex;gap:16px;flex-wrap:wrap}
+.th-tag{font-size:11px;padding:3px 9px;border-radius:20px;font-weight:600;
+  border:1px solid var(--bdr2);background:var(--bg3);color:var(--txt2)}
+
+/* PROGRESS */
+.prog-sec{background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);
+  padding:18px 22px;margin-bottom:22px}
+.prog-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.prog-title{font-family:var(--font-d);font-weight:700;font-size:14px}
+.prog-pct{font-family:var(--font-m);font-size:20px;font-weight:500;color:var(--acc2)}
+.prog-bg{background:var(--bg3);border-radius:8px;height:9px;overflow:hidden}
+.prog-fill{height:100%;border-radius:8px;background:linear-gradient(90deg,var(--acc),var(--pur));
+  transition:width .8s cubic-bezier(.4,0,.2,1);position:relative}
+.prog-fill::after{content:'';position:absolute;top:0;right:0;width:40px;height:100%;
+  background:rgba(255,255,255,.3);border-radius:8px;filter:blur(4px)}
+
+/* PHASE CARDS */
+.pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:14px;margin-bottom:22px}
+.pcard{background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);
+  padding:18px;cursor:pointer;transition:all var(--tr)}
+.pcard:hover{border-color:var(--bdr2);transform:translateY(-2px);box-shadow:var(--sh2)}
+.pc-hdr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
+.pc-num{font-family:var(--font-m);font-size:10px;color:var(--txt3)}
+.pc-badge{font-size:10px;padding:2px 7px;border-radius:20px;font-weight:600;
+  background:rgba(92,124,250,.12);color:var(--acc2)}
+.pc-name{font-family:var(--font-d);font-size:13.5px;font-weight:700;margin-bottom:3px;color:var(--txt)}
+.pc-range{font-size:11px;color:var(--txt3);margin-bottom:12px}
+.pc-pbg{background:var(--bg3);border-radius:4px;height:3px}
+.pc-pfill{height:3px;border-radius:4px;transition:width .6s ease}
+.pc-plbl{display:flex;justify-content:space-between;font-size:10px;color:var(--txt3);margin-top:5px}
+
+/* QUOTE */
+.quote-box{background:var(--card);border:1px solid var(--bdr);border-left:3px solid var(--acc);
+  border-radius:var(--r2);padding:14px 18px;margin-bottom:20px;cursor:pointer;
+  transition:border-left-color var(--tr)}
+.quote-box:hover{border-left-color:var(--pur)}
+.q-txt{font-size:13.5px;color:var(--txt);line-height:1.7;font-style:italic}
+.q-auth{font-size:11px;color:var(--txt3);margin-top:6px;font-family:var(--font-m)}
+
+/* WEEK BADGES */
+.wk-badges{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:20px}
+.wk-b{background:var(--card);border:1px solid var(--bdr);border-radius:20px;
+  padding:4px 11px;font-size:11px;color:var(--txt2);font-weight:500;display:flex;align-items:center;gap:4px}
+.wk-b.done{background:rgba(64,192,87,.1);border-color:rgba(64,192,87,.3);color:var(--grn)}
+.wk-b.cur{background:rgba(92,124,250,.1);border-color:rgba(92,124,250,.3);color:var(--acc2)}
+
+.sec-title{font-family:var(--font-d);font-size:16px;font-weight:700;margin-bottom:14px;color:var(--txt)}
+
+/* ── CALENDAR PAGE ─────────────────────────────────────── */
+.cal-pg-grid{display:grid;grid-template-columns:340px 1fr;gap:22px;align-items:start}
+@media(max-width:900px){.cal-pg-grid{grid-template-columns:1fr}}
+
+/* Mini interactive calendar */
+.mini-cal{background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);
+  padding:18px;max-width:340px}
+.mc-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.mc-title{font-family:var(--font-d);font-size:15px;font-weight:700}
+.mc-nav{background:var(--bg3);border:1px solid var(--bdr);border-radius:6px;
+  width:28px;height:28px;cursor:pointer;color:var(--txt2);font-size:14px;
+  display:flex;align-items:center;justify-content:center;transition:all var(--tr)}
+.mc-nav:hover{background:var(--bdr2);color:var(--txt)}
+.mc-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+.mc-dh{text-align:center;font-size:9px;color:var(--txt3);font-weight:700;
+  padding:3px 0;text-transform:uppercase;letter-spacing:.5px}
+.mc-cell{aspect-ratio:1;display:flex;align-items:center;justify-content:center;
+  border-radius:5px;font-size:11.5px;cursor:pointer;transition:all var(--tr);
+  font-family:var(--font-m);color:var(--txt2);min-height:30px;font-weight:400}
+.mc-cell:hover:not(.mc-e):not(.mc-o){background:var(--bg3);color:var(--txt)}
+.mc-cell.mc-e{cursor:default}
+.mc-cell.mc-o{color:var(--txt3);opacity:.4;cursor:default}
+.mc-cell.mc-today{background:var(--acc);color:#fff;font-weight:600}
+.mc-cell.mc-rm{border:1px solid var(--bdr);background:var(--bg3)}
+.mc-cell.mc-done{background:rgba(64,192,87,.15);border:1px solid rgba(64,192,87,.3);color:var(--grn)}
+.mc-cell.mc-sun{border-style:dashed!important;opacity:.7}
+.mc-note{margin-top:12px;padding:10px 12px;background:var(--bg2);border-radius:var(--r2);
+  border:1px solid var(--bdr);font-size:12px;color:var(--txt2);line-height:1.5}
+.mc-note strong{color:var(--acc2);font-weight:600}
+
+/* 75-day tracker grid */
+.cal-wrap{max-width:100%}
+.cal-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.cal-title{font-family:var(--font-d);font-size:18px;font-weight:700}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-bottom:12px}
+.cdh{font-size:10px;text-transform:uppercase;letter-spacing:.8px;color:var(--txt3);
+  text-align:center;padding:5px 0;font-weight:600}
+.cday{aspect-ratio:1;background:var(--card);border:1px solid var(--bdr);border-radius:var(--r2);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  cursor:pointer;transition:all var(--tr);position:relative;min-height:48px}
+.cday:hover:not(.ce){border-color:var(--acc);transform:scale(1.06);box-shadow:0 0 0 2px rgba(92,124,250,.15)}
+.ce{background:transparent;border-color:transparent;cursor:default}
+.csun{background:var(--bg3);border-style:dashed}
+.ctoday{border-color:var(--acc);box-shadow:0 0 0 2px rgba(92,124,250,.2)}
+.ctoday .cnum{color:var(--acc2)}
+.cdone{background:rgba(64,192,87,.08);border-color:rgba(64,192,87,.3)}
+.cdone::after{content:'✓';position:absolute;top:2px;right:4px;font-size:8px;color:var(--grn)}
+.cnum{font-family:var(--font-m);font-size:12px;font-weight:500;color:var(--txt)}
+.csun .cnum{color:var(--txt3)}
+.cdot{width:5px;height:5px;border-radius:50%;margin-top:2px}
+.cal-mlbl{font-family:var(--font-d);font-size:12px;font-weight:700;color:var(--txt2);margin:12px 0 7px}
+.cal-legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:14px;
+  padding:12px 16px;background:var(--card);border:1px solid var(--bdr);border-radius:var(--r2)}
+.leg-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--txt2)}
+.leg-dot{width:7px;height:7px;border-radius:50%}
+
+/* ── MODAL ──────────────────────────────────────────────── */
+.modal-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);
+  backdrop-filter:blur(4px);z-index:1000;align-items:center;justify-content:center;padding:20px}
+.modal-ov.open{display:flex}
+.modal{background:var(--card);border:1px solid var(--bdr2);border-radius:16px;
+  width:100%;max-width:680px;max-height:90vh;overflow-y:auto;box-shadow:var(--sh);
+  animation:min .25s ease}
+@keyframes min{from{opacity:0;transform:translateY(16px) scale(.97)}to{opacity:1;transform:none}}
+.m-hdr{padding:20px 22px 14px;border-bottom:1px solid var(--bdr);
+  display:flex;justify-content:space-between;align-items:flex-start;
+  position:sticky;top:0;background:var(--card);z-index:2}
+.m-date{font-family:var(--font-m);font-size:11px;color:var(--txt3);margin-bottom:3px}
+.m-title{font-family:var(--font-d);font-size:17px;font-weight:700}
+.m-ptag{font-size:10px;padding:3px 9px;border-radius:20px;font-weight:600;
+  background:rgba(92,124,250,.12);color:var(--acc2)}
+.m-close{background:var(--bg3);border:1px solid var(--bdr);border-radius:7px;
+  width:28px;height:28px;cursor:pointer;color:var(--txt2);font-size:15px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background var(--tr)}
+.m-close:hover{background:var(--bdr2)}
+.m-body{padding:18px 22px}
+.m-meta{display:flex;gap:18px;margin-bottom:18px;flex-wrap:wrap}
+.m-mi{font-size:12.5px;color:var(--txt2);display:flex;align-items:center;gap:5px}
+
+/* ACCORDION */
+.acc{margin-bottom:9px}
+.acc-hdr{display:flex;justify-content:space-between;align-items:center;
+  padding:10px 14px;background:var(--bg2);border:1px solid var(--bdr);
+  border-radius:var(--r2);cursor:pointer;transition:all var(--tr);
+  font-weight:600;font-size:12.5px;font-family:var(--font)}
+.acc-hdr:hover{background:var(--bg3)}
+.acc-hdr.open{border-radius:var(--r2) var(--r2) 0 0;background:var(--bg3)}
+.acc-body{display:none;padding:12px 14px;background:var(--bg2);border:1px solid var(--bdr);
+  border-top:none;border-radius:0 0 var(--r2) var(--r2);font-size:12.5px;color:var(--txt2);
+  line-height:1.7;font-family:var(--font)}
+.acc-body.open{display:block}
+.acc-arr{transition:transform var(--tr);font-size:11px}
+.acc-hdr.open .acc-arr{transform:rotate(180deg)}
+
+/* ── ADD SLOT INLINE DIALOG ─────────────────────────────── */
+.slot-dialog{display:none;margin:10px 0 0 0;padding:14px;
+  background:var(--bg2);border:1px solid rgba(92,124,250,.35);
+  border-radius:var(--r2);animation:min .18s ease}
+.slot-dialog.open{display:block}
+.slot-dialog-title{font-size:11px;font-weight:700;color:var(--acc2);
+  text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.slot-inp{width:100%;background:var(--card);border:1px solid var(--bdr);
+  border-radius:6px;padding:8px 11px;font-size:12.5px;color:var(--txt);
+  font-family:var(--font);transition:border-color var(--tr);margin-bottom:7px;
+  display:block}
+.slot-inp:focus{outline:none;border-color:var(--acc)}
+.slot-inp::placeholder{color:var(--txt3)}
+textarea.slot-inp{min-height:72px;resize:vertical}
+.slot-inp-err{border-color:var(--red)!important}
+.slot-err-msg{font-size:11px;color:var(--red);margin:-4px 0 7px;display:none}
+.slot-err-msg.show{display:block}
+.slot-dialog-acts{display:flex;gap:7px;margin-top:4px}
+.slot-save-btn{flex:1;padding:8px;background:var(--acc);border:none;border-radius:6px;
+  color:#fff;font-size:12.5px;font-weight:600;cursor:pointer;font-family:var(--font);
+  transition:background var(--tr)}
+.slot-save-btn:hover{background:var(--acc2)}
+.slot-cancel-btn{padding:8px 14px;background:var(--bg3);border:1px solid var(--bdr);
+  border-radius:6px;color:var(--txt2);font-size:12.5px;cursor:pointer;
+  font-family:var(--font);transition:background var(--tr)}
+.slot-cancel-btn:hover{background:var(--bdr)}
+
+/* custom slot visual indicator */
+.acc.custom-slot{border:1px solid rgba(92,124,250,.28);border-radius:var(--r2);margin-top:6px}
+.acc.custom-slot .acc-hdr{background:rgba(92,124,250,.07)}
+.acc.custom-slot .acc-hdr:hover{background:rgba(92,124,250,.13)}
+.acc.custom-slot .acc-hdr.open{background:rgba(92,124,250,.13)}
+.acc.custom-slot .acc-body{background:rgba(92,124,250,.04);border-color:rgba(92,124,250,.2)}
+.cs-title-text{color:var(--acc2)}
+.cs-remove-btn{color:var(--red);cursor:pointer;font-size:11px;padding:2px 6px;
+  border-radius:4px;border:1px solid rgba(250,82,82,.3);background:transparent;
+  transition:background var(--tr);font-family:var(--font);line-height:1}
+.cs-remove-btn:hover{background:rgba(250,82,82,.12)}
+
+/* TASKS */
+.task-item{display:flex;align-items:flex-start;gap:9px;padding:7px 0;
+  border-bottom:1px solid var(--bdr);font-size:12.5px;color:var(--txt2)}
+.task-item:last-child{border-bottom:none}
+.task-item input[type=checkbox]{width:14px;height:14px;margin-top:2px;
+  accent-color:var(--acc);cursor:pointer;flex-shrink:0}
+.task-item.done span{text-decoration:line-through;opacity:.5}
+.mark-btn{width:100%;margin-top:14px;padding:9px;background:rgba(64,192,87,.1);
+  border:1px solid rgba(64,192,87,.25);border-radius:var(--r2);color:var(--grn);
+  font-size:12.5px;cursor:pointer;font-weight:600;transition:all var(--tr);font-family:var(--font)}
+.mark-btn:hover{background:rgba(64,192,87,.2)}
+.mark-btn.done{background:rgba(64,192,87,.2)}
+.notes-lbl{font-size:10px;font-weight:700;color:var(--txt3);text-transform:uppercase;
+  letter-spacing:1px;margin-bottom:7px;margin-top:14px}
+.notes-ta{width:100%;min-height:75px;background:var(--bg2);border:1px solid var(--bdr);
+  border-radius:var(--r2);padding:9px 11px;font-size:12.5px;color:var(--txt);
+  font-family:var(--font);resize:vertical;transition:border-color var(--tr)}
+.notes-ta:focus{outline:none;border-color:var(--acc)}
+.notes-ta::placeholder{color:var(--txt3)}
+
+/* ── TIMELINE ───────────────────────────────────────────── */
+.tl{position:relative;padding-left:30px}
+.tl::before{content:'';position:absolute;left:9px;top:0;bottom:0;width:2px;
+  background:linear-gradient(to bottom,var(--acc),var(--pur),var(--cyn))}
+.tl-item{position:relative;margin-bottom:26px}
+.tl-dot{position:absolute;left:-25px;top:4px;width:13px;height:13px;border-radius:50%;
+  border:2px solid var(--acc);background:var(--bg);transition:background var(--tr)}
+.tl-item.done .tl-dot{background:var(--acc)}
+.tl-item.cur .tl-dot{background:var(--acc2);box-shadow:0 0 0 4px rgba(92,124,250,.2)}
+.tl-date{font-family:var(--font-m);font-size:10px;color:var(--txt3);margin-bottom:3px}
+.tl-name{font-family:var(--font-d);font-size:15px;font-weight:700;margin-bottom:3px}
+.tl-desc{font-size:12.5px;color:var(--txt2);line-height:1.6}
+
+/* ── POMODORO ───────────────────────────────────────────── */
+.pom-wrap{max-width:380px;margin:0 auto;text-align:center}
+.pom-ring{width:190px;height:190px;margin:0 auto 18px;position:relative}
+.pom-ring svg{transform:rotate(-90deg)}
+.ring-bg{fill:none;stroke:var(--bdr);stroke-width:8}
+.ring-fill{fill:none;stroke:var(--acc);stroke-width:8;stroke-linecap:round;
+  stroke-dasharray:534;stroke-dashoffset:0;transition:stroke-dashoffset 1s linear}
+.pom-inner{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  font-family:var(--font-m);font-size:34px;font-weight:400;color:var(--txt)}
+.pom-acts{display:flex;justify-content:center;gap:10px}
+.pom-btn{padding:9px 22px;border-radius:var(--r2);border:1px solid var(--bdr);
+  background:var(--card2);color:var(--txt);font-size:13.5px;font-weight:600;
+  cursor:pointer;font-family:var(--font);transition:all var(--tr)}
+.pom-btn:hover{background:var(--bdr)}
+.pom-btn.start{background:var(--acc);border-color:var(--acc);color:#fff}
+.pom-btn.start:hover{background:var(--acc2)}
+.pom-lbl{font-family:var(--font-d);font-size:12px;color:var(--txt3);margin-bottom:5px}
+.pom-sess{font-size:12px;color:var(--txt3);margin-top:14px}
+
+/* ── SEARCH ─────────────────────────────────────────────── */
+.srch-wrap{position:relative;margin-bottom:18px}
+.srch-bar{width:100%;padding:11px 15px 11px 40px;background:var(--card);border:1px solid var(--bdr);
+  border-radius:var(--r2);font-size:13.5px;color:var(--txt);font-family:var(--font);
+  transition:border-color var(--tr)}
+.srch-bar:focus{outline:none;border-color:var(--acc)}
+.srch-ic{position:absolute;left:13px;top:50%;transform:translateY(-50%);font-size:15px;opacity:.5}
+.fchips{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:18px}
+.fchip{padding:4px 11px;border-radius:20px;font-size:11.5px;font-weight:600;
+  border:1px solid var(--bdr);background:var(--card);color:var(--txt2);cursor:pointer;
+  transition:all var(--tr)}
+.fchip:hover{border-color:var(--bdr2);color:var(--txt)}
+.fchip.active{background:var(--acc);border-color:var(--acc);color:#fff}
+.srch-res{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:11px}
+.rcard{background:var(--card);border:1px solid var(--bdr);border-radius:var(--r2);
+  padding:13px 15px;cursor:pointer;transition:all var(--tr)}
+.rcard:hover{border-color:var(--bdr2);transform:translateY(-1px)}
+.rc-date{font-family:var(--font-m);font-size:10px;color:var(--txt3);margin-bottom:3px}
+.rc-title{font-size:13.5px;font-weight:600;color:var(--txt);margin-bottom:3px}
+.rc-topics{font-size:11.5px;color:var(--txt2)}
+
+/* ── SETTINGS ───────────────────────────────────────────── */
+.exp-sec{background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);
+  padding:20px;margin-bottom:18px}
+.exp-title{font-family:var(--font-d);font-size:14px;font-weight:700;margin-bottom:7px}
+.exp-desc{font-size:12.5px;color:var(--txt2);margin-bottom:12px;line-height:1.6}
+
+/* ACHIEVEMENT */
+.ach-pop{position:fixed;bottom:22px;right:22px;background:var(--card);
+  border:1px solid var(--grn2);border-radius:12px;padding:13px 16px;box-shadow:var(--sh);
+  display:flex;align-items:center;gap:11px;z-index:999;max-width:300px;
+  transform:translateX(calc(100% + 30px));transition:transform .4s cubic-bezier(.4,0,.2,1)}
+.ach-pop.show{transform:translateX(0)}
+.ach-ic{font-size:26px}
+.ach-title{font-weight:700;font-size:13px;color:var(--grn)}
+.ach-msg{font-size:11.5px;color:var(--txt2);margin-top:1px}
+
+/* TAG */
+.tag{display:inline-block;padding:2px 7px;border-radius:5px;font-size:10px;
+  font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-right:3px}
+.empty{text-align:center;padding:36px;color:var(--txt3);font-size:13.5px}
+
+/* MOBILE MENU */
+.menu-tog{display:none;background:var(--card);border:1px solid var(--bdr);
+  border-radius:var(--r2);padding:7px 9px;cursor:pointer;color:var(--txt);font-size:17px}
+.sb-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:99}
+.sb-ov.open{display:block}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .sidebar{transform:translateX(-100%)}
+  .sidebar.open{transform:translateX(0)}
+  .main{margin-left:0}
+  .menu-tog{display:flex}
+  .wgrid{grid-template-columns:repeat(2,1fr)}
+  .pgrid{grid-template-columns:1fr}
+  .page{padding:14px}
+  .topbar{padding:11px 14px}
+  .modal{max-height:95vh}
+}
+@media(max-width:480px){
+  .wgrid{grid-template-columns:1fr}
+  .cal-grid{gap:3px}
+  .cday{min-height:38px}
+  .cnum{font-size:10px}
+  .mini-cal{max-width:100%}
+}
+</style>
+</head>
+<body data-theme="dark">
+
+<div class="ach-pop" id="achPop">
+  <div class="ach-ic">🏆</div>
+  <div><div class="ach-title">Achievement Unlocked!</div><div class="ach-msg" id="achMsg"></div></div>
+</div>
+
+<div class="sb-ov" id="sbOv" onclick="closeSB()"></div>
+
+<div class="app">
+<!-- ═══ SIDEBAR ════════════════════════════════════════════ -->
+<aside class="sidebar" id="sidebar">
+  <div class="sb-logo">
+    <div class="logo-txt">∇ ML Journey</div>
+    <div class="logo-sub">75-Day AI/ML Roadmap · 2026</div>
+  </div>
+
+  <!-- LIVE CLOCK -->
+  <div class="sb-clock">
+    <div><span class="clk-time" id="clkTime">00:00:00</span><span class="clk-ampm" id="clkAmpm">AM</span></div>
+    <div class="clk-date" id="clkDate">Loading...</div>
+    <div class="clk-day-badge" id="clkDayBadge">📅 Day — of 75</div>
+    <div class="clk-countdown" id="clkCountdown"></div>
+  </div>
+
+  <div class="nav-sec">
+    <div class="nav-lbl">Navigation</div>
+    <div class="nav-item active" onclick="goPage('dashboard',this)"><span class="ic">⚡</span>Dashboard</div>
+    <div class="nav-item" onclick="goPage('calendar',this)"><span class="ic">📅</span>Calendar</div>
+    <div class="nav-item" onclick="openProjects()"><span class="ic">🚀</span>Projects</div>
+    <div class="nav-item" onclick="goPage('search',this)"><span class="ic">🔍</span>Search</div>
+    <div class="nav-item" onclick="goPage('timeline',this)"><span class="ic">🗺️</span>Timeline</div>
+    <div class="nav-item" onclick="goPage('pomodoro',this)"><span class="ic">⏱️</span>Pomodoro</div>
+    <div class="nav-item" onclick="goPage('settings',this)"><span class="ic">⚙️</span>Settings</div>
+  </div>
+
+  <div class="nav-sec">
+    <div class="nav-lbl">Phases</div>
+    <div class="nav-item" onclick="goPage('calendar',document.querySelectorAll('.nav-item')[1])"><span class="ic" style="color:#5c7cfa">●</span>Math & Python</div>
+    <div class="nav-item" onclick="goPage('calendar',document.querySelectorAll('.nav-item')[1])"><span class="ic" style="color:#40c057">●</span>Classical ML</div>
+    <div class="nav-item" onclick="goPage('calendar',document.querySelectorAll('.nav-item')[1])"><span class="ic" style="color:#cc5de8">●</span>Deep Learning</div>
+    <div class="nav-item" onclick="goPage('calendar',document.querySelectorAll('.nav-item')[1])"><span class="ic" style="color:#fd7e14">●</span>GenAI & LLMs</div>
+    <div class="nav-item" onclick="goPage('calendar',document.querySelectorAll('.nav-item')[1])"><span class="ic" style="color:#22b8cf">●</span>MLOps</div>
+    <div class="nav-item" onclick="goPage('calendar',document.querySelectorAll('.nav-item')[1])"><span class="ic" style="color:#ffd43b">●</span>Capstone</div>
+  </div>
+
+  <div class="sb-bottom">
+    <div class="theme-tog" onclick="toggleTheme()">
+      <span id="themeLbl">🌙 Dark Mode</span>
+      <div class="tog-sw"></div>
+    </div>
+    <div class="kbhint" style="margin-top:8px">
+      <kbd>D</kbd> Dashboard &nbsp;<kbd>C</kbd> Calendar &nbsp;<kbd>Esc</kbd> Close
+    </div>
+  </div>
+</aside>
+
+<!-- ═══ MAIN ══════════════════════════════════════════════ -->
+<main class="main">
+  <div class="topbar">
+    <div style="display:flex;align-items:center;gap:10px">
+      <button class="menu-tog" onclick="toggleSB()">☰</button>
+      <div class="topbar-title" id="topTitle">Dashboard</div>
+    </div>
+    <div class="topbar-act">
+      <button class="btn btn-ext" onclick="openProjects()">🚀 Projects</button>
+      <button class="btn" onclick="refreshQuote()">💭 Quote</button>
+      <button class="btn btn-p" onclick="openTodayModal()">📖 Today</button>
+    </div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div class="page active" id="page-dashboard">
+    <div class="quote-box" onclick="refreshQuote()">
+      <div class="q-txt" id="qTxt">Loading...</div>
+      <div class="q-auth" id="qAuth"></div>
+    </div>
+
+    <!-- Today Hero — auto-populated -->
+    <div class="today-hero" id="todayHero">
+      <div class="th-label">TODAY'S FOCUS</div>
+      <div class="th-title" id="th-title">—</div>
+      <div class="th-sub" id="th-sub">—</div>
+      <div class="th-meta" id="th-meta"></div>
+    </div>
+
+    <div class="wgrid">
+      <div class="widget"><div class="w-ic">📆</div><div class="w-lbl">Current Day</div><div class="w-val" id="w-curday">—</div><div class="w-sub">of 75</div></div>
+      <div class="widget"><div class="w-ic">🎯</div><div class="w-lbl">Current Phase</div><div class="w-val" id="w-phase" style="font-size:14px;margin-top:3px">—</div></div>
+      <div class="widget"><div class="w-ic">✅</div><div class="w-lbl">Days Completed</div><div class="w-val" id="w-done">0</div></div>
+      <div class="widget"><div class="w-ic">📆</div><div class="w-lbl">Days Remaining</div><div class="w-val" id="w-rem">75</div></div>
+      <div class="widget"><div class="w-ic">🔥</div><div class="w-lbl">Streak</div><div class="w-val" id="w-str">0</div><div class="w-sub">days in a row</div></div>
+      <div class="widget"><div class="w-ic">⏰</div><div class="w-lbl">Hours Invested</div><div class="w-val" id="w-hrs">0</div><div class="w-sub">at 6 hrs/day</div></div>
+      <div class="widget"><div class="w-ic">📊</div><div class="w-lbl">Completion</div><div class="w-val" id="w-pct" style="color:var(--acc2)">0%</div></div>
+      <div class="widget"><div class="w-ic">🏁</div><div class="w-lbl">Next Milestone</div><div class="w-val" id="w-ms" style="font-size:13px;margin-top:3px">—</div><div class="w-sub" id="w-msd">—</div></div>
+    </div>
+
+    <div class="prog-sec">
+      <div class="prog-hdr"><div class="prog-title">Overall Progress</div><div class="prog-pct" id="ppct">0%</div></div>
+      <div class="prog-bg"><div class="prog-fill" id="pbar" style="width:0%"></div></div>
+      <div style="display:flex;justify-content:space-between;margin-top:7px;font-size:10px;color:var(--txt3)">
+        <span>Day 1 · 14 May 2026</span><span>Day 75 · 27 Jul 2026</span></div>
+    </div>
+
+    <div class="sec-title">Week Milestones</div>
+    <div class="wk-badges" id="wkBadges"></div>
+
+    <div class="sec-title">Roadmap Phases</div>
+    <div class="pgrid" id="phGrid"></div>
+  </div>
+
+  <!-- CALENDAR -->
+  <div class="page" id="page-calendar">
+    <div class="cal-pg-grid">
+      <div>
+        <div class="sec-title" style="margin-bottom:10px">📅 Monthly View</div>
+        <div class="mini-cal">
+          <div class="mc-hdr">
+            <button class="mc-nav" onclick="mcPrev()">‹</button>
+            <div class="mc-title" id="mcTitle">—</div>
+            <button class="mc-nav" onclick="mcNext()">›</button>
+          </div>
+          <div class="mc-grid" id="mcGrid"></div>
+          <div class="mc-note" id="mcNote">Click a date to open that day's schedule.</div>
+        </div>
+      </div>
+      <div>
+        <div class="cal-wrap">
+          <div class="cal-hdr">
+            <div class="cal-title">75-Day Tracker</div>
+            <div style="font-size:11px;color:var(--txt3)">14 May → 27 Jul 2026</div>
+          </div>
+          <div id="calCont"></div>
+          <div class="cal-legend">
+            <div class="leg-item"><div class="leg-dot" style="background:var(--acc)"></div>Today</div>
+            <div class="leg-item"><div class="leg-dot" style="background:var(--grn)"></div>Completed</div>
+            <div class="leg-item"><div class="leg-dot" style="border:1px dashed var(--txt3);background:var(--bg3)"></div>Sunday/Rest</div>
+            <div class="leg-item"><div class="leg-dot" style="background:#5c7cfa"></div>Ph 1</div>
+            <div class="leg-item"><div class="leg-dot" style="background:#40c057"></div>Ph 2</div>
+            <div class="leg-item"><div class="leg-dot" style="background:#cc5de8"></div>Ph 3</div>
+            <div class="leg-item"><div class="leg-dot" style="background:#fd7e14"></div>Ph 4</div>
+            <div class="leg-item"><div class="leg-dot" style="background:#22b8cf"></div>Ph 5</div>
+            <div class="leg-item"><div class="leg-dot" style="background:#ffd43b"></div>Ph 6</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEARCH -->
+  <div class="page" id="page-search">
+    <div class="srch-wrap"><span class="srch-ic">🔍</span>
+      <input class="srch-bar" id="srchInput" placeholder="Search topics, tasks, practices…" oninput="doSearch()">
+    </div>
+    <div class="fchips" id="fChips">
+      <div class="fchip active" onclick="setF('all',this)">All</div>
+      <div class="fchip" onclick="setF('Math',this)">Math</div>
+      <div class="fchip" onclick="setF('Python',this)">Python</div>
+      <div class="fchip" onclick="setF('ML',this)">ML</div>
+      <div class="fchip" onclick="setF('DL',this)">DL</div>
+      <div class="fchip" onclick="setF('GenAI',this)">GenAI</div>
+      <div class="fchip" onclick="setF('MLOps',this)">MLOps</div>
+      <div class="fchip" onclick="setF('Revision',this)">Revision</div>
+      <div class="fchip" onclick="setF('Projects',this)">Projects</div>
+    </div>
+    <div class="srch-res" id="srchRes"></div>
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="page" id="page-timeline">
+    <div class="sec-title">Learning Journey Timeline</div>
+    <div class="tl" id="tlCont"></div>
+  </div>
+
+  <!-- POMODORO -->
+  <div class="page" id="page-pomodoro">
+    <div class="pom-wrap">
+      <div class="sec-title" style="text-align:center">Focus Timer</div>
+      <div class="pom-lbl" id="pomLbl">Work Session</div>
+      <div class="pom-ring">
+        <svg width="190" height="190" viewBox="0 0 190 190">
+          <circle class="ring-bg" cx="95" cy="95" r="85"/>
+          <circle class="ring-fill" id="pomRing" cx="95" cy="95" r="85"/>
+        </svg>
+        <div class="pom-inner" id="pomDisp">25:00</div>
+      </div>
+      <div class="pom-acts">
+        <button class="pom-btn start" id="pomBtn" onclick="pomToggle()">▶ Start</button>
+        <button class="pom-btn" onclick="pomReset()">↺ Reset</button>
+        <button class="pom-btn" onclick="pomSkip()">⏭ Skip</button>
+      </div>
+      <div class="pom-sess" id="pomSess">Sessions: 0 🍅</div>
+      <div style="margin-top:20px;padding:14px;background:var(--card);border:1px solid var(--bdr);border-radius:var(--r2)">
+        <div style="font-size:10px;font-weight:700;color:var(--txt3);text-transform:uppercase;letter-spacing:1px;margin-bottom:9px">Settings</div>
+        <div style="display:flex;gap:12px;font-size:12.5px;color:var(--txt2)">
+          <label>Work: <input type="number" id="pwMin" value="25" min="1" max="90"
+            style="width:46px;padding:3px;background:var(--bg2);border:1px solid var(--bdr);border-radius:4px;color:var(--txt);font-family:var(--font-m);text-align:center"> min</label>
+          <label>Break: <input type="number" id="pbMin" value="5" min="1" max="30"
+            style="width:46px;padding:3px;background:var(--bg2);border:1px solid var(--bdr);border-radius:4px;color:var(--txt);font-family:var(--font-m);text-align:center"> min</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SETTINGS -->
+  <div class="page" id="page-settings">
+    <div class="sec-title">Settings & Data</div>
+    <div class="exp-sec">
+      <div class="exp-title">📤 Export Progress</div>
+      <div class="exp-desc">Download your progress as JSON. Import it anytime to restore on any device — works fully offline.</div>
+      <div style="display:flex;gap:9px;flex-wrap:wrap">
+        <button class="btn btn-p" onclick="expData()">Export JSON</button>
+        <button class="btn" onclick="document.getElementById('impInp').click()">Import JSON</button>
+        <input type="file" id="impInp" accept=".json" style="display:none" onchange="impData(event)">
+        <a href="project.html" target="_blank" class="btn btn-ext">🚀 Open Projects</a>
+      </div>
+    </div>
+    <div class="exp-sec">
+      <div class="exp-title">🗑️ Reset Progress</div>
+      <div class="exp-desc">Clear all completed days, task completions, and notes. This cannot be undone.</div>
+      <button class="btn" style="border-color:var(--red);color:var(--red)"
+        onclick="if(confirm('Reset all progress? Cannot be undone.'))resetAll()">Reset All Data</button>
+    </div>
+    <div class="exp-sec">
+      <div class="exp-title">⌨️ Keyboard Shortcuts</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:7px;margin-top:7px">
+        <div class="kbhint"><kbd>D</kbd> Dashboard</div>
+        <div class="kbhint"><kbd>C</kbd> Calendar</div>
+        <div class="kbhint"><kbd>S</kbd> Search</div>
+        <div class="kbhint"><kbd>T</kbd> Timeline</div>
+        <div class="kbhint"><kbd>P</kbd> Pomodoro</div>
+        <div class="kbhint"><kbd>Esc</kbd> Close modal</div>
+      </div>
+    </div>
+  </div>
+</main>
+</div>
+
+<!-- DAY MODAL -->
+<div class="modal-ov" id="dayModal">
+  <div class="modal">
+    <div class="m-hdr">
+      <div>
+        <div class="m-date" id="mDate">—</div>
+        <div class="m-title" id="mTitle">—</div>
+      </div>
+      <div style="display:flex;gap:7px;align-items:center">
+        <div class="m-ptag" id="mPhTag">Phase 1</div>
+        <button class="m-close" onclick="closeModal()">✕</button>
+      </div>
+    </div>
+    <div class="m-body">
+      <div class="m-meta">
+        <div class="m-mi">⏰ <span id="mHrs">6 hrs</span></div>
+        <div class="m-mi">📆 <span id="mDayNum">Day 1</span></div>
+        <div class="m-mi">📖 <span id="mWk">Week 1</span></div>
+      </div>
+      <div id="mAccs"></div>
+      <button class="btn btn-ext" id="addSlotBtn" onclick="toggleSlotDialog()" style="margin:10px 0 0 0;width:100%">＋ Add Slot</button>
+      <div class="slot-dialog" id="slotDialog" role="group" aria-label="Add custom slot">
+        <div class="slot-dialog-title">✦ New Custom Slot</div>
+        <input class="slot-inp" id="slotTitle" type="text" maxlength="120"
+          placeholder="Slot title (e.g. Slot 6: My Topic)"
+          oninput="clearSlotErr()" onkeydown="slotKeydown(event)">
+        <div class="slot-err-msg" id="slotTitleErr">Please enter a slot title.</div>
+        <textarea class="slot-inp" id="slotBody" maxlength="2000"
+          placeholder="Describe what to study / practice…"
+          oninput="clearSlotErr()" onkeydown="slotKeydown(event)"></textarea>
+        <div class="slot-err-msg" id="slotBodyErr">Please enter slot content.</div>
+        <div class="slot-dialog-acts">
+          <button class="slot-save-btn" onclick="saveCustomSlot()">＋ Add Slot</button>
+          <button class="slot-cancel-btn" onclick="closeSlotDialog()">Cancel</button>
+        </div>
+      </div>
+      <div id="mTasks"></div>
+      <button class="mark-btn" id="markBtn" onclick="markDay()">✓ Mark Day Complete</button>
+      <div class="notes-lbl">📝 Notes & Reflections</div>
+      <textarea class="notes-ta" id="dayNotes" placeholder="Write your thoughts, learnings, reflections…" oninput="saveNotes()"></textarea>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════
+   CONSTANTS & DATA
+═══════════════════════════════════════════════════════════ */
+const START = new Date(2026,4,14); // 14 May 2026
+const TOTAL = 75;
+const END = new Date(START); END.setDate(END.getDate()+TOTAL-1);
+
+const PHASES=[
+  {id:1,name:'Math & Python Foundations',color:'#5c7cfa',days:[1,14],weeks:'1–2',filter:'Math'},
+  {id:2,name:'Classical Machine Learning',color:'#40c057',days:[15,28],weeks:'3–4',filter:'ML'},
+  {id:3,name:'Deep Learning & NNs',         color:'#cc5de8',days:[29,42],weeks:'5–6',filter:'DL'},
+  {id:4,name:'Generative AI & LLMs',         color:'#fd7e14',days:[43,56],weeks:'7–8',filter:'GenAI'},
+  {id:5,name:'MLOps & AI Engineering',       color:'#22b8cf',days:[57,70],weeks:'9–10',filter:'MLOps'},
+  {id:6,name:'Capstone & Career Mastery',    color:'#ffd43b',days:[71,75],weeks:'11',filter:'Projects'},
+];
+const MILESTONES=[
+  {date:'26 May 2026',name:'Mathematical Bedrock Verified',desc:'Comfortable with Linear Algebra, Calculus foundations.',day:13},
+  {date:'07 Jun 2026',name:'Technical Pipeline Master',desc:'Automated data cleaning and visualization pipelines.',day:25},
+  {date:'21 Jun 2026',name:'Classical ML Expert',desc:'Production-ready XGBoost and ensemble skills.',day:39},
+  {date:'12 Jul 2026',name:'Deep Learning & Transformers',desc:'Build and fine-tune complex neural architectures.',day:60},
+  {date:'27 Jul 2026',name:'Full-Scale AI Engineer',desc:'Job-ready with a portfolio of production GenAI systems.',day:75},
+];
+const QUOTES=[
+  {t:"The best way to predict the future is to invent it.",a:"— Alan Kay"},
+  {t:"Machine intelligence is the last invention humanity will ever need to make.",a:"— Nick Bostrom"},
+  {t:"First, solve the problem. Then, write the code.",a:"— John Johnson"},
+  {t:"Data is the new oil. It's valuable, but if unrefined it cannot really be used.",a:"— Clive Humby"},
+  {t:"Mastery is no longer defined by writing training loops — but by architecting resilient systems.",a:"— AI Engineering 2026"},
+  {t:"Build-first philosophy bridges the gap between statistical understanding and production engineering.",a:"— AI/ML Roadmap 2026"},
+  {t:"Every expert was once a beginner. Your 75 days start now.",a:"— The Roadmap"},
+  {t:"It's not that I'm so smart, it's just that I stay with problems longer.",a:"— Albert Einstein"},
+  {t:"In machine learning, the most important step is asking the right question.",a:"— Cassie Kozyrkov"},
+];
+
+/* ─── FULL ROADMAP DATA (from latest PDF) ─────────────── */
+function buildRoadmap(){
+  const R={};
+  const detail=[
+    // W1 D1–7
+    {s:[{t:'Slot 1: Scalars, Vectors & Matrices',c:'Definitions and geometric intuition of feature representation. Sub-topics: Vector spaces, basis, and span. Mentor Note: Think of a vector not as a list, but as a point in a high-dimensional embedding space. Read: Geometric interpretation of dot products as projections and similarity measures essential for vector databases.'},
+        {t:'Slot 2: Matrix Multiplication & Transpose',c:'Computational complexity and numerical stability in distributed environments. Sub-topics: Matrix-matrix multiplication properties and the Kronecker product. Read: Cache-aware matrix multiplication and optimization strategies for large-scale tensor operations on specialized hardware.'},
+        {t:'Slot 3: Python Environment Mastery',c:'Setting up robust virtual environments and executing basic SQL for data extraction. Focus: venv vs conda management, dependency pinning, and basic SELECT statements with complex WHERE filters for data subsetting.'},
+        {t:'Slot 4: Custom Vector Ops',c:'Problem: Calculate similarity between two high-dimensional user profiles without external libraries. Task: Implement vector addition, dot products, and Euclidean distance using only pure Python list comprehensions to internalize low-level math.'},
+        {t:'Slot 5: Systems Thinking',c:'The O(n³) problem. Analyze how matrix multiplication scaling affects the cost of transformer training. Understand why we use GPUs (parallelism) rather than CPUs for these specific operations.'}],
+     tasks:['Implement vector addition, dot products and Euclidean distance in pure Python','Set up conda/Poetry virtual environment','Execute basic SQL SELECT/WHERE/JOIN queries on retail dataset','Verify matrix multiplication numerical stability'],
+     practice:'Pure Python vector operations — no NumPy allowed',tags:['Math','Python']},
+
+    {s:[{t:'Slot 1: Inverses & Determinants',c:'Reversibility of transformations and diagnosing collinearity. Sub-topics: Rank, null space, and the Invertible Matrix Theorem. Mentor Note: A zero determinant means your data is redundant—learn to spot this before it crashes your model\'s weights.'},
+        {t:'Slot 2: Eigenvalues & Eigenvectors',c:'Directions of scaling and foundations for PCA and RNN stability. Sub-topics: Diagonalization and the Spectral Theorem. Read: Power iteration methods for large-scale eigen-decomposition in distributed systems.'},
+        {t:'Slot 3: Advanced SQL for Feature Engineering',c:'Complex JOINS and GROUP BY queries on retail datasets. Focus: Mastering self-joins, cross-joins, and aggregating customer lifetime value features (CLV) for downstream modeling. Read: Query execution plans and identifying bottlenecks.'},
+        {t:'Slot 4: Application — Linear Solver',c:'Problem: A supply chain system has N equations for N variables. Task: Implement a solver for linear systems using the inverse matrix method within NumPy and verify numerical precision via the linalg.solve utility.'},
+        {t:'Slot 5: Numerical Stability',c:'Floating-point errors. Discuss why A⁻¹ × A may not exactly equal I in hardware and how this impacts "Gradient Vanishing" in deep nets.'}],
+     tasks:['Implement linear system solver via inverse matrix method in NumPy','Compute eigenvalues for a covariance matrix','Write complex self-join SQL to aggregate customer lifetime value','Diagnose collinearity using determinant checks'],
+     practice:'Eigenvalue decomposition and PCA foundations',tags:['Math','Python']},
+
+    {s:[{t:'Slot 1: Calculus for ML — Derivatives',c:'Derivatives and partial derivatives as measures of the rate of change in loss functions. Sub-topics: Gradients of multivariable functions. Mentor Note: The gradient is the compass of your model—understand its direction to find the global minimum.'},
+        {t:'Slot 2: The Chain Rule & Backpropagation',c:'Understanding backpropagation as the mathematical engine for gradient flow through network layers. Sub-topics: Composite functions and nested derivative logic. Read: Deep dive into computational graphs and the "Local Gradient" concept used in automatic differentiation.'},
+        {t:'Slot 3: Data Structures for Scale',c:'Efficient handling of lists, dicts, and sets with a focus on memory management for large datasets. Focus: Big-O complexity of Python collection types, memory profiling using tracemalloc, and optimizing lookup times in feature maps.'},
+        {t:'Slot 4: Practice — Gradient Manual Trace',c:'Problem: Calculate how a change in weight w affects Mean Squared Error (MSE) loss. Task: Perform manual calculation of partial derivatives for a given multivariable function for a batch of 5 data points to verify intuition.'},
+        {t:'Slot 5: Architectural Tradeoffs',c:'Memory vs. Speed. Analyze the tradeoff between storing pre-computed gradients (high memory) vs. re-calculating them (high CPU) during the backward pass.'}],
+     tasks:['Calculate partial derivatives of MSE loss manually for 5 data points','Implement forward and backward pass for single-layer perceptron','Write a memory-efficient generator for processing large text files','Implement gradient descent to minimize a quadratic function'],
+     practice:'Manual backprop through a 2-layer network',tags:['Math','Python']},
+
+    {s:[{t:'Slot 1: Optimization Mechanics',c:'Gradient descent, learning rates, and the intuition of global vs. local minima. Sub-topics: Momentum, learning rate decay, and the role of the learning rate schedule. Read: Convergence rates of SGD vs. Batch Gradient Descent.'},
+        {t:'Slot 2: Non-convex Surfaces',c:'Navigating complex loss landscapes in deep learning. Sub-topics: Identifying saddle points and the "Exploding/Vanishing Gradient" problem. Read: Visualizing high-dimensional loss landscapes using contour plots.'},
+        {t:'Slot 3: Pythonic Code for Engineering',c:'List, dictionary, and set comprehensions for concise and maintainable engineering code. Focus: Writing readable, high-performance one-liner transformations and replacing nested loops to adhere to PEP 8 standards.'},
+        {t:'Slot 4: Coding Challenge — First Neuron',c:'Problem: A linear classifier is needed for a simple binary dataset. Task: Implement a forward and backward pass for a single-layer perceptron from scratch using only math modules, calculating weights iteratively.'},
+        {t:'Slot 5: Deployment Reasoning',c:'Why SGD? Discuss why we use Stochastic Gradient Descent (sampling) instead of the full gradient for production datasets that exceed available GPU memory.'}],
+     tasks:['Implement gradient descent and plot convergence path','Visualize loss landscape with contour plots','Refactor nested loops into list comprehensions','Build a perceptron forward/backward pass using only math module'],
+     practice:'Gradient descent convergence visualization',tags:['Math','Python']},
+
+    {s:[{t:'Slot 1: Probability Basics',c:'Mean, variance, and standard deviation as descriptors of data center and spread. Sub-topics: Expected values, moments of a distribution, and covariance matrices. Read: The Central Limit Theorem and its importance in sampling theory.'},
+        {t:'Slot 2: Distributions for ML',c:'Mastering Gaussian, Bernoulli, and Poisson distributions for model selection logic. Sub-topics: Probability Density Functions (PDF) vs. Cumulative Distribution Functions (CDF). Read: Maximum Likelihood Estimation (MLE) foundations.'},
+        {t:'Slot 3: SQL Deep Dive — Windowing',c:'Window functions (RANK, ROW_NUMBER) for building sophisticated feature pipelines. Focus: Calculating moving averages, cumulative sums, and identifying top-N percentile users within specific transaction windows.'},
+        {t:'Slot 4: Task — Signal Analysis',c:'Problem: A sensor produces noisy signals with occasional spikes. Task: Write a script to calculate running statistics for the signal and identify outliers via standard deviation (3σ) thresholds to clean sensor data.'},
+        {t:'Slot 5: Fault Tolerance',c:'Data Corruption. Analyze how a single outlier (sensor failure) can catastrophically shift the mean of a Gaussian distribution and how robust statistics (Median) provide resilience.'}],
+     tasks:['Calculate running stats for a noisy signal and detect 3σ outliers','Use SQL RANK/ROW_NUMBER to find top-N percentile users','Compute MLE for a Gaussian distribution from sample data','Plot PDF and CDF for Gaussian, Bernoulli, Poisson distributions'],
+     practice:'Statistical signal analysis with 3σ outlier detection',tags:['Math','Python']},
+
+    {s:[{t:"Slot 1: Bayes' Theorem",c:"Probabilistic updating of beliefs and foundations of Bayesian neural networks. Sub-topics: Prior, likelihood, and posterior probabilities. Read: Comparison between Frequentist and Bayesian inference and the role of priors in model regularization."},
+        {t:'Slot 2: Hypothesis Testing',c:'P-values, t-tests, and confidence intervals for A/B testing and model evaluation. Sub-topics: Understanding Type I/II errors and statistical power. Read: Determining sample sizes for significant experiments in production.'},
+        {t:'Slot 3: Python OOP Mastery',c:'Mastery of classes, inheritance, and encapsulation for building custom AI architectures. Focus: Implementing abstract base classes for defining standard model interfaces and using decorators to enforce strict type checking.'},
+        {t:"Slot 4: Practice — Bayesian Inference",c:"Problem: A medical test has a 5% false positive rate. Given a positive result, what is the actual probability of illness? Task: Solve 3 complex diagnostic probability problems using Bayes' Theorem."},
+        {t:'Slot 5: Observability',c:'A/B Test Monitoring. How do we monitor a live experiment? Discuss the engineering of an observability pipeline that tracks p-values in real-time to detect if a new model is degrading user experience.'}],
+     tasks:["Solve 3 diagnostic probability problems with Bayes' Theorem","Perform a t-test to compare two model versions","Define a Model abstract base class with fit/predict methods","Implement OOP class for a full statistical test pipeline"],
+     practice:"Bayesian inference and OOP model architecture",tags:['Math','Python']},
+
+    {s:[{t:'Sunday Assessment',c:'Review geometric matrix transformations and algebraic properties.'},
+        {t:'Revision: Chain Rule Drills',c:'Ensure the mechanics of the chain rule and backpropagation logic are clear through 5 challenging problems.'},
+        {t:'Infrastructure Check',c:'Verify reproducibility of the local Python environment using pip freeze and environment locks.'},
+        {t:'Rest & Consolidation',c:'Focus on physical recovery and mental consolidation of Week 1 mathematical concepts.'},
+        {t:'Slot 5: Engineering Ethics',c:'Discuss the "Black Box" problem. If we can\'t explain the math of a gradient update, can we trust a model to make loan decisions? (Governance intro).'}],
+     tasks:['Solve 5 challenging chain rule problems','Verify environment reproducibility with pip freeze','Review eigenvalue and determinant concepts','Rest — no new content'],
+     practice:'Week 1 Revision Checkpoint',revision:'Week 1',tags:['Revision']},
+
+    // W2 D8–14
+    {s:[{t:'Slot 1: Functional Python for MLOps',c:'Decorators for logging experiments and generators for memory-efficient handling of large datasets. Focus: Understanding closures and the Global Interpreter Lock (GIL). Sub-topics: Using cProfile for performance profiling.'},
+        {t:'Slot 2: Vectorization & Memory Layout',c:'Array broadcasting and logical indexing. Sub-topics: Shape manipulation (reshape, transpose) and the importance of memory layout (C-order vs. F-order) in NumPy arrays for CPU cache optimization.'},
+        {t:'Slot 3: Docker Foundations I',c:'Core concepts of containerization vs. virtual machines. Focus: The Docker Engine architecture, image immutability, and the lifecycle of a container. Mentor Note: "Build once, run anywhere" starts with understanding the layer cache.'},
+        {t:'Slot 4: Practice — Containerized Logs',c:'Problem: An ML script fails on your machine due to library conflicts. Task: Create your first Docker image that packages a Python script and a logging decorator, ensuring it runs identically on any OS.'},
+        {t:'Slot 5: Infrastructure Reliability',c:'Environment Parity. Analyze why "It works on my machine" is the most expensive sentence in engineering and how Docker enforces parity between Dev, Staging, and Production.'}],
+     tasks:['Write a decorator that logs execution time and peak memory usage','Implement a generator for memory-efficient file processing','Perform complex NumPy broadcasting and logical indexing','Create your first Docker image with a Python script'],
+     practice:'Decorator and generator patterns for production ML',tags:['Python']},
+
+    {s:[{t:'Slot 1: Visualization for Stakeholders',c:'Matplotlib for low-level control and Seaborn for high-level statistical graphics. Sub-topics: Figure and Axes objects, maintaining high data-ink ratios. Read: Principles of visual communication for technical leads.'},
+        {t:'Slot 2: Interactive Dashboards',c:'Plotly basics for creating web-based visualizations. Sub-topics: Figure factories and hover interactions. Read: Building reactive components with Plotly and exporting as standalone HTML dashboards.'},
+        {t:'Slot 3: Docker Foundations II',c:'Writing efficient Dockerfiles for AI apps. Focus: Layering, base images (Alpine vs Slim), COPY, RUN, and CMD. Sub-topics: Optimizing build caching by ordering commands from least to most frequent change.'},
+        {t:'Slot 4: Practice — Dashboard Image',c:'Problem: A stakeholder needs an interactive EDA tool. Task: Build a Plotly dashboard script and containerize it into a Docker image under 200MB using a multi-stage build.'},
+        {t:'Slot 5: Cost Optimization',c:'Container Size. Analyze the cost of cloud storage and network egress for a 10GB container vs a 500MB container. Learn the engineering impact of choosing python:slim.'}],
+     tasks:['Generate a correlation heatmap and identify top 5 correlated feature pairs','Create an interactive Plotly scatter with hover data and sliders','Build Plotly dashboard and containerize into Docker image under 200MB','Use Seaborn to create pair plots for feature exploration'],
+     practice:'Data visualization: Matplotlib + Seaborn + Plotly',tags:['Python','ML']},
+
+    {s:[{t:'Slot 1: Advanced SQL for Data Engineering',c:'Using CTEs (Common Table Expressions) to calculate running totals per user and complex temporal aggregations. Read: Mastering query execution plans and identifying bottlenecks in transaction databases.'},
+        {t:'Slot 2: Ingestion Pipeline Automation',c:'Automation of CSV downloads and data sanitization protocols before SQL insertion. Sub-topics: Using Python\'s requests and SQLAlchemy for database interaction. Read: Data integrity checks and checksum verification.'},
+        {t:'Slot 3: Docker Compose Mastery',c:'Orchestrating multi-container setups. Focus: Using YAML configuration to link a Python ingestion script container with a PostgreSQL database container. Sub-topics: Managing internal service networking.'},
+        {t:'Slot 4: Practice — The Stack',c:'Problem: You need a local testing environment. Task: Write a docker-compose.yml that spins up a DB and a Jupyter container, ensuring the Python container can talk to the DB via its service name.'},
+        {t:'Slot 5: System Design',c:'Database Sharding. Discuss why we scale databases horizontally (sharding) when ingestion volume exceeds the write-throughput of a single Docker node.'}],
+     tasks:['Write a recursive CTE to calculate running totals per user','Create automated ingestion script with checksums','Write a docker-compose.yml linking Python and PostgreSQL containers','Build interactive Plotly scatter with time sliders'],
+     practice:'Advanced SQL and Docker Compose for ML engineering',tags:['Python','MLOps']},
+
+    {s:[{t:'Slot 1: Data Validation & Quality',c:'Automated quality checks for schema drift and distribution shifts. Focus: Identifying the "Silent Failure" problem. Read: Using Great Expectations to define validation suites for production.'},
+        {t:'Slot 2: Dependency Sync with Poetry',c:'Managing dependencies using Poetry and pyproject.toml for reproducibility. Focus: Semantic versioning and creating reproducible build artifacts. Sub-topics: Handling dev vs prod dependency groups.'},
+        {t:'Slot 3: Linux for AI Engineers',c:'Mastering CLI operations, bash scripting, permissions, and process monitoring. Focus: Navigating remote servers. Sub-topics: cron, htop, and managing environment variables in .env.'},
+        {t:'Slot 4: Practice — Schema Guard',c:'Problem: Incoming data from a vendor often contains missing columns. Task: Use Great Expectations to define 5 data quality rules and run the check as a Dockerized cron job on a Linux server.'},
+        {t:'Slot 5: Observability',c:'Data Drift. Discuss how we monitor the inputs of our system. If the distribution of "User Age" shifts from 20 to 50, how does that impact model reliability before a prediction is ever made?'}],
+     tasks:['Use Great Expectations to define 5 data quality rules','Create a pyproject.toml file for dependency management','Use requests library to interact with a public REST API','Detect schema drift between two dataset versions'],
+     practice:'Data validation and API fundamentals',tags:['Python','MLOps']},
+
+    {s:[{t:'Slot 1: FastAPI for Inference',c:'Building high-performance endpoints for model serving. Sub-topics: Path parameters, Pydantic models for validation, and asynchronous programming (async/await) for high-concurrency handling.'},
+        {t:'Slot 2: Technical Documentation',c:'Writing effective README files and technical documentation using Markdown. Focus: Using badges, code blocks, and install guides to ensure other engineers can deploy your system.'},
+        {t:'Slot 3: Docker MCP & Sandboxing',c:'Integrating Model Context Protocol (MCP) and using Docker Sandboxes for isolated environment testing. Focus: Running untrusted code snippets safely in a containerized environment.'},
+        {t:'Slot 4: Practice — Prediction Endpoint',c:'Problem: A frontend team needs an API. Task: Build a FastAPI endpoint that accepts JSON features, performs a calculation, and returns a response; fully containerize the API with health checks.'},
+        {t:'Slot 5: Architectural Tradeoffs',c:'Sync vs Async. Analyze when to use Synchronous APIs (REST) for real-time predictions vs Asynchronous Queues (Kafka) for heavy batch processing tasks.'}],
+     tasks:['Build a FastAPI endpoint with Pydantic request/response schemas','Write a detailed PAR-format README','Sketch an end-to-end ML pipeline architecture diagram','Add async endpoints for high-throughput serving'],
+     practice:'FastAPI model serving endpoint',tags:['Python','MLOps']},
+
+    {s:[{t:'Slot 1: Project Refactoring (OOP)',c:'Applying OOP principles to early scripts. Focus: Refactoring procedural code into reusable classes; using linters like Flake8 and formatters like Black to ensure production quality.'},
+        {t:'Slot 2: Interactive EDA Dashboard',c:'Combining Pandas and Plotly to build filtering-capable dashboards. Read: Strategies for handling imbalanced data during exploration. Sub-topics: Multi-chart synchronization and interactive hover text.'},
+        {t:'Slot 3: Secret Management',c:'Managing sensitive credentials in production. Focus: Using Docker secrets and environment variables (.env) safely. Sub-topics: Avoiding the injection of secrets into the image layer history.'},
+        {t:'Slot 4: Mini-Project — EDA Suite',c:'Problem: A Kaggle competition dataset needs baseline analysis. Task: Build a full EDA dashboard with at least 4 linked charts, fully containerized using Docker and shared via a private registry.'},
+        {t:'Slot 5: Security & Governance',c:'Least Privilege. Why should our model API container not have root access? Discuss the security impact of running a container as a non-privileged user.'}],
+     tasks:['Refactor early scripts to OOP with Flake8 compliance','Use black to format all code','Build EDA dashboard with 4+ linked Plotly charts','Complete a Kaggle data cleaning challenge independently'],
+     practice:'Code quality, refactoring, and interactive EDA',project:'Major Project 2: Production-Ready Ingestion Pipeline',tags:['Python','Projects']},
+
+    {s:[{t:'Sunday Revision',c:'Review the Python data stack, SQL aggregation techniques, and core Docker CLI commands.'},
+        {t:'Assessment: Data Cleaning Challenge',c:'Complete a small Kaggle data cleaning challenge and containerize the resulting script within a 2-hour time limit.'},
+        {t:'Portfolio: Repository Finalization',c:'Finalize the week\'s README and repository structure, including the Dockerfile and requirements.txt files.'},
+        {t:'Rest: Prepare for Classical ML',c:'Focus on physical recovery and mental preparation for the Classical Machine Learning phase.'},
+        {t:'Slot 5: Engineering Thinking',c:'Scalability vs Cost. Discuss the cost of "Perfect Reliability" (99.999% uptime) vs "Good Enough Reliability" (99.9%) in AI infrastructure.'}],
+     tasks:['Complete a data cleaning challenge solo in 2 hours','Finalize GitHub repo READMEs','Review Pandas and NumPy key patterns','Prepare for Classical ML phase'],
+     practice:'Week 2 revision and solo data challenge',revision:'Week 2',tags:['Revision']},
+
+    // W3 D15–21
+    {s:[{t:'Slot 1: Linear Regression — OLS',c:'Mechanics of OLS (Ordinary Least Squares) and model assumptions. Sub-topics: Homoscedasticity and linearity. Mentor Note: The simplest model is often the best model—understand when OLS is sufficient.'},
+        {t:'Slot 2: Regularization — Lasso & Ridge',c:'Comparison of Lasso (L1) and Ridge (L2) models for feature selection. Sub-topics: Feature selection vs. weight penalty. Read: Visualizing the regularization penalty geometry in high-dimensional space.'},
+        {t:'Slot 3: Regression Metrics',c:'Interpreting MSE, RMSE, and R² in a business context. Focus: When to use MAE vs. RMSE based on outlier tolerance. Read: Impact of log-transformed targets on metric selection.'},
+        {t:'Slot 4: Practice — Residual Analysis',c:'Problem: A linear model may not meet OLS assumptions. Task: Implement linear regression via Scikit-Learn and plot the residuals to verify normality and homoscedasticity.'},
+        {t:'Slot 5: Systems Thinking',c:'Complexity vs Accuracy. Discuss the business cost of a 1% accuracy improvement if it requires 10x the compute power. Learn to justify "Simpler" models to leadership.'}],
+     tasks:['Implement linear regression on housing dataset and plot residuals','Compare Lasso vs Ridge coefficients on the same dataset','Calculate MSE, RMSE, MAE, and R² and interpret for stakeholders','Build end-to-end regression pipeline with preprocessing'],
+     practice:'Residual analysis and OLS assumption verification',tags:['ML']},
+
+    {s:[{t:'Slot 1: Logistic Regression',c:'Mapping output to probabilities (0-1) using the sigmoid function. Sub-topics: Decision thresholds and Maximum Likelihood Estimation (MLE).'},
+        {t:'Slot 2: Decision Trees',c:'Information gain, entropy, and the mechanics of splitting and pruning. Mentor Note: Trees are greedy—understand why they overfit by default and how to stop it.'},
+        {t:'Slot 3: Classification Metrics',c:'Understanding precision, recall, and F1-score for imbalanced data. Focus: The Precision-Recall tradeoff and choosing a custom threshold based on cost of false positives.'},
+        {t:'Slot 4: Practice — Spam Classifier',c:'Problem: A binary dataset has a 10:1 class imbalance. Task: Build a binary spam classifier and generate a confusion matrix; calculate F1-score and compare it to Accuracy.'},
+        {t:'Slot 5: Deployment Reasoning',c:'Threshold Tuning. If false positives (marking a real email as spam) are more expensive than false negatives, how do you adjust the logistic decision boundary in production?'}],
+     tasks:['Build spam classifier with logistic regression on 10:1 imbalanced data','Visualize decision tree and identify most important features','Generate confusion matrix and compare F1 vs Accuracy','Tune decision threshold and observe precision-recall tradeoff'],
+     practice:'Classification pipeline with evaluation metrics',tags:['ML']},
+
+    {s:[{t:'Slot 1: Ensemble Methods — Bagging (Random Forest)',c:'The power of bagging with Random Forest to reduce variance. Sub-topics: Bootstrap sampling and feature randomness. Read: Out-of-bag (OOB) error estimation.'},
+        {t:'Slot 2: Sequential Improvement — Boosting',c:'The mechanics of gradient boosting where new trees correct prior errors. Sub-topics: Residual learning. Read: Evolution from AdaBoost to GBM (Gradient Boosting Machines).'},
+        {t:'Slot 3: Hyperparameter Tuning',c:'Tuning n_estimators and tree depth for optimal ensemble performance. Focus: Impact of n_estimators and max_depth on the bias-variance tradeoff.'},
+        {t:'Slot 4: Practice — Variance Reduction',c:'Problem: Decision Trees overfit on a complex dataset. Task: Implement 5-fold cross-validation to compare a single tree\'s variance against a 100-estimator Random Forest\'s score.'},
+        {t:'Slot 5: Scaling Strategy',c:'Parallelization. Discuss why Random Forest (Bagging) is "Embarrassingly Parallel" (can train on 100 CPUs) while Gradient Boosting is sequential and harder to distribute.'}],
+     tasks:['Compare single tree vs 100-estimator Random Forest via 5-fold CV','Use OOB error estimation for Random Forest','Implement 5-fold cross-validation for ensemble comparison','Plot feature importances from Random Forest'],
+     practice:'Ensemble methods and variance reduction',tags:['ML']},
+
+    {s:[{t:'Slot 1: Boosting Workhorses — XGBoost',c:'XGBoost optimization for speed and large-scale tabular data. Sub-topics: Parallel processing and regularization terms in the objective function.'},
+        {t:'Slot 2: Modern Alternatives — LightGBM & CatBoost',c:'LightGBM and CatBoost for faster training and categorical handling. Focus: When to choose LightGBM for speed vs. CatBoost for categorical data.'},
+        {t:'Slot 3: Optimization Tuning',c:'Learning rates and shrinkage in boosting models. Focus: The relationship between learning rate and the number of trees. Read: Importance of early stopping.'},
+        {t:'Slot 4: Practice — Speed Benchmarking',c:'Problem: Manual encoding of categorical columns is slow. Task: Use CatBoost to train on a dataset without manual one-hot encoding and compare its training time against XGBoost.'},
+        {t:'Slot 5: GPU Efficiency',c:'GPU Boosting. Analyze the memory overhead of moving a tabular dataset from RAM to VRAM for training on XGBoost-GPU. When does data transfer latency negate GPU speed gains?'}],
+     tasks:['Benchmark CatBoost vs XGBoost on a categorical dataset','Tune XGBoost learning rate and n_estimators with early stopping','Compare LightGBM vs XGBoost on speed and accuracy','Implement learning rate scheduler for boosting'],
+     practice:'Gradient boosting comparison and benchmarking',tags:['ML']},
+
+    {s:[{t:'Slot 1: SVM Foundations',c:'Finding optimal hyperplanes and maximum margins. Sub-topics: Support vectors and slack variables. Read: The role of the C parameter in hard vs. soft margins.'},
+        {t:'Slot 2: The Kernel Trick',c:'Using RBF and polynomial kernels for non-linear separation. Sub-topics: Radial basis function. Read: Choosing γ and C parameters in SVM models.'},
+        {t:'Slot 3: SVM Optimization',c:'Balancing margin width vs. misclassification. Focus: Interpreting C as a regularization strength. Sub-topics: Grid searching SVM parameters.'},
+        {t:'Slot 4: Practice — Non-Linear SVM',c:'Problem: A dataset (e.g., concentric circles) is not linearly separable. Task: Train an SVM with a linear kernel vs. an RBF kernel and visualize the decision boundary of both.'},
+        {t:'Slot 5: Production Debugging',c:'Kernel selection. Why do SVMs fail on "Big Data"? Discuss why the O(n²) complexity of SVM kernels makes them obsolete for datasets with millions of rows.'}],
+     tasks:['Train linear SVM vs RBF SVM and visualize decision boundaries','Tune C and γ parameters and observe effect on margins','Implement KNN and observe the effect of changing k','Compare SVM vs Random Forest on the same dataset'],
+     practice:'SVM decision boundary visualization',tags:['ML']},
+
+    {s:[{t:'Slot 1: Naive Bayes',c:'Probabilistic classification based on Bayes\' Theorem for text. Sub-topics: Multinomial Naive Bayes and Laplacian smoothing. Read: The "Independence" assumption and its failure modes.'},
+        {t:'Slot 2: Metric Deep Dive — ROC-AUC',c:'Precision-Recall curves vs. ROC-AUC for class comparisons. Focus: When ROC-AUC fails on imbalanced data and why the PR curve is the source of truth for fraud detection.'},
+        {t:'Slot 3: Baseline Comparison — KNN',c:'KNN (k_neighbors) and the effect of the "k" parameter. Focus: The "Curse of Dimensionality" and its effect on distance metrics in high-dimensional feature spaces.'},
+        {t:'Slot 4: Practice — Sentiment Model',c:'Problem: We need a fast, probabilistic text classifier. Task: Build a sentiment analysis model using Multinomial Naive Bayes on a reviews dataset and plot the ROC-AUC curve.'},
+        {t:'Slot 5: Systems Thinking',c:'The Cold Start. How does Naive Bayes handle a brand-new word it hasn\'t seen before? Discuss the importance of Laplacian smoothing for system robustness.'}],
+     tasks:['Build Multinomial Naive Bayes sentiment classifier and plot ROC-AUC','Compare Precision-Recall curves vs ROC-AUC on imbalanced data','Implement KNN with different k values and distance metrics','Apply SMOTE to imbalanced dataset and measure recall improvement'],
+     practice:'NLP classification and evaluation curve analysis',project:'Major Project 3: Real Estate Valuation Engine',tags:['ML','Projects']},
+
+    {s:[{t:'Sunday Revision',c:'Review bagging vs. boosting ensembles and the SVM kernel trick mechanics.'},
+        {t:'Assessment: New Dataset Classification',c:'Solve a classification problem on a new dataset from scratch in a 3-hour limit, justifying the algorithm choice in a README.'},
+        {t:'Checkpoint: Bias-Variance Tradeoff',c:'Review the bias-variance tradeoff through learning curves. Identify if your model is underfitting or overfitting.'},
+        {t:'Rest: Theory Consolidation',c:'Focus on physical recovery and mental consolidation.'},
+        {t:'Slot 5: Career Mastery',c:'Practice the "Algorithm Selection" interview question. "If I have 10,000 features and 1,000 rows, which model should I choose and why?"'}],
+     tasks:['Solve classification problem on a new dataset from scratch','Plot learning curves to visualize bias-variance tradeoff','Review bagging vs boosting conceptually','Prepare for unsupervised learning phase'],
+     practice:'End-to-end classification sprint',revision:'Week 3',tags:['Revision']},
+
+    // W4 D22–28
+    {s:[{t:'Slot 1: K-Means Clustering',c:'Centroid proximity and the "Elbow Method" for optimal k. Sub-topics: K-Means++ initialization. Read: The impact of feature scaling on clustering results.'},
+        {t:'Slot 2: Hierarchical Clustering',c:'Tree-like structures and dendrogram interpretation. Sub-topics: Agglomerative vs. Divisive clustering. Read: Choosing a linkage criterion (Single, Ward, Average).'},
+        {t:'Slot 3: DBSCAN',c:'Density-based clustering for identifying non-spherical shapes and outliers. Sub-topics: Epsilon and MinPoints selection logic. Read: Handling clusters of varying densities.'},
+        {t:'Slot 4: Practice — Customer Segments',c:'Problem: Marketing needs to identify high-value customer groups. Task: Find the optimal number of clusters for customer segmentation using K-Means and visualize the profiles.'},
+        {t:'Slot 5: Scalability',c:'Clustering at Scale. Discuss why Hierarchical Clustering is O(n³) and fails on millions of rows. Analyze the engineering effort needed to run Mini-Batch K-Means on a distributed cluster.'}],
+     tasks:['Apply elbow method to find optimal k for customer data','Compare K-Means vs Hierarchical vs DBSCAN on same dataset','Generate a dendrogram and determine natural cluster count','Visualize clusters in 2D using PCA reduction'],
+     practice:'Clustering algorithm comparison',tags:['ML']},
+
+    {s:[{t:'Slot 1: PCA',c:'Projecting high-dimensional data while preserving maximum variance. Sub-topics: Eigenvalue significance and explained variance ratio. Read: Using PCA as a noise reduction technique.'},
+        {t:'Slot 2: Visualization — t-SNE & UMAP',c:'t-SNE and UMAP for non-linear dimensionality reduction and cluster viewing. Mentor Note: t-SNE is for visualization, not feature engineering. Read: Perplexity and learning rate tuning in t-SNE.'},
+        {t:'Slot 3: Noise Reduction as Preprocessing',c:'Using dimensionality reduction as a preprocessing step for tabular models. Focus: Reducing feature space to improve model inference speed and reduce overfitting.'},
+        {t:'Slot 4: Practice — MNIST Visualization',c:'Problem: Visualizing 784-dimensional digit data is impossible. Task: Compare PCA and t-SNE visualizations on the MNIST digits dataset to identify digit clusters in 2D.'},
+        {t:'Slot 5: Latency Optimization',c:'Dimension Reduction. Analyze how PCA can reduce a 1,000-feature set to 50 principal components, reducing the latency of downstream model inference by 90% in real-time systems.'}],
+     tasks:['Compare PCA and t-SNE visualizations on MNIST','Use PCA to reduce features and measure accuracy impact','Apply Isolation Forest to detect fraud in transaction data','Use dimensionality reduction as preprocessing step for a classifier'],
+     practice:'Dimensionality reduction and anomaly detection',tags:['ML']},
+
+    {s:[{t:'Slot 1: Anomaly Detection',c:'Foundations of finding rare events in transaction data. Read: Unsupervised vs. semi-supervised anomaly detection. Sub-topics: Handling extreme class imbalance.'},
+        {t:'Slot 2: Isolation Forests',c:'Algorithmic approach to outlier isolation using random trees. Sub-topics: Why random partitioning isolates outliers faster than normal points. Read: Tuning the contamination parameter.'},
+        {t:'Slot 3: Thresholding for Production',c:'Setting alarm boundaries for production anomaly detection. Focus: Defining a decision boundary based on the anomaly score distribution to balance false alarms. Sub-topics: Calibrating contamination rates.'},
+        {t:'Slot 4: Practice — Fraud Detection',c:'Problem: A bank needs to identify rare fraudulent transactions. Task: Use an Isolation Forest to detect potential fraud in a CSV dataset and plot the anomaly scores.'},
+        {t:'Slot 5: Infrastructure Reliability',c:'Fault Tolerance. Discuss how "False Positive Storms" in an anomaly detection service can take down a support team. Learn to implement "Alarm Dampening" patterns in your infrastructure.'}],
+     tasks:['Train Isolation Forest on network traffic dataset','Set and tune contamination threshold for fraud detection','Compare Isolation Forest vs Z-score outlier detection','Build a real-time anomaly scoring pipeline'],
+     practice:'Fraud detection with Isolation Forest',tags:['ML']},
+
+    {s:[{t:'Slot 1: Optimization Strategies',c:'Grid Search vs. Randomized Search for navigating large spaces. Sub-topics: Computational cost vs. search completeness. Read: The "Curse of Dimensionality" in hyperparameter search.'},
+        {t:'Slot 2: Optuna Framework',c:'Advanced tuning using Tree-structured Parzen Estimators (TPE). Sub-topics: Pruning trials and study visualization. Mentor Note: Don\'t guess—optimize with Bayesian probability.'},
+        {t:'Slot 3: Search Efficiency Comparison',c:'Comparing performance and time across different methods. Focus: Implementing early stopping in the search process to save GPU/CPU hours. Read: Distributed hyperparameter search.'},
+        {t:'Slot 4: Practice — Optuna Study',c:'Problem: A gradient boosting model has too many hyperparameters to tune manually. Task: Set up an Optuna study to find the best configuration for an XGBoost model.'},
+        {t:'Slot 5: Cost Optimization',c:'Search Budget. Analyze the cost of running 1,000 Grid Search trials on an A100 GPU cluster. Learn to implement Optuna "Pruning" to stop low-performing trials early and save 40% of compute costs.'}],
+     tasks:['Set up Optuna study for XGBoost and visualize hyperparameter importance','Compare Grid Search vs Randomized Search time and performance','Implement early stopping within Optuna trials','Visualize the optimization history and parameter importance'],
+     practice:'Advanced hyperparameter optimization with Optuna',tags:['ML']},
+
+    {s:[{t:'Slot 1: Scikit-Learn Pipelines',c:'Automating scaling, encoding, and modeling into a single object to prevent leakage. Focus: Implementing custom transformers within the pipeline API.'},
+        {t:'Slot 2: Model Persistence with Joblib',c:'Saving artifacts using Joblib and implementing standard versioning. Sub-topics: Compatibility issues across Python versions. Read: Serializing full pipelines vs. just models.'},
+        {t:'Slot 3: Inference APIs',c:'Wrapping models in FastAPI endpoints for JSON requests. Focus: Pydantic schemas for input validation and handling batch prediction requests efficiently.'},
+        {t:'Slot 4: Practice — Production Pipeline',c:'Problem: Deploying a model involves complex preprocessing. Task: Build a pipeline that includes a custom transformer and XGBoost; serve it via a FastAPI endpoint containerized in Docker.'},
+        {t:'Slot 5: Architectural Tradeoffs',c:'Persistence. Discuss the pros and cons of using pickle (security risk) vs ONNX (portable but complex) for model serialization in an enterprise environment.'}],
+     tasks:['Build Scikit-Learn pipeline with custom transformer and XGBoost','Save and reload trained pipeline using Joblib','Wrap the pipeline in a FastAPI endpoint accepting JSON features','Test the API endpoint with sample requests'],
+     practice:'Production ML pipeline with API serving',tags:['ML','MLOps']},
+
+    {s:[{t:'Slot 1: AI System Design',c:'Ranking/Retrieval funnels and Millisecond latency budgets for production serving. Sub-topics: Feature stores and training-serving skew. Read: Trade-offs between real-time and batch inference.'},
+        {t:'Slot 2: Docker Foundations',c:'Containerizing the FastAPI model for environment parity. Focus: Writing production-ready Dockerfiles that use multi-stage builds to keep images small and secure.'},
+        {t:'Slot 3: Professional Interview Prep',c:'Reviewing bias-variance, SVM theory, and decision tree splitting logic for interviews. Focus: Preparing to explain the "Why" behind algorithm choice.'},
+        {t:'Slot 4: Practice — Model API Container',c:'Problem: Models work on your PC but not in the cloud. Task: Build and run a Docker container for a model API and test it with curl to verify environment consistency.'},
+        {t:'Slot 5: System Design',c:'Feature Stores. Discuss the "Training-Serving Skew" problem: when the feature code used during training is slightly different from the SQL used in production. Analyze how a Feature Store (e.g. Feast) solves this.'}],
+     tasks:['Build and run a Docker container for the model API','Write a Dockerfile for the FastAPI model service','Sketch a high-level recommendation system design','Explain L1 vs L2 regularization clearly from memory'],
+     practice:'Docker containerization and system design',project:'Major Project 4: Scalable Anomaly Detection Service',tags:['MLOps','Projects']},
+
+    {s:[{t:'Sunday Revision',c:'Review clustering algorithms, PCA mechanics, and hyperparameter tuning logic.'},
+        {t:'Assessment: K-Means from Scratch',c:'Re-implement K-Means using only NumPy for logic internalization within 2 hours.'},
+        {t:'Portfolio: Technical Blog Post',c:'Write a technical blog post summarizing Week 3-4 findings on supervised and unsupervised modeling.'},
+        {t:'Rest: Mental Reset for Deep Learning',c:'Focus on physical recovery and mental reset.'},
+        {t:'Slot 5: Engineering Thinking',c:'Deployment reasoning. When is it better to use a simple "Average Rule" baseline instead of a complex ML model? Analyze the "Baselines-First" philosophy of Google SRE.'}],
+     tasks:['Re-implement K-Means using only NumPy','Write technical blog post on classical ML phase','Review pipeline creation and model persistence steps','Prepare for Deep Learning phase'],
+     practice:'NumPy K-Means implementation sprint',revision:'Week 4',tags:['Revision']},
+
+    // W5 D29–35
+    {s:[{t:'Slot 1: Perceptrons — Atomic Units',c:'Weights, biases, and the atomic unit of learning. Sub-topics: Linear decision boundaries and the Perceptron Convergence Theorem. Mentor Note: The simplest neural net is just a linear equation with a step function.'},
+        {t:'Slot 2: Activation Functions',c:'Non-linearity via ReLU, Sigmoid, and Tanh. Sub-topics: Leaky ReLU and the problem of saturated activations. Read: Why ReLU is the default choice for deep hidden layers in 2026.'},
+        {t:'Slot 3: PyTorch Tensor Core',c:'Core objects, indexing, and NumPy interoperability. Sub-topics: Device management (CPU vs. CUDA). Read: Tensor reshaping vs. viewing and the impact on memory.'},
+        {t:'Slot 4: Practice — Build a Neuron',c:'Problem: Build the simplest unit of learning from scratch. Task: Build a single neuron in Python without DL frameworks that can correctly classify an "AND" logical gate.'},
+        {t:'Slot 5: GPU Efficiency',c:'Tensors in Memory. Discuss the engineering difference between a Tensor on a CPU (RAM) and a Tensor on a GPU (VRAM). Why is moving data between them the biggest bottleneck in deep learning?'}],
+     tasks:['Build a neuron that classifies the AND logical gate through weight updates','Plot curves of ReLU, Leaky ReLU, Sigmoid, Tanh and compare derivatives','Calculate trainable parameters in a 3-layer dense network','Implement a 2-layer perceptron manually for XOR'],
+     practice:'Neuron implementation from first principles',tags:['DL']},
+
+    {s:[{t:'Slot 1: Backpropagation Deep Dive',c:'Manual gradient tracing through a 2-node net via the chain rule in matrix form. Read: Derivative of the Softmax function for multi-class classification gradients.'},
+        {t:'Slot 2: Loss Functions',c:'Cross-entropy vs. MSE objectives for learning. Sub-topics: Binary Cross-Entropy (BCE). Read: The relationship between Maximum Likelihood Estimation and Cross-Entropy loss.'},
+        {t:'Slot 3: Autograd & Gradient Flow',c:'PyTorch\'s automatic differentiation engine. Sub-topics: Computational graphs and the backward() method. Read: Detaching tensors and managing memory during training.'},
+        {t:'Slot 4: Practice — Auto-Diff Trace',c:'Problem: Complex functions are hard to derive manually. Task: Create PyTorch tensors for a multivariable function and use backward() to manually extract and verify gradients.'},
+        {t:'Slot 5: Production Debugging',c:'Exploding Gradients. If your loss becomes NaN, what happened? Analyze how learning rate schedules and gradient clipping provide resilience in deep learning training jobs.'}],
+     tasks:["Compare SGD vs Adam on Beale's function optimization surface","Trace a gradient through a 2-node network manually","Implement cross-entropy loss from scratch","Implement momentum SGD and compare to vanilla SGD"],
+     practice:'Optimizer convergence visualization',tags:['DL']},
+
+    {s:[{t:'Slot 1: Optimizers — SGD & Adam',c:'Mastering SGD (Stochastic Gradient Descent) and Adam. Sub-topics: Momentum, weight decay, and adaptive learning rates. Read: Why Adam is the standard "starting" optimizer in 2026.'},
+        {t:'Slot 2: Building with nn.Module',c:'Defining __init__ and forward methods for custom models. Sub-topics: Subclassing models and using nn.Sequential for simple layer stacks. Read: Managing state in custom layers.'},
+        {t:'Slot 3: Computation Graphs',c:'Dynamic graph execution vs. static methods. Focus: Understanding how the graph is built during the forward pass and why it allows for dynamic architectures.'},
+        {t:'Slot 4: Practice — First PyTorch Net',c:'Problem: The Iris dataset needs a non-linear classifier. Task: Build and train a 3-layer Feed-Forward network on the Iris dataset; plot the loss and accuracy per epoch.'},
+        {t:'Slot 5: Architectural Tradeoffs',c:'Adam vs SGD. Analyze the tradeoff between Adam\'s fast convergence (high memory) vs SGD\'s slow convergence (low memory). Which one do you choose for a model with 10 billion parameters?'}],
+     tasks:['Build and train a 3-layer FFN on Iris dataset and plot loss per epoch','Write a complete training loop without reference','Create a custom Dataset class for a CSV file','Add training and validation loss logging'],
+     practice:'PyTorch full training loop implementation',tags:['DL']},
+
+    {s:[{t:'Slot 1: Standard Training Loop',c:'zero_grad → forward → loss → backward → step. Focus: Identifying common errors like forgetting to zero the gradients or improper batch handling. Read: Training vs. Evaluation modes.'},
+        {t:'Slot 2: Data Handling & DataLoaders',c:'Dataset and DataLoader classes for multi-threaded loading and shuffling. Sub-topics: Writing custom Dataset implementations for non-standard file formats.'},
+        {t:'Slot 3: NN Layers — Capacity & Depth',c:'Hidden layer capacity and depth intuition. Sub-topics: Dense/Linear layers. Read: The Universal Function Approximation Theorem and how depth increases expressive power.'},
+        {t:'Slot 4: Practice — Fashion MNIST',c:'Problem: Image classification for apparel. Task: Build a 4-layer MLP using PyTorch and train it on Fashion MNIST; implement a validation split to detect overfitting.'},
+        {t:'Slot 5: Scaling Strategy',c:'Multi-GPU Batching. Discuss the engineering of "Data Parallelism." If your batch size is 1024, how do you split that work across 4 GPUs using nn.DataParallel?'}],
+     tasks:['Build and train a 4-layer MLP on Fashion MNIST','Write a complete training loop without reference','Create a custom Dataset class for a CSV file','Add training and validation loss logging'],
+     practice:'PyTorch full training loop on Fashion MNIST',tags:['DL']},
+
+    {s:[{t:'Slot 1: GPU Acceleration',c:'Moving tensors to CUDA and memory management. Sub-topics: .to(device) vs. .cuda(). Read: Avoiding GPU memory fragmentation and "Out of Memory" (OOM) errors.'},
+        {t:'Slot 2: Precision Training — Mixed Precision',c:'16-bit floats (Mixed Precision) for GPU efficiency. Sub-topics: Using torch.cuda.amp to speed up training. Read: Trade-offs of half-precision and gradient scaling.'},
+        {t:'Slot 3: CNN Basics',c:'Kernels, strides, and pooling for spatial features. Sub-topics: Receptive field calculation and how CNNs exploit local correlation in images. Read: Evolution from MLP to CNN.'},
+        {t:'Slot 4: Practice — GPU Benchmark',c:'Problem: Large models train slowly on CPU. Task: Train a model on GPU (e.g., Google Colab) and benchmark the training time-per-epoch against the CPU for a 3-layer net.'},
+        {t:'Slot 5: GPU Efficiency',c:'Shared Resources. Analyze why running multiple models on one GPU can cause "VRAM Fragmentation" and how Kubernetes GPU slicing solves this for production.'}],
+     tasks:['Train a model on GPU and benchmark against CPU','Apply Mixed Precision training with torch.cuda.amp','Implement a manual convolution filter to detect edges','Implement a 3-layer CNN for MNIST classification'],
+     practice:'GPU training and CNN implementation',tags:['DL']},
+
+    {s:[{t:'Slot 1: CNN Architectures — LeNet to ResNet',c:'From LeNet and VGG to ResNet skip-connections. Sub-topics: Batch Normalization and Dropout for regularization. Read: Why skip-connections solved the vanishing gradient problem.'},
+        {t:'Slot 2: Feature Maps Visualization',c:'Visualizing how CNNs extract hierarchical features. Focus: Extracting intermediate layer outputs to visualize "shapes" and "edges" detected by kernels at different depths.'},
+        {t:'Slot 3: Data Augmentation',c:'Flipping, rotating, and scaling for robustness using torchvision.transforms. Focus: Preventing overfitting on small image datasets. Read: Test-time augmentation (TTA).'},
+        {t:'Slot 4: Practice — ResNet Implementation',c:'Problem: Very deep networks suffer from vanishing gradients. Task: Implement a custom ResNet Residual block in PyTorch and verify it can process a 32×32 image tensor.'},
+        {t:'Slot 5: Architectural Tradeoffs',c:'Transfer Learning. When should you build a model from scratch vs. fine-tuning a pre-trained ResNet-50? Analyze the cost of data labeling vs. the cost of fine-tuning.'}],
+     tasks:['Implement a custom ResNet Residual block in PyTorch','Visualize feature maps at different CNN layers','Apply torchvision.transforms for data augmentation','Fine-tune a pre-trained ResNet-18 for a custom image task'],
+     practice:'ResNet implementation and transfer learning',project:'Major Project 5: Manual Neural Network Framework',tags:['DL','Projects']},
+
+    {s:[{t:'Sunday Revision',c:'Review CNN mechanics, the backpropagation chain rule logic, and PyTorch tensor operations.'},
+        {t:'Assessment: MNIST CNN from Scratch',c:'Build a 3-layer CNN for MNIST classification from scratch and achieve >98% accuracy, documenting the architecture in a whitepaper.'},
+        {t:'Portfolio: GitHub DL Repository',c:'Update GitHub with deep learning repository structure and a detailed README for the CNN project.'},
+        {t:'Rest: Physical and Mental Recovery',c:'Focus on physical recovery and mental reset.'},
+        {t:'Slot 5: Engineering Thinking',c:'Deployment reasoning. How do you prepare a CNN for an iPhone app? Discuss "Quantization" (converting 32-bit floats to 8-bit integers) and how it affects both speed and accuracy.'}],
+     tasks:['Build a 3-layer CNN for MNIST from scratch achieving >98% accuracy','Update GitHub with deep learning project READMEs','Review backpropagation math','Prepare for sequence models and transformer architectures'],
+     practice:'MNIST CNN from scratch challenge',revision:'Week 5',tags:['Revision']},
+
+    // W6 D36–42
+    {s:[{t:'Slot 1: RNN Basics',c:'Hidden states as memory for sequential data processing. Sub-topics: Backpropagation Through Time (BPTT). Mentor Note: RNNs have "Fish Memory"—understand why they forget long sequences.'},
+        {t:'Slot 2: LSTMs and GRUs',c:'Solving the vanishing gradient in long sequences. Sub-topics: Forget, Input, and Output gates. Read: The difference between Cell state and Hidden state in LSTMs.'},
+        {t:'Slot 3: Time-Series Engineering',c:'Applying recurrent loops to stock or weather forecasting. Focus: Windowing data for many-to-one sequence prediction. Sub-topics: Multi-variate time-series forecasting.'},
+        {t:'Slot 4: Practice — Text Generation',c:'Problem: Generate text that sounds like a specific author. Task: Build a character-level RNN for text generation and train it on a sample of technical logs or author text.'},
+        {t:'Slot 5: Systems Thinking',c:'Sliding Windows. If you are predicting traffic every minute, how do you design an ingestion system that slides a window over a continuous data stream without re-computing embeddings every second?'}],
+     tasks:['Build a character-level RNN for text generation','Implement LSTM-based sentiment analyzer for movie reviews','Compare LSTM vs GRU performance on a text dataset','Apply RNN to a time-series forecasting task'],
+     practice:'Character-level RNN text generation',tags:['DL']},
+
+    {s:[{t:'Slot 1: Tokenization Core',c:'Word embeddings, BPE (Byte-Pair Encoding), and handling vocabularies. Sub-topics: Word2Vec, GloVe, and handling Out-of-Vocabulary (OOV) tokens. Read: Sub-word tokenization vs character tokenization.'},
+        {t:'Slot 2: Attention Mechanism',c:'The Self-Attention mechanism and Query-Key-Value logic. Sub-topics: Scaled Dot-Product Attention. Read: The "Attention is All You Need" paper and the removal of recurrence.'},
+        {t:'Slot 3: Transformer Architectures',c:'Encoder-only (BERT) vs. Decoder-only (GPT) architectures. Sub-topics: Multi-head attention and Positional Encoding. Read: Why transformers scale better than RNNs.'},
+        {t:'Slot 4: Practice — Attention Maps',c:'Problem: How does a Transformer "see" context? Task: Build a simple Attention class and visualize the attention weights for a sentence to see token-to-token dependencies.'},
+        {t:'Slot 5: Latency Optimization',c:'Attention Scaling. Analyze the O(n²) complexity of attention. Why does doubling the context window (e.g. from 4k to 8k) quadruple the compute requirement? Explore "Flash Attention" (2026 standard).'}],
+     tasks:['Build a simple Attention class and visualize attention weights','Manually calculate self-attention score for a 3-word sequence','Count tokens in a document using tiktoken','Explain architectural difference between BERT and GPT from memory'],
+     practice:'Self-attention implementation and visualization',tags:['DL']},
+
+    {s:[{t:'Slot 1: HuggingFace Intro',c:'Tokenizers and pre-trained models for NLP tasks. Sub-topics: AutoModel and AutoTokenizer and model cards. Read: Understanding model configurations and weight initialization.'},
+        {t:'Slot 2: Fine-tuning Strategies',c:'Adapting pre-trained models for sentiment or NER tasks. Focus: Freezing layers vs full fine-tuning; choosing learning rates. Sub-topics: Using the HuggingFace Trainer API.'},
+        {t:'Slot 3: Pipeline API for Production',c:'Using HF pipelines for quick production prototypes. Focus: Implementing sentiment analysis, summarization, and translation in 3 lines of code for high-speed delivery.'},
+        {t:'Slot 4: Practice — DistilBERT Tuning',c:'Problem: Standard BERT is too large for edge inference. Task: Fine-tune DistilBERT for movie review classification using the HuggingFace Trainer API and evaluate performance.'},
+        {t:'Slot 5: Deployment Reasoning',c:'Model Distillation. Discuss the tradeoff between using a massive GPT-4 size model (high cost, high accuracy) vs a "Distilled" model that is 10x smaller but captures 95% of the performance.'}],
+     tasks:['Fine-tune DistilBERT for movie review classification with HF Trainer','Use HuggingFace pipeline for sentiment and summarization in 3 lines','Freeze backbone layers and fine-tune only the head','Compare full fine-tuning vs feature extraction performance'],
+     practice:'DistilBERT fine-tuning with HuggingFace',tags:['DL']},
+
+    {s:[{t:'Slot 1: Object Detection — YOLO26',c:'YOLOv11 and YOLO26 mechanics for edge AI. Sub-topics: Anchor-free detection and NMS-free decoding. Read: Performance gains of YOLO26-N on CPU and constrained hardware.'},
+        {t:'Slot 2: Bounding Boxes & mAP',c:'IoU (Intersection over Union) and NMS (Non-Maximum Suppression) logic. Sub-topics: Mean Average Precision (mAP) calculation. Read: How YOLO frames detection as a regression problem.'},
+        {t:'Slot 3: Edge Vision Infrastructure',c:'Latency requirements for real-time systems. Focus: Balancing accuracy vs. inference speed (FPS) for deployment on mobile or IoT devices. Sub-topics: Quantization basics.'},
+        {t:'Slot 4: Practice — YOLO Inference Benchmark',c:'Problem: Real-time monitoring needs latency under 50ms. Task: Run a pre-trained YOLO26-N model on sample images and benchmark the inference time in milliseconds.'},
+        {t:'Slot 5: Systems Thinking',c:'Frame Rate vs Latency. If your camera gives you 60 frames per second but your model takes 100ms to run (10 FPS), how do you handle the 50 "dropped" frames? Analyze "Event-Driven" vision systems.'}],
+     tasks:['Run YOLO26-N on sample images and benchmark inference time','Implement IoU calculation for bounding box evaluation','Compare YOLO26 vs YOLO11 vs YOLOv8 on speed and accuracy','Visualize detection results with bounding box overlays'],
+     practice:'YOLO26 inference benchmarking',tags:['DL']},
+
+    {s:[{t:'Slot 1: Image Segmentation — U-Net & Mask R-CNN',c:'U-Net and Mask R-CNN for pixel-level tasks. Sub-topics: Semantic vs. Instance segmentation. Read: Encoder-Decoder skip-connections and their role in preserving spatial detail.'},
+        {t:'Slot 2: Medical/Bio Imaging',c:'Applying segmentation to scans and biological data. Focus: Pixel-level classification of tumors vs. normal tissue. Sub-topics: Dice coefficient as an evaluation metric.'},
+        {t:'Slot 3: Vision Observability Pipelines',c:'Pre-processing high-res imagery for model input. Sub-topics: Tiling, resizing, and normalization for multi-gigabyte pathology slides. Read: Handling massive image files.'},
+        {t:'Slot 4: Practice — Segment & Visualize',c:'Problem: We need to precisely map object boundaries. Task: Load a pre-trained U-Net model and visualize its prediction mask over a sample medical image using Matplotlib.'},
+        {t:'Slot 5: Infrastructure Reliability',c:'Data Tiling. Analyze why you cannot feed a 100,000×100,000 pixel medical scan into a GPU at once. Discuss the engineering of "Tiling" and "Stitching" to process images in chunks.'}],
+     tasks:['Load a pre-trained U-Net and visualize segmentation mask on medical image','Compare semantic vs instance segmentation outputs','Build a vision preprocessing pipeline for high-res images','Evaluate segmentation quality using Dice score'],
+     practice:'U-Net segmentation and medical imaging',tags:['DL']},
+
+    {s:[{t:'Slot 1: Advanced Optimization — LR Scheduling',c:'LR scheduling and early stopping strategies. Sub-topics: Cosine Annealing, warm restarts, and the "Reduce LR on Plateau" strategy. Read: Avoiding local minima in late-stage training.'},
+        {t:'Slot 2: Model Debugging & Tracing',c:'Using TensorBoard/W&B to visualize learning. Focus: Tracking gradients to detect vanishing gradients early and auditing the loss curve for over-training.'},
+        {t:'Slot 3: Transfer Learning 2.0',c:'Fine-tuning ResNet for specialized vision tasks. Sub-topics: Feature extraction vs. full fine-tuning. Read: Why ImageNet weights are powerful for unrelated domains.'},
+        {t:'Slot 4: Practice — Scheduler Logic',c:'Problem: Static learning rates lead to poor convergence. Task: Implement a Cosine Annealing scheduler in PyTorch and plot the LR change over 100 epochs.'},
+        {t:'Slot 5: Cost Optimization',c:'Checkpointing. If your cloud training instance crashes after 20 hours, do you lose all work? Discuss the engineering of "Checkpointing" to S3/GCS every epoch to ensure "Resilient Training."'}],
+     tasks:['Implement Cosine Annealing scheduler and plot LR over 100 epochs','Integrate W&B to log training metrics','Fine-tune ResNet with a custom classification head','Compare static LR vs scheduled LR convergence'],
+     practice:'LR scheduling and TensorBoard monitoring',project:'Major Project 6: Real-Time Traffic Analysis System (YOLO26)',tags:['DL','Projects']},
+
+    {s:[{t:'Sunday Revision',c:'Review Attention vs. Recurrence strengths and the mechanics of YOLO26 object detection.'},
+        {t:'Assessment: LSTM vs GRU',c:'Compare performance of LSTM vs. GRU on a text classification dataset and report findings.'},
+        {t:'Portfolio: DL GitHub Update',c:'Update DL projects on GitHub with visuals, including a GIF of the YOLO26 model in action.'},
+        {t:'Rest: Prepare for Generative AI Phase',c:'Focus on physical recovery and mental reset.'},
+        {t:'Slot 5: Career Mastery',c:'Practice the "Transformer Internal" interview question. "Explain the difference between a Cross-Encoder and a Bi-Encoder in a production RAG system."'}],
+     tasks:['Compare LSTM vs GRU on a text dataset with full metrics','Update GitHub with DL project READMEs and diagrams','Explain transformer self-attention mechanism from memory','Review multi-head attention and positional encoding'],
+     practice:'LSTM vs GRU benchmark experiment',revision:'Week 6',tags:['Revision']},
+
+    // W7 D43–49
+    {s:[{t:'Slot 1: Frontier Models 2026',c:'Hierarchy of GPT-5, Claude 4, and Llama 4. Sub-topics: Context window limits, proprietary vs. open-weights, and model quantization. Read: Role of DeepSeek in production.'},
+        {t:'Slot 2: Prompting 101',c:'Zero-shot vs. Few-shot example selection logic. Sub-topics: Dynamic few-shot selection. Read: The "Lost in the Middle" phenomenon and why position matters in long prompts.'},
+        {t:'Slot 3: Embedding Logic',c:'Transforming text into high-dimensional vectors. Sub-topics: Dense vs. Sparse embeddings (BM25 vs. Vectors). Read: Comparing OpenAI embeddings vs. open-source encoders like BGE.'},
+        {t:'Slot 4: Practice — Model Comparison',c:'Problem: Different models have different reasoning strengths. Task: Compare two models (e.g., Llama 3.1 vs GPT-4o) on a complex logical reasoning task and measure token latency.'},
+        {t:'Slot 5: Cost Optimization',c:'Token Budgets. Analyze the cost of a 100k token context window. Learn to calculate "Price per Token" across different providers and when to route a query to a "Small Language Model" (SLM) to save 90% of cost.'}],
+     tasks:['Compare Llama vs GPT on a complex reasoning task and measure latency','Calculate token cost for a typical RAG query across providers','Benchmark latency across 2-3 LLM providers','Evaluate Mistral or DeepSeek via local Ollama inference'],
+     practice:'LLM API comparison and cost benchmarking',tags:['GenAI']},
+
+    {s:[{t:'Slot 1: Reasoning Paths — Chain-of-Thought',c:'Chain-of-Thought (CoT) and Self-Consistency to improve model reasoning logic. Sub-topics: Encouraging the model to "think out loud" before answering. Read: System Persona definitions.'},
+        {t:'Slot 2: Structured Formatting',c:'Steering models to output valid JSON for downstream APIs using Pydantic or Guardrails. Focus: Strict validation of model outputs and error handling for malformed JSON.'},
+        {t:'Slot 3: Vector DB Architecture',c:'Pinecone, Weaviate, and ChromaDB mechanics. Sub-topics: HNSW index construction and metadata filtering. Read: Speed vs accuracy trade-offs in ANN search.'},
+        {t:'Slot 4: Practice — Structured Extraction',c:'Problem: Unstructured text needs processing. Task: Write a prompt that extracts names, dates, and entities from a news article in a strictly valid JSON format using Pydantic.'},
+        {t:'Slot 5: System Design',c:'Vector DB Scaling. Discuss why we use "HNSW" (Hierarchical Navigable Small World) for search. Analyze the engineering complexity of sharding a vector database when it grows to 1 billion embeddings.'}],
+     tasks:['Write a few-shot prompt extracting structured data from a news article into JSON','Implement Chain-of-Thought prompting for a math reasoning task','Create a system prompt persona for a coding assistant with security guidelines','Compare zero-shot vs few-shot performance on a structured extraction task'],
+     practice:'Advanced prompt engineering for structured output',tags:['GenAI']},
+
+    {s:[{t:'Slot 1: RAG Logic & The Triad',c:'The full User→Embed→Search→Inject→Generate loop. Sub-topics: RAG vs. simple prompt injection. Read: The "RAG Triad" (Context Relevance, Answer Faithfulness, Answer Relevance).'},
+        {t:'Slot 2: Data Chunking Strategy',c:'Strategy for splitting long docs (fixed-size vs. semantic). Sub-topics: Recursive character splitting vs. sentence-level splitting. Read: Impact of chunk size on RAG performance.'},
+        {t:'Slot 3: Similarity Metrics',c:'Euclidean distance vs. Cosine similarity. Focus: Why Cosine similarity is preferred for normalized embeddings and the impact of the "Curse of Dimensionality" on vector search.'},
+        {t:'Slot 4: Practice — Local Vector Store',c:'Problem: Finding similar sentences in a large file is slow. Task: Create and query a local vector store with ChromaDB for the top-k similar sentences using a sample text file.'},
+        {t:'Slot 5: Observability Pipeline',c:'RAG Tracing. How do you find which chunk caused a bad answer? Discuss the engineering of "Retrieval Tracing" to log which exact document was injected into the prompt.'}],
+     tasks:['Create and query a local ChromaDB vector store for semantic search','Compare cosine vs Euclidean similarity for retrieval','Use MTEB leaderboard to find best embedding model for a domain','Implement metadata filtering in ChromaDB queries'],
+     practice:'Semantic search with ChromaDB',tags:['GenAI']},
+
+    {s:[{t:'Slot 1: Retrieval Tuning',c:'Implementing query expansion and cross-encoder re-ranking. Read: Why vector search alone often fails on domain-specific keywords and how re-ranking fixes it.'},
+        {t:'Slot 2: Advanced RAG — Multi-modal',c:'Handling multi-modal retrieval (images + text). Sub-topics: CLIP embeddings and multi-modal vector search. Read: Building RAG for manuals containing diagrams.'},
+        {t:'Slot 3: Metadata Filtering',c:'Improving search relevance via structured queries. Focus: Filtering by "Date", "Source", or "User Role" during vector search to restrict the search space for enterprise security.'},
+        {t:'Slot 4: Practice — Semantic Chunker',c:'Problem: Fixed-size chunks break sentences in half. Task: Implement a semantic chunker in Python that splits text based on sentence similarity thresholds rather than character count.'},
+        {t:'Slot 5: Security & Governance',c:'Access Control (RBAC). Discuss the engineering of "Security-First RAG." How do you ensure a user only retrieves documents they have permission to see? Analyze metadata-based access filtering.'}],
+     tasks:['Implement semantic chunker that splits on sentence similarity thresholds','Compare 200-token vs 500-token chunks for retrieval accuracy on same query','Add metadata filtering to ChromaDB queries','Test different overlap percentages (0%, 10%, 20%) and measure recall'],
+     practice:'Semantic chunking and retrieval optimization',tags:['GenAI']},
+
+    {s:[{t:'Slot 1: LLM Orchestration',c:'Intro to LangChain and LlamaIndex for orchestration. Sub-topics: LangChain Expression Language (LCEL) and custom chains. Read: Chaining components vs. autonomous loops.'},
+        {t:'Slot 2: Evaluation Frameworks — RAGAS',c:'Using RAGAS for automated faithfulness scoring. Sub-topics: Faithfulness vs. Relevancy metrics. Read: Production thresholds and automated quality gates for RAG.'},
+        {t:'Slot 3: Context Management',c:'Overlap and context window optimization. Focus: Using 10-15% overlap to ensure context preservation. Sub-topics: "Sentence window retrieval" to expand context.'},
+        {t:'Slot 4: Practice — Basic RAG App',c:'Problem: A model doesn\'t know about private files. Task: Build a basic RAG pipeline for a set of text files using LangChain and evaluate its responses using the RAGAS framework.'},
+        {t:'Slot 5: Latency Optimization',c:'Caching. Discuss "Semantic Caching." If two users ask the same question, how do you serve the answer from a cache instead of running the expensive LLM again? Analyze Redis-based AI caches.'}],
+     tasks:['Build a basic RAG pipeline and evaluate with RAGAS on 5 queries','Implement the "negative test" — ask a question not in context','Add source citation to RAG responses','Compare LangChain vs LlamaIndex for orchestration'],
+     practice:'End-to-end RAG pipeline with RAGAS evaluation',tags:['GenAI']},
+
+    {s:[{t:'Slot 1: AI Security — Prompt Injection',c:'Direct/Indirect injection attacks. Sub-topics: Overriding system instructions via user input. Read: The 2026 OWASP Top 10 for LLM Applications.'},
+        {t:'Slot 2: Jailbreak Defense',c:'Building guardrails to prevent jailbreaks (e.g. "Do Anything Now" prompts). Focus: Input sanitization and system prompt hardening. Read: Defense-in-depth for GenAI.'},
+        {t:'Slot 3: Hallucination Checks',c:'Measuring groundedness against context. Focus: Verifying that every claim in the response exists in the context. Read: Using LLMs as judges to evaluate other LLMs.'},
+        {t:'Slot 4: Practice — Re-Ranking Layer',c:'Problem: The top-3 retrieved chunks are often irrelevant. Task: Implement a re-ranking layer (e.g. using Cohere or BGE) in a retrieval pipeline to improve context precision scores.'},
+        {t:'Slot 5: Security & Governance',c:'Secure APIs. Discuss the engineering of an "AI Gateway." How do you rate-limit users and sanitize inputs before they hit your expensive LLM API?'}],
+     tasks:['Implement a re-ranking layer with Cohere or BGE in retrieval pipeline','Add query expansion to improve retrieval recall','Build a hallucination detection check into the pipeline','Evaluate retrieval with and without reranking using RAGAS'],
+     practice:'Advanced RAG with reranking and hallucination checks',project:'Major Project 7: Enterprise RAG Documentation Assistant',tags:['GenAI','Projects']},
+
+    {s:[{t:'Sunday Revision',c:'Review Prompt templates, chunking strategies, and the RAG loop components.'},
+        {t:'Assessment: Medical RAG Design',c:'Design a complete RAG pipeline for a complex medical dataset, documenting chunking and retrieval choices in a technical whitepaper.'},
+        {t:'Portfolio: RAG GitHub Update',c:'Update GitHub with a RAG project, including a detailed architecture diagram of the ingestion and retrieval flow.'},
+        {t:'Rest: Prepare for Week 8 Agents',c:'Focus on physical recovery and mental reset.'},
+        {t:'Slot 5: Engineering Thinking',c:'Deployment reasoning. Distributed Inference. Discuss "Load Balancing" across multiple LLM providers (OpenAI + Claude). If OpenAI is down, how does your system automatically route traffic to Anthropic?'}],
+     tasks:['Design a RAG pipeline for a medical dataset on paper','Update GitHub with RAG project README and architecture diagram','Review chunking trade-offs and retrieval metrics','Explore OpenAI Cookbook for advanced RAG recipes'],
+     practice:'RAG system design sprint',revision:'Week 7',tags:['Revision']},
+
+    // W8 D50–56
+    {s:[{t:'Slot 1: Agentic AI Fundamentals — ReAct',c:'The Reasoning-Action Loop (ReAct) mechanics. Sub-topics: Thought/Action/Observation cycles. Read: Difference between simple chains and autonomous agents.'},
+        {t:'Slot 2: Planning & Reasoning',c:'Goal decomposition and environmental awareness. Sub-topics: Zero-shot planning vs. iterative refinement. Read: LLM-Compiler patterns for optimizing tool usage.'},
+        {t:'Slot 3: Memory Systems via LangGraph',c:'Persistent, stateful agent sessions via LangGraph. Sub-topics: Short-term vs. Long-term memory. Read: State management in cyclic graphs and handling conversation forks.'},
+        {t:'Slot 4: Practice — ReAct Trace',c:'Problem: We need to see how an agent reasons through a complex query. Task: Manually trace a ReAct loop for a task like "Plan a trip given a $2k budget and flight constraints".'},
+        {t:'Slot 5: Systems Thinking',c:'Infinite Loops. Analyze how an autonomous agent can get stuck in a "Reasoning Loop" (trying the same failed tool call 100 times). Discuss the engineering of "Max Iteration" safety gates.'}],
+     tasks:['Manually trace a ReAct loop for a complex multi-step task','Sketch a state machine for a research agent in LangGraph','Set up a basic LangGraph agent with tool calling','Implement a simple agent that can search and summarize'],
+     practice:'ReAct agent manual tracing and implementation',tags:['GenAI']},
+
+    {s:[{t:'Slot 1: Multi-Agent Systems — CrewAI',c:'Using CrewAI for role-based collaboration. Sub-topics: Task delegation and role definitions. Read: The "Manager Agent" pattern vs. decentralized collaboration.'},
+        {t:'Slot 2: Society of Agents',c:'Researcher, Writer, and Evaluator dynamics. Focus: How specialized agents with distinct prompts outperform general ones. Read: Role-playing in multi-agent loops.'},
+        {t:'Slot 3: Agent Communication & Handoffs',c:'Handling agent handoffs and shared tool use. Focus: Managing the shared context window and preventing "forgetfulness" in long interactions.'},
+        {t:'Slot 4: Practice — Collaborative Blog',c:'Problem: A single agent writes repetitive content. Task: Set up a CrewAI workflow where a "Researcher" finds data and a "Writer" summarizes it into a post.'},
+        {t:'Slot 5: System Design',c:'Multi-Agent Orchestration. Discuss "Hierarchical vs Blackboard" patterns. When should a manager agent delegate vs when should agents react to a shared workspace?'}],
+     tasks:['Set up CrewAI workflow with Researcher and Writer agents','Implement agent handoffs between specialized roles','Build shared tool access for a multi-agent system','Test multi-agent system on a real research task'],
+     practice:'Multi-agent CrewAI system',tags:['GenAI']},
+
+    {s:[{t:'Slot 1: Fine-tuning LLMs — When and Why',c:'Identifying when to fine-tune vs. use RAG. Sub-topics: Style transfer, domain adaptation, and instruction tuning. Mentor Note: Fine-tune for style, RAG for facts.'},
+        {t:'Slot 2: Parameter Efficiency — LoRA & QLoRA',c:'LoRA & QLoRA: Low-rank adaptation for cost-efficient tuning. Read: Tuning 7B models on consumer GPUs using quantization.'},
+        {t:'Slot 3: Datasets for Fine-tuning',c:'Preparing JSONL instruction-tuning data from logs. Focus: Quality over quantity; identifying "Golden Sets" for tuning. Read: Synthetic data generation.'},
+        {t:'Slot 4: Practice — Intent Dataset Prep',c:'Problem: A model needs to follow a specific formatting style. Task: Prepare a fine-tuning dataset for intent classification using the JSONL format and verify it with a tokenizer.'},
+        {t:'Slot 5: Cost Optimization',c:'Tuning vs RAG. Analyze the ROI of fine-tuning a model for $10,000 vs the ongoing cost of RAG retrieval. Discuss the "Break-even" point where tuning becomes cheaper at scale.'}],
+     tasks:['Prepare JSONL instruction-tuning dataset for intent classification','Identify 3 scenarios where fine-tuning beats RAG','Research LoRA mathematical intuition (low-rank matrices)','Write a skeleton fine-tuning script using HuggingFace SFTTrainer'],
+     practice:'Fine-tuning dataset preparation and LoRA study',tags:['GenAI']},
+
+    {s:[{t:'Slot 1: Self-Healing Agents — Reflexion Pattern',c:'Error recovery via reflection and verbal critique. Sub-topics: The "Reflexion" pattern. Read: Building resilient systems that can correct their own code errors.'},
+        {t:'Slot 2: Agent Failure Modes',c:'Handling API timeouts and noisy tool outputs. Sub-topics: Distinguishing transient vs. permanent errors. Read: Implementing fallback models for critical steps.'},
+        {t:'Slot 3: Agentic Infrastructure — Exception Passing',c:'Passing exceptions back to the reasoning brain. Focus: Using try-except to feed error messages back to the agent\'s "Thought" step for re-planning.'},
+        {t:'Slot 4: Practice — Self-Correct Agent',c:'Problem: LLM generates invalid code. Task: Build an agent that reflects on its own Python syntax errors and automatically reprompts itself for a fix.'},
+        {t:'Slot 5: Infrastructure Reliability',c:'Resilience Engineering. Discuss "Timeout Cascades." If an agent calls a tool that calls another API, how do you prevent a single slow API from taking down the entire multi-agent system?'}],
+     tasks:['Build an agent that reflects on Python syntax errors and self-corrects','Implement error recovery with exponential backoff for API timeouts','Test agent behavior under various failure modes','Add try-except error passing back to the agent Thought step'],
+     practice:'Self-healing agent with reflection loop',tags:['GenAI']},
+
+    {s:[{t:'Slot 1: Human-in-the-Loop',c:'Building approval gates for high-risk actions. Sub-topics: "Interrupt" nodes in LangGraph. Read: Governance and safety in agentic systems.'},
+        {t:'Slot 2: Agency Control & Boundaries',c:'Setting permission boundaries and rate limits. Focus: Restricting agent access to destructive tools (e.g. DELETE). Read: Sandboxed tool execution.'},
+        {t:'Slot 3: Agent Observability with LangSmith',c:'Tracing agent steps with LangSmith or Phoenix. Focus: Visualizing the execution trace of multi-turn interactions to identify reasoning failures.'},
+        {t:'Slot 4: Practice — Approval Node',c:'Problem: Agents should not delete data without a human. Task: Add a human approval node to a LangGraph workflow that pauses execution for a CLI "Yes/No".'},
+        {t:'Slot 5: Governance',c:'Audit Logging. Discuss the engineering of an "Audit Trail." In 2026, every decision an autonomous agent makes must be logged for legal compliance. How do you store 1 million "Thoughts" efficiently?'}],
+     tasks:['Add a human approval node to a LangGraph workflow','Set permission boundaries restricting agent to READ-ONLY SQL','Integrate LangSmith tracing for multi-turn agent observability','Build a rate limiter for agent API calls'],
+     practice:'Human-in-the-loop agent with approval gates',tags:['GenAI']},
+
+    {s:[{t:'Slot 1: Agent Deployment — Streaming',c:'Hosting agentic services with streaming responses. Sub-topics: Server-Sent Events (SSE) and managing stateful connections. Read: Latency challenges in complex multi-agent loops.'},
+        {t:'Slot 2: Agentic Webhooks',c:'Connecting agents to external event streams. Focus: Triggering agents based on Slack, GitHub, or Email events. Read: Proactive agents that monitor data.'},
+        {t:'Slot 3: Agent Security — Prompt Injection Defense',c:'Defending against prompt injection in multi-agent loops. Focus: Sanitizing tool inputs derived from LLM outputs to prevent indirect injection attacks.'},
+        {t:'Slot 4: Practice — Stream Agent',c:'Problem: Users experience "hang" while an agent thinks. Task: Deploy an agent with a FastAPI streaming endpoint that shows the agent\'s progress in real-time.'},
+        {t:'Slot 5: Architectural Tradeoffs',c:'Stateful vs Stateless. Analyze why stateful agents (LangGraph) are harder to scale than stateless chains. Discuss the engineering of "Session Stickiness" in a load-balanced environment.'}],
+     tasks:['Deploy an agent with FastAPI streaming endpoint','Connect an agent to a Slack webhook event','Attempt prompt injection and implement sanitization fix','Test streaming agent with real users for latency improvement'],
+     practice:'Streaming agent deployment with prompt injection defense',project:'Major Project 8: Self-Healing Research Agent',tags:['GenAI','Projects']},
+
+    {s:[{t:'Sunday Revision',c:'Review LangGraph states, ReAct logic, and the difference between multi-agent and single-agent workflows.'},
+        {t:'Assessment: Research Agent State Machine',c:'Design the complete state machine for a deep research agent using LangGraph, including error states and reflection cycles.'},
+        {t:'Portfolio: Agent Project Update',c:'Update GitHub with an Agent project, including a demo video of the ReAct cycle and a technical architecture diagram.'},
+        {t:'Rest: Prepare for Phase 5 MLOps',c:'Focus on physical recovery and mental reset.'},
+        {t:'Slot 5: Engineering Thinking',c:'Scaling Strategy. Multi-Agent Queuing. If 1,000 users start 1,000 agents simultaneously, how do you queue those reasoning tasks to avoid hitting LLM API rate limits?'}],
+     tasks:['Design the complete state machine for a research agent','Update GitHub with agent project README','Review LangGraph state management concepts','Fine-tune TinyLlama on a personal dataset as a stretch goal'],
+     practice:'Agent state machine design sprint',revision:'Week 8',tags:['Revision']},
+
+    // W9 D57–63
+    {s:[{t:'Slot 1: Docker Mastery — Multi-Stage Builds',c:'Multi-stage builds for PyTorch and Python. Sub-topics: Minimizing layers and using slim bases. Mentor Note: Production images should not contain build tools.'},
+        {t:'Slot 2: Optimized Images',c:'Reducing image size for faster deployment. Focus: Caching dependencies separately from model weights. Read: Using multi-stage builds to exclude build-time compilers.'},
+        {t:'Slot 3: Registries & Versioning',c:'Managing images via Google Artifact Registry. Focus: Tagging strategies (e.g. latest vs commit-sha). Read: Ensuring image pull security in enterprise clouds.'},
+        {t:'Slot 4: Practice — Build Optimization',c:'Problem: A 4GB Docker image takes too long to deploy. Task: Refactor a model API Dockerfile into a multi-stage build and reduce its size by at least 50% using slim bases.'},
+        {t:'Slot 5: Cost Optimization',c:'Egress Costs. Analyze how pulling a 4GB image to 1,000 nodes in a cluster impacts your cloud bill. Learn why "Image Bloat" is a financial engineering problem.'}],
+     tasks:['Refactor Dockerfile into multi-stage build and reduce size by 50%','Push container image to AWS ECR or Google Artifact Registry','Verify GPU access inside the container with a test script','Implement layer caching strategy for faster builds'],
+     practice:'Docker multi-stage build optimization',tags:['MLOps']},
+
+    {s:[{t:'Slot 1: CI/CD for Machine Learning',c:'Automated testing and deployment pipelines. Sub-topics: Running unit tests in GitHub Actions. Read: Continuous Integration for ML (CIML) principles.'},
+        {t:'Slot 2: GitHub Actions Automation',c:'Scripting the build-test-push workflow. Focus: Triggering builds on branch merges and using secrets for API keys. Read: Automating the full Docker cycle.'},
+        {t:'Slot 3: Infrastructure Security — Image Scanning',c:'Scanning images for vulnerabilities before push. Focus: Using tools like Trivy for CVE detection. Read: Hardening images for secure enterprise deployment.'},
+        {t:'Slot 4: Practice — CI Setup',c:'Problem: Bad code is pushed to production. Task: Set up a GitHub Action for an ML repository that runs pytest and builds the Docker image on every push.'},
+        {t:'Slot 5: Fault Tolerance',c:'Deployment Gates. Discuss "Canary Releases." How do you route 1% of traffic to a new model to verify it doesn\'t crash before rolling it out to 100% of users?'}],
+     tasks:['Set up GitHub Action running pytest and building Docker on every push','Integrate Trivy to scan Docker images for CVEs','Configure build secrets for API keys in GitHub Actions','Add model performance gate to CI pipeline'],
+     practice:'CI/CD pipeline for ML with security scanning',tags:['MLOps']},
+
+    {s:[{t:'Slot 1: Kubernetes Basics',c:'Pods, Deployments, and Service types. Sub-topics: ConfigMaps and Secrets. Read: Understanding the K8s architecture and its role in scaling AI workloads.'},
+        {t:'Slot 2: Scaling — HPA',c:'Horizontal Pod Autoscaling (HPA) for inference peaks. Sub-topics: Scaling based on CPU/Memory vs custom metrics like token latency. Read: Autoscaling models in 2026.'},
+        {t:'Slot 3: Managed K8s — EKS & GKE',c:'Working with managed clusters in 2026. Focus: GPU-enabled node pools and optimized utilization. Read: Scheduling GPU workloads efficiently.'},
+        {t:'Slot 4: Practice — Scale Deploy',c:'Problem: An API crashes under load. Task: Use kubectl to deploy a model to a local minikube cluster and scale it to 3 replicas manually.'},
+        {t:'Slot 5: GPU Efficiency',c:'Bin Packing. Analyze how Kubernetes schedules 4 small models onto 1 GPU to maximize utilization. Discuss the engineering of "Resource Quotas" for AI teams.'}],
+     tasks:['Deploy a model to minikube cluster and scale to 3 replicas','Configure Horizontal Pod Autoscaling for inference peaks','Write a complete Kubernetes Deployment manifest','Test autoscaling behavior under simulated load'],
+     practice:'Kubernetes deployment and autoscaling',tags:['MLOps']},
+
+    {s:[{t:'Slot 1: MLflow Experiment Tracking',c:'Experiment tracking and dataset versioning. Sub-topics: Tracking parameters and saving artifacts. Read: Managing the model lifecycle from "Staging" to "Prod".'},
+        {t:'Slot 2: Model Registry — Staging to Production',c:'Managing model versions from Staging to Prod. Focus: Promoting versions based on performance gates. Read: Version control for model weights and binary artifacts.'},
+        {t:'Slot 3: Data Version Control — DVC',c:'Using DVC to track dataset lineage. Sub-topics: dvc remote and tracking large files in Git. Read: Reproducibility with DVC snapshots.'},
+        {t:'Slot 4: Practice — Experiment Log',c:'Problem: We can\'t remember which params were best. Task: Log a training run to MLflow with parameters and register the resulting model version.'},
+        {t:'Slot 5: Governance',c:'Model Provenance. Discuss why you must be able to prove exactly which version of data was used to train a model in production. Analyze the legal risk of "Unverifiable" AI.'}],
+     tasks:['Log 10 training runs to MLflow with different hyperparameters','Promote a model from Staging to Production in MLflow registry','Use DVC to track a local dataset and push to remote storage','Set up W&B to track gradients and weight distributions'],
+     practice:'Experiment tracking with MLflow and W&B',tags:['MLOps']},
+
+    {s:[{t:'Slot 1: Monitoring Silent Failures',c:'Detecting data drift and performance decay. Sub-topics: Feature drift and conceptual shift. Read: Identifying silent failures in production model predictions.'},
+        {t:'Slot 2: Drift Detection Tools — Evidently AI',c:'Using Evidently AI for automated drift reports. Sub-topics: Comparing production vs. training distributions. Read: Statistical tests for drift detection.'},
+        {t:'Slot 3: Observability Pipelines — Prometheus & Grafana',c:'Integrating Prometheus and Grafana for system health. Focus: Visualizing latency, throughput, and error rates. Read: Setting up alerting thresholds.'},
+        {t:'Slot 4: Practice — Drift Report',c:'Problem: Model accuracy is dropping over time. Task: Generate a data drift report for two dataset versions and identify the feature that drifted most.'},
+        {t:'Slot 5: Systems Thinking',c:'Feedback Loops. Discuss how your model\'s predictions can change user behavior, which in turn changes the data coming in (Selection Bias). How do you detect this "Predictive Loop"?'}],
+     tasks:['Generate a data drift report for two dataset versions with Evidently AI','Set up a Grafana dashboard for model latency monitoring','Configure Prometheus to scrape metrics from FastAPI model','Build an alerting rule for when drift exceeds threshold'],
+     practice:'Production monitoring with Evidently + Grafana',tags:['MLOps']},
+
+    {s:[{t:'Slot 1: LLMOps & RAGOps',c:'Monitoring hallucinations and token latency. Sub-topics: Token-per-second (TPS) metrics. Read: Benchmarking LLM serving infra for production response times.'},
+        {t:'Slot 2: AI Cost Engineering',c:'GPU costs and spot instance logic. Focus: Comparing cost-per-inference on A100 vs. serverless providers. Read: Budgeting for billion-parameter model inference.'},
+        {t:'Slot 3: Hallucination Alerts',c:'Setting up automated RAGAS production gates. Focus: Triggering alerts when average "Faithfulness" drops below a specific threshold (e.g. 0.75).'},
+        {t:'Slot 4: Practice — Ops Dashboard',c:'Problem: We don\'t know the quality of live RAG. Task: Build a dashboard (e.g. in Streamlit) for LLM performance metrics showing latency and estimated cost.'},
+        {t:'Slot 5: Cost Optimization',c:'Model Routing. Analyze the logic of a "Router." If a user\'s question is "Hello," route to a cheap $0.01 model. If it\'s "Write code," route to an expensive $1.00 model. How much does this save?'}],
+     tasks:['Build a Streamlit dashboard for LLM latency and cost tracking','Set up RAGAS production gates with alerts when Faithfulness < 0.75','Calculate cost difference: A100 GPU vs serverless for 1M requests/month','Configure PII detection for LLM responses'],
+     practice:'LLMOps cost and hallucination monitoring dashboard',project:'Major Project 9: Automated Retraining Pipeline',tags:['MLOps','Projects']},
+
+    {s:[{t:'Sunday Revision',c:'Review Docker, Kubernetes, and MLflow integration for model lifecycle management.'},
+        {t:'Assessment: Local K8s Deployment',c:'Deploy a simple model service to a local K8s cluster (Minikube) and verify service accessibility via service URL.'},
+        {t:'Portfolio: MLOps Config Files',c:'Update GitHub with Week 9 configuration files, including YAML manifests and multi-stage Dockerfiles.'},
+        {t:'Rest: Prepare for Capstone',c:'Focus on physical recovery and mental reset.'},
+        {t:'Slot 5: Engineering Thinking',c:'Deployment reasoning. Serverless AI. When should you use AWS Lambda for AI vs a full Kubernetes cluster? Analyze the "Cold Start" problem in serverless GPU functions.'}],
+     tasks:['Deploy a model to local K8s cluster as a timed challenge','Update GitHub with Dockerfiles and K8s manifests','Review CI/CD vs Continuous Training concepts','Explore the MLOps Roadmap GitHub repository'],
+     practice:'Production architecture whiteboard challenge',revision:'Week 9',tags:['Revision']},
+
+    // W10 D64–70
+    {s:[{t:'Slot 1: Capstone Scoping — Security Auditing Agent',c:'Defining the "Self-Healing AI Agent for Security Auditing". Focus: Identifying target LLM application and mapping the multi-agent RAG workflow.'},
+        {t:'Slot 2: Security Architecture — Defense Layers',c:'Mapping defense layers (Input, Model, Output). Sub-topics: Defining the sandbox environment and tool permission boundaries. Read: OWASP Top 10 for LLMs.'},
+        {t:'Slot 3: Agentic Tech Stack',c:'Finalizing LangGraph, Vector DB, and MLOps tools. Deciding between local-embedded vs. API-based models for auditing.'},
+        {t:'Slot 4: Practice — Architecture Diagram',c:'Problem: Security layers are hard to track. Task: Create the technical architecture diagram showcasing the auditing and security defense layers.'},
+        {t:'Slot 5: System Design',c:'AI Security. Discuss "Insecure Output Handling." If your model generates a SQL query, how do you prevent it from executing a "DROP TABLE" command? Analyze the "Sandbox" pattern.'}],
+     tasks:['Create technical architecture diagram for security auditing capstone','Define success metrics (latency, RAGAS score, error rate, attack coverage)','Set up project repository with proper structure','Finalize technology choices for each component'],
+     practice:'Capstone scoping and architecture design',tags:['MLOps','Projects']},
+
+    {s:[{t:'Slot 1: Knowledge Base Ingestion Pipeline',c:'Building the knowledge base ingestion pipeline. Focus: Sourcing technical documents for the RAG knowledge base.'},
+        {t:'Slot 2: Embedding Mastery',c:'Generating and storing vectors in a production DB (e.g. Pinecone). Sub-topics: Metadata tagging for source audit trails.'},
+        {t:'Slot 3: RAG Quality Gate — Semantic Chunking',c:'Implementing semantic chunking for complex docs. Focus: Verifying retrieval recall (>0.80) using sample security queries.'},
+        {t:'Slot 4: Practice — Retrieval Recall',c:'Problem: Relevant security docs aren\'t found. Task: Successfully index 50+ docs and verify that retrieval recall meets threshold.'},
+        {t:'Slot 5: Latency Optimization',c:'Distributed Inference. Analyze the latency impact of your RAG pipeline. If retrieval takes 500ms and generation takes 2s, how do you optimize to hit a 1s P99 latency target?'}],
+     tasks:['Index 50+ security docs into ChromaDB and verify retrieval recall >0.80','Implement semantic chunking for complex technical docs','Generate and store embedding vectors with domain-appropriate model','Verify retrieval precision on 10 edge-case security queries'],
+     practice:'Document ingestion and retrieval verification',tags:['MLOps','GenAI']},
+
+    {s:[{t:'Slot 1: Reasoning Loop Core — ReAct',c:'Building the ReAct core and tool definitions. Focus: Implementing Thought/Action/Observation cycles for auditing tasks.'},
+        {t:'Slot 2: Tool Mastery — Red-Teaming',c:'Connecting the agent to search and SQL tools. Sub-topics: Creating custom tools for attacking LLM endpoints.'},
+        {t:'Slot 3: Error Catching & Safety',c:'Implementing reflection and error catchers. Focus: Ensuring the agent can recover from tool timeouts or malformed outputs.'},
+        {t:'Slot 4: Practice — Reasoning Test',c:'Problem: Agent fails on multi-step reasoning. Task: Test the agent\'s reasoning on 5 multi-step security queries and document breakage.'},
+        {t:'Slot 5: Infrastructure Reliability',c:'Fault Tolerance. Discuss "Agentic Drift." If an agent begins a task and gets distracted by a secondary goal, how do you steer it back? Analyze the "Plan-and-Execute" pattern.'}],
+     tasks:['Implement ReAct core with search and SQL tools','Test agent reasoning on 5 multi-step security queries and document failures','Build reflection and error catching mechanisms','Connect agents to mock security APIs'],
+     practice:'Agent implementation and reasoning testing',tags:['MLOps','GenAI']},
+
+    {s:[{t:'Slot 1: SQL & API Integration',c:'Connecting the agent to structured data. Focus: Building the SQL query tool and verifying it only uses READ-ONLY permissions.'},
+        {t:'Slot 2: Retrieval Tuning — Hybrid Search',c:'Tuning hybrid search for the knowledge base. Focus: Combining BM25 with vector search to find specific security vulnerability keywords.'},
+        {t:'Slot 3: Stateful Self-Correction',c:'Implementing stateful error recovery. Focus: Using LangGraph checkpointers to persist the audit state across sessions.'},
+        {t:'Slot 4: Practice — SQL Tool Guard',c:'Problem: Agent generates insecure SQL. Task: Hard-code permission boundaries and verify the agent cannot execute DROP commands.'},
+        {t:'Slot 5: Security & Governance',c:'Secret Management. Analyze how your agent handles API keys for the tools it uses. Discuss the engineering of "Identity Boundaries" between different agents.'}],
+     tasks:['Build SQL tool with READ-ONLY permission enforcement','Tune hybrid search with BM25 weighting for the knowledge base','Implement stateful error recovery for failed tool calls','Simulate SQL injection and verify agent cannot execute it'],
+     practice:'Agent SQL tool with security constraints',tags:['MLOps','GenAI']},
+
+    {s:[{t:'Slot 1: Production MLOps — Dockerizing the System',c:'Dockerizing the full multi-agent RAG application. Focus: Multi-stage build for the agent service to optimize deployment speed.'},
+        {t:'Slot 2: CI/CD for Capstone',c:'Setting up automated tests for the resolution flow. Focus: Writing integration tests to verify the agent\'s reasoning path.'},
+        {t:'Slot 3: Live Deployment',c:'Hosting the demo on Render or Hugging Face Spaces. Focus: Managing environment secrets and ensuring high-availability.'},
+        {t:'Slot 4: Practice — Live Ship',c:'Problem: Local apps can\'t be shared. Task: Successfully deploy the app to a live URL and verify external connectivity.'},
+        {t:'Slot 5: System Design',c:'Scalable RAG architecture. Discuss how to scale your knowledge base to 100,000 documents. Analyze the transition from a local ChromaDB to a managed Pinecone cluster.'}],
+     tasks:['Dockerize the full multi-agent RAG application','Set up GitHub Actions for automated testing of the resolution flow','Deploy the demo to Render or Hugging Face Spaces','Verify the live URL handles concurrent requests correctly'],
+     practice:'Full system deployment and live URL verification',tags:['MLOps','Projects']},
+
+    {s:[{t:'Slot 1: Continuous Monitoring',c:'Building the hallucination and latency dashboard. Focus: Integrating RAGAS monitoring for live user queries to catch drift.'},
+        {t:'Slot 2: AI Governance Setup',c:'Final audit trails and prompt versioning setup. Focus: Ensuring every agent decision is logged with the prompt version used.'},
+        {t:'Slot 3: Performance Tuning',c:'Optimizing token usage for 30% cost reduction. Focus: Prompt compression and optimizing the size of retrieved chunks.'},
+        {t:'Slot 4: Practice — Alarm Test',c:'Problem: Is the monitor working? Task: Verify that drift alerts fire correctly when garbage data is sent to the live endpoint.'},
+        {t:'Slot 5: Engineering Thinking',c:'Caching Systems. Discuss "Prompt Caching." If 1,000 users ask about the same security policy, how do you cache the system instructions at the API level to save 80% on token cost?'}],
+     tasks:['Build hallucination and latency monitoring dashboard','Set up audit trails and prompt versioning for compliance','Optimize token usage for 30% cost reduction','Verify drift alerts fire correctly with garbage test data'],
+     practice:'Production monitoring, governance, and optimization',project:'Major Project 10: Masterpiece — LLM Security & Audit',tags:['MLOps','Projects']},
+
+    {s:[{t:'Sunday Revision: Final System Stress Test',c:'Final system end-to-end stress test under simulated load.'},
+        {t:'Assessment: Red-Teaming',c:'Red-teaming the agent for prompt injection, model theft, and information disclosure.'},
+        {t:'Portfolio: README & Whitepaper Polish',c:'Final README and architecture whitepaper polish. Focus: Highlighting the security defense patterns used.'},
+        {t:'Rest: Unplug Before Career Week',c:'Focus on physical recovery and mental reset.'},
+        {t:'Slot 5: Governance',c:'Human-in-the-Loop Safeguards. Discuss when your agent should stop and wait for a human. Analyze the engineering of "Human Interrupt" nodes in mission-critical AI.'}],
+     tasks:['Run end-to-end stress test on complete system','Red-team agent for prompt injection and document findings','Finalize README and architecture whitepaper','Rest and prepare for career professionalization week'],
+     practice:'System stress testing and security red-teaming',revision:'Week 10',tags:['Revision']},
+
+    // W11 D71–75
+    {s:[{t:'Slot 1: Portfolio Audit',c:'Choosing top 3 projects for the showcase. Focus: Selecting projects that show the widest range (e.g. Scaling Engine, YOLO26, Security Capstone).'},
+        {t:'Slot 2: Problem-Action-Result READMEs',c:'Writing PAR-style READMEs. Focus: Ensuring each project has a clear "Why", technical metrics, and visual results.'},
+        {t:'Slot 3: LinkedIn Presence',c:'Documenting the 75-day journey. Focus: Writing technical summaries for each Phase to showcase depth to recruiters.'},
+        {t:'Slot 4: Practice — README Refactor',c:'Problem: Long READMEs are ignored. Task: Refactor the Capstone README into the PAR format with a 30-second "Executive Summary".'},
+        {t:'Slot 5: Deployment Reasoning',c:'Cost per User. Analyze the "Unit Economics" of your Capstone. If 1,000 users use it daily, what is your monthly AWS and LLM bill?'}],
+     tasks:['Choose top 3 projects and craft PAR-style READMEs','Refactor Capstone README with 30-second Executive Summary','Draft a LinkedIn post documenting your 75-day journey','Optimize GitHub profile with pinned repositories'],
+     practice:'Portfolio and GitHub optimization',tags:['Projects']},
+
+    {s:[{t:'Slot 1: Recommendation Systems',c:'Mastering recommendation and ranking pipeline designs. Sub-topics: Multi-stage funnels and re-ranking layers. Read: System design for scale.'},
+        {t:'Slot 2: Funnels & Latency',c:'Retrieval vs. Ranking latency trade-offs. Focus: Explaining why multi-stage funnels are necessary for million-item catalogs.'},
+        {t:'Slot 3: Feature Store Logic',c:'The role of feature stores in maintaining consistency between training and inference data in real-time systems.'},
+        {t:'Slot 4: Practice — Fraud Architecture',c:'Problem: Designing a real-time system is complex. Task: Whiteboard a real-time fraud detector design including data stream, feature store, and model.'},
+        {t:'Slot 5: System Design',c:'Event-Driven AI. Discuss why we use "Message Queues" (Kafka/SQS) for heavy inference. Analyze the tradeoff between "Real-time" response vs "Batch" efficiency.'}],
+     tasks:['Whiteboard a real-time fraud detection system with data stream and feature store','Design a Spotify-like recommendation system end-to-end','Explain training-serving skew prevention to an interviewer','Practice 3 system design problems within 45-minute time constraints'],
+     practice:'ML system design — fraud and recommendation engines',tags:['Projects']},
+
+    {s:[{t:'Slot 1: ML Theory Revision',c:'Revision of bias-variance, ensemble mechanics, and boosting vs. bagging. Focus: Deep dive into algorithm selection criteria.'},
+        {t:'Slot 2: Deep Learning Theory',c:'Transformer self-attention and backprop deep dive. Focus: Explaining the QKV mechanism and O(n²) complexity.'},
+        {t:'Slot 3: GenAI Theory',c:'Comparing RAG vs. Fine-tuning trade-offs. Focus: Preparing answers on "When to choose RAG for facts vs. Tuning for style".'},
+        {t:'Slot 4: Practice — Theory Quiz',c:'Problem: Interviews start with fundamentals. Task: Solve 10 advanced ML theory quiz questions from industry question banks.'},
+        {t:'Slot 5: Systems Thinking',c:'Compliance thinking. Discuss "Bias and Fairness." If your model is biased against a certain demographic, how do you build a technical "Guardrail" to catch this before it reaches a user?'}],
+     tasks:['Solve 10 advanced ML theory questions from industry question banks','Explain the QKV mechanism of transformer self-attention from memory','Articulate when to use RAG vs fine-tuning with concrete examples','Review bias-variance, gradient descent, and regularization'],
+     practice:'Theory deep dive for interviews',tags:['Projects']},
+
+    {s:[{t:'Slot 1: Mock Technical Interview',c:'1-hour algorithmic and coding assessment. Focus: Solving a medium-level LeetCode problem related to data structures.'},
+        {t:'Slot 2: Mock Behavioral Interview',c:'STAR method for technical challenges. Focus: Practicing the "Situation, Task, Action, Result" format for explaining project failures.'},
+        {t:'Slot 3: Architectural Judgement',c:'Preparing trade-off explanations (Cost vs. Latency). Focus: Practicing responses that justify architectural choices.'},
+        {t:'Slot 4: Practice — Peer Mock',c:'Problem: Explaining complex work is hard. Task: Conduct a peer mock interview using AI prompts to simulate a senior interviewer.'},
+        {t:'Slot 5: Scaling Strategy',c:'Distributed Inference. Discuss "PagedAttention" and "vLLM." How do modern serving engines optimize GPU memory to handle 1,000 concurrent users?'}],
+     tasks:['Complete a 1-hour timed coding assessment (medium LeetCode)','Practice STAR method for 3 behavioral scenarios','Prepare trade-off explanations for vector DB and chunking choices','Conduct a full mock interview with AI-driven prompts'],
+     practice:'Full mock interview simulation',tags:['Projects']},
+
+    {s:[{t:'Slot 1: Industry Networking',c:'Reaching out to 3 industry leads with the portfolio. Focus: Direct outreach to hiring managers with tailored project links.'},
+        {t:'Slot 2: Final Infrastructure Ship',c:'Ensuring all 10 projects are live, documented, and properly containerized on Docker Hub or GitHub.'},
+        {t:'Slot 3: Reflection & Growth',c:'Assessing growth from mathematical bedrock foundations to advanced AI agent orchestration.'},
+        {t:'Slot 4: Full Stack AI Engineering Readiness',c:'Outcome: Full stack AI Engineering readiness for 2026 roles.'},
+        {t:'Slot 5: Engineering Thinking',c:'The Obsolete System. Discuss why a model trained today will be obsolete in 6 months. Analyze the engineering effort needed to build a "Self-Evolving System" that retrains itself automatically.'}],
+     tasks:['Reach out to 3 industry leads with your portfolio','Verify all 10 projects are live with working URLs and READMEs','Tailor resume for 3 target AI/ML job descriptions','Apply to your first 3 AI/ML Engineering positions'],
+     practice:'Portfolio submission and job applications',revision:'75-Day Journey Complete! 🎉',tags:['Projects']},
+  ];
+
+  for(let i=0;i<TOTAL;i++){
+    const d=new Date(START); d.setDate(d.getDate()+i);
+    const dn=i+1;
+    const isSun=d.getDay()===0;
+    const phase=getPhase(dn);
+    let det=i<detail.length?detail[i]:synth(dn,phase,isSun);
+    R[dn]={
+      dayNum:dn,
+      date:`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`,
+      dateF:d.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'}),
+      isSun,phase,
+      hours:isSun?2:6,
+      week:Math.ceil(dn/7),
+      slots:det.s,tasks:det.tasks,practice:det.practice,
+      project:det.project||null,revision:det.revision||null,
+      tags:det.tags
+    };
+  }
+  return R;
+}
+
+function getPhase(d){
+  for(const p of PHASES) if(d>=p.days[0]&&d<=p.days[1]) return p.id;
+  return 6;
+}
+function synth(dn,pid,isSun){
+  const p=PHASES[pid-1]||PHASES[5];
+  if(isSun) return {s:[{t:'Sunday: Revision & Rest',c:`Revision Checkpoint: Review Phase ${pid} concepts. Light practice only.`}],
+    tasks:['Review key concepts','Solve 2–3 practice problems','Set goals for next week'],
+    practice:'Revision and light practice',revision:`Week ${Math.ceil(dn/7)} Revision`,tags:['Revision']};
+  return {s:[
+    {t:`Slot 1: ${p.name} — Theory`,c:`Core theory and concepts for ${p.name}.`},
+    {t:`Slot 2: ${p.name} — Deep Dive`,c:'Advanced topics and implementation details.'},
+    {t:`Slot 3: ${p.name} — Implementation`,c:'Hands-on coding and system building.'},
+    {t:'Slot 4: Practice & Review',c:'Practice exercises and concept consolidation.'},
+    {t:'Slot 5: Engineering Thinking',c:'Systems thinking, cost optimization, and deployment reasoning for the phase topic.'},
+  ],tasks:[`Complete exercises for Day ${dn}`,`Implement the day\'s core concept`,`Review and document findings`],
+  practice:`Practice: ${p.name}`,tags:[p.filter]};
+}
+
+const RM=buildRoadmap();
+
+/* ═══ STATE ══════════════════════════════════════════════ */
+let S={done:{},tasks:{},notes:{},pSess:0,filter:'all',q:''};
+let curModalDay=null,pomTimer=null,pomOn=false,pomBreak=false,pomSec=25*60,pomTotal=25*60;
+let qIdx=Math.floor(Math.random()*QUOTES.length),mcY,mcM;
+
+function save(){try{localStorage.setItem('mlRM26',JSON.stringify(S));}catch(e){}}
+function load(){
+  try{const d=localStorage.getItem('mlRM26');if(d)Object.assign(S,JSON.parse(d));}catch(e){}
+  const t=localStorage.getItem('mlTheme')||(matchMedia('(prefers-color-scheme:light)').matches?'light':'dark');
+  document.body.setAttribute('data-theme',t);updTheme();
+}
+
+/* ═══ CLOCK (100% offline — uses device JS clock) ════════ */
+function tick(){
+  const now=new Date();
+  let h=now.getHours(),m=now.getMinutes(),s=now.getSeconds();
+  const ap=h>=12?'PM':'AM'; h=h%12||12;
+  const p=n=>String(n).padStart(2,'0');
+  document.getElementById('clkTime').textContent=`${p(h)}:${p(m)}:${p(s)}`;
+  document.getElementById('clkAmpm').textContent=ap;
+  const DAYS=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  document.getElementById('clkDate').textContent=`${DAYS[now.getDay()]}, ${MONTHS[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()}`;
+  // day badge
+  const dn=getTodayDN();
+  const badge=document.getElementById('clkDayBadge');
+  if(dn){badge.textContent=`📅 Day ${dn} of 75`;}
+  else{
+    now.setHours(0,0,0,0);
+    const e=new Date(END); e.setHours(0,0,0,0);
+    if(now>e){badge.textContent='🎉 Journey Complete!';}
+    else{badge.textContent='⏳ Starts 14 May 2026';}
+  }
+  // countdown
+  const endD=new Date(END); endD.setHours(23,59,59,999);
+  const diff=endD-now;
+  if(diff>0&&dn){
+    const dd=Math.floor(diff/86400000);
+    const hh=Math.floor((diff%86400000)/3600000);
+    const mm2=Math.floor((diff%3600000)/60000);
+    document.getElementById('clkCountdown').textContent=`${dd}d ${hh}h ${mm2}m remaining`;
+  } else {
+    document.getElementById('clkCountdown').textContent='';
+  }
+}
+
+/* ═══ THEME ══════════════════════════════════════════════ */
+function toggleTheme(){
+  const n=document.body.getAttribute('data-theme')==='dark'?'light':'dark';
+  document.body.setAttribute('data-theme',n);localStorage.setItem('mlTheme',n);updTheme();
+}
+function updTheme(){
+  const t=document.body.getAttribute('data-theme');
+  document.getElementById('themeLbl').textContent=t==='dark'?'🌙 Dark Mode':'☀️ Light Mode';
+}
+
+/* ═══ NAV ════════════════════════════════════════════════ */
+function goPage(id,el){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  const pg=document.getElementById('page-'+id);
+  if(pg)pg.classList.add('active');
+  if(el)el.classList.add('active');
+  const T={dashboard:'Dashboard',calendar:'Calendar',search:'Search',timeline:'Timeline',pomodoro:'Pomodoro Timer',settings:'Settings'};
+  document.getElementById('topTitle').textContent=T[id]||id;
+  closeSB();
+  if(id==='search')doSearch();
+}
+function openProjects(){window.open('project.html','_blank');}
+function toggleSB(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('sbOv').classList.toggle('open');}
+function closeSB(){document.getElementById('sidebar').classList.remove('open');document.getElementById('sbOv').classList.remove('open');}
+
+/* ═══ TODAY ══════════════════════════════════════════════ */
+function getTodayDN(){
+  const now=new Date(); now.setHours(0,0,0,0);
+  const st=new Date(START); st.setHours(0,0,0,0);
+  const d=Math.floor((now-st)/86400000)+1;
+  return(d>=1&&d<=TOTAL)?d:null;
+}
+
+/* ═══ DASHBOARD ══════════════════════════════════════════ */
+function updDB(){
+  const dnCnt=Object.values(S.done).filter(Boolean).length;
+  const dn=getTodayDN();
+  const pct=Math.round(dnCnt/TOTAL*100);
+  document.getElementById('w-done').textContent=dnCnt;
+  document.getElementById('w-rem').textContent=Math.max(0,TOTAL-dnCnt);
+  document.getElementById('w-hrs').textContent=dnCnt*6;
+  document.getElementById('w-pct').textContent=pct+'%';
+  document.getElementById('ppct').textContent=pct+'%';
+  document.getElementById('pbar').style.width=pct+'%';
+  let streak=0,d=dn||TOTAL;
+  while(d>=1&&S.done[d]){streak++;d--;}
+  document.getElementById('w-str').textContent=streak;
+  document.getElementById('w-curday').textContent=dn||'—';
+
+  // today hero
+  if(dn&&RM[dn]){
+    const day=RM[dn],ph=PHASES[day.phase-1];
+    document.getElementById('th-title').textContent=ph?ph.name:'—';
+    document.getElementById('th-sub').textContent=day.dateF;
+    document.getElementById('w-phase').textContent=ph?`Phase ${ph.id}: ${ph.name}`:'—';
+    document.getElementById('th-meta').innerHTML=
+      `<div class="th-tag">📅 Day ${dn}</div>
+       <div class="th-tag">⏰ ${day.hours} hrs</div>
+       <div class="th-tag">📖 Week ${day.week}</div>
+       ${day.isSun?'<div class="th-tag" style="color:var(--grn)">🌿 Rest Day</div>':''}
+       ${S.done[dn]?'<div class="th-tag" style="color:var(--grn);border-color:rgba(64,192,87,.4)">✓ Completed</div>':''}`;
+  } else {
+    document.getElementById('th-title').textContent='Journey Not Started / Complete';
+    document.getElementById('th-sub').textContent='Starts 14 May 2026';
+    document.getElementById('w-phase').textContent='—';
+    document.getElementById('th-meta').innerHTML='';
+  }
+
+  const nextM=MILESTONES.find(m=>!S.done[m.day]);
+  if(nextM){document.getElementById('w-ms').textContent=nextM.name;document.getElementById('w-msd').textContent=nextM.date;}
+
+  // week badges
+  document.getElementById('wkBadges').innerHTML=Array.from({length:11},(_,i)=>{
+    const w=i+1,fd=Math.max(1,(w-1)*7+1),ld=Math.min(w*7,75);
+    const done2=Array.from({length:ld-fd+1},(_,j)=>S.done[fd+j]).every(Boolean);
+    const isCur=dn&&dn>=fd&&dn<=ld;
+    return `<div class="wk-b ${done2?'done':''} ${isCur&&!done2?'cur':''}">${done2?'✓':''} W${w}</div>`;
+  }).join('');
+
+  // phases
+  document.getElementById('phGrid').innerHTML=PHASES.map(ph=>{
+    const pds=Array.from({length:ph.days[1]-ph.days[0]+1},(_,i)=>ph.days[0]+i);
+    const dc=pds.filter(d=>S.done[d]).length,tot=pds.length;
+    const p2=tot?Math.round(dc/tot*100):0;
+    const s=RM[ph.days[0]]?.dateF?.split(',')[0]||'',e=RM[ph.days[1]]?.dateF?.split(',')[0]||'';
+    return `<div class="pcard" onclick="goPage('calendar',document.querySelectorAll('.nav-item')[1])">
+      <div class="pc-hdr"><div class="pc-num">PHASE ${ph.id}</div><div class="pc-badge">${dc}/${tot} days</div></div>
+      <div class="pc-name">${ph.name}</div>
+      <div class="pc-range">${s} – ${e} · Weeks ${ph.weeks}</div>
+      <div class="pc-pbg"><div class="pc-pfill" style="width:${p2}%;background:${ph.color}"></div></div>
+      <div class="pc-plbl"><span>${p2}% complete</span><span>${dc} days done</span></div>
+    </div>`;
+  }).join('');
+}
+
+/* ═══ 75-DAY TRACKER GRID ════════════════════════════════ */
+function rendCal(){
+  const cont=document.getElementById('calCont'); cont.innerHTML='';
+  const dn=getTodayDN();
+  const months={};
+  for(let i=1;i<=TOTAL;i++){const _p=RM[i].date.split('-'),d=new Date(+_p[0],+_p[1]-1,+_p[2]),k=`${d.getFullYear()}-${d.getMonth()}`;
+    if(!months[k])months[k]=[];months[k].push(i);}
+  Object.values(months).forEach(days=>{
+    const _fp=RM[days[0]].date.split('-'),fd=new Date(+_fp[0],+_fp[1]-1,+_fp[2]);
+    const mb=document.createElement('div');
+    mb.innerHTML=`<div class="cal-mlbl">${fd.toLocaleDateString('en-US',{month:'long',year:'numeric'})}</div>`;
+    const g=document.createElement('div'); g.className='cal-grid';
+    ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].forEach(d=>{const h=document.createElement('div');h.className='cdh';h.textContent=d;g.appendChild(h);});
+    const dow=fd.getDay();
+    for(let x=0;x<dow;x++){const e=document.createElement('div');e.className='cday ce';g.appendChild(e);}
+    days.forEach(dayNum=>{
+      const day=RM[dayNum],_dp=day.date.split('-'),dt=new Date(+_dp[0],+_dp[1]-1,+_dp[2]),ph=PHASES[day.phase-1];
+      const c=document.createElement('div');
+      c.className=`cday${day.isSun?' csun':''}${dayNum===dn?' ctoday':''}${S.done[dayNum]?' cdone':''}`;
+      c.onclick=()=>openModal(dayNum);
+      c.title=`Day ${dayNum}: ${day.dateF}`;
+      c.innerHTML=`<div class="cnum">${dt.getDate()}</div><div class="cdot" style="background:${ph?.color||'#666'}"></div>`;
+      g.appendChild(c);
+    });
+    mb.appendChild(g);cont.appendChild(mb);
+  });
+}
+
+/* ═══ MINI CALENDAR (interactive month view) ═════════════ */
+function rendMC(){
+  const now=new Date(),dn=getTodayDN();
+  const Y=mcY,M=mcM;
+  const MN=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  document.getElementById('mcTitle').textContent=`${MN[M]} ${Y}`;
+  const g=document.getElementById('mcGrid'); g.innerHTML='';
+  ['S','M','T','W','T','F','S'].forEach(d=>{const h=document.createElement('div');h.className='mc-dh';h.textContent=d;g.appendChild(h);});
+  const fw=new Date(Y,M,1).getDay(),dim=new Date(Y,M+1,0).getDate();
+  for(let i=0;i<fw;i++){const c=document.createElement('div');c.className='mc-cell mc-e';g.appendChild(c);}
+  for(let day=1;day<=dim;day++){
+    const c=document.createElement('div');
+    const ds=`${Y}-${String(M+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+    let rm=null;
+    for(let d=1;d<=TOTAL;d++){if(RM[d].date===ds){rm=d;break;}}
+    const isT=day===now.getDate()&&M===now.getMonth()&&Y===now.getFullYear();
+    if(isT) c.className='mc-cell mc-today';
+    else if(rm){
+      const classes=['mc-cell','mc-rm'];
+      if(S.done[rm])classes.push('mc-done');
+      if(RM[rm].isSun)classes.push('mc-sun');
+      c.className=classes.join(' ');
+      c.onclick=()=>openModal(rm);
+    } else c.className='mc-cell';
+    c.textContent=day; g.appendChild(c);
+  }
+  if(dn&&RM[dn]){
+    const day=RM[dn],ph=PHASES[day.phase-1];
+    document.getElementById('mcNote').innerHTML=
+      `<strong>Today: Day ${dn}</strong> · ${ph?.name||''}<br>Week ${day.week} · ${day.isSun?'Rest & Revision':'6 hrs study'}`;
+  }
+}
+function mcPrev(){if(--mcM<0){mcM=11;mcY--;}rendMC();}
+function mcNext(){if(++mcM>11){mcM=0;mcY++;}rendMC();}
+
+/* ═══ MODAL ══════════════════════════════════════════════ */
+function openModal(dayNum){
+  const day=RM[dayNum];if(!day)return;
+  curModalDay=dayNum;
+  document.getElementById('mDate').textContent=day.dateF;
+  document.getElementById('mTitle').textContent=day.isSun?'🌿 Rest & Revision Day':`Day ${dayNum}: ${PHASES[day.phase-1]?.name||''}`;
+  document.getElementById('mDayNum').textContent=`Day ${dayNum} of ${TOTAL}`;
+  document.getElementById('mWk').textContent=`Week ${day.week}`;
+  document.getElementById('mHrs').textContent=`${day.hours} hrs`;
+  const ph=PHASES[day.phase-1];
+  const pt=document.getElementById('mPhTag');
+  pt.textContent=`Phase ${day.phase}`;pt.style.background=ph?ph.color+'22':'';pt.style.color=ph?ph.color:'';
+  // Close any open slot-entry dialog and reset button label
+  if(document.getElementById('slotDialog'))closeSlotDialog();
+  // Render all accordions (built-in + custom) with sanitized content
+  _renderModalAccs(dayNum);
+  const ts=day.tasks||[];
+  document.getElementById('mTasks').innerHTML=ts.length?`
+    <div style="margin:12px 0 7px;font-size:10px;font-weight:700;color:var(--txt3);text-transform:uppercase;letter-spacing:1px">✅ Tasks</div>
+    ${ts.map((t,i)=>{const k=`${dayNum}-${i}`,done=S.tasks[k];
+      return `<div class="task-item ${done?'done':''}" id="tw-${dayNum}-${i}">
+        <input type="checkbox" ${done?'checked':''} onchange="togTask(${dayNum},${i},this)"><span>${t}</span></div>`;
+    }).join('')}`:'';
+  const mb=document.getElementById('markBtn');
+  mb.className=`mark-btn${S.done[dayNum]?' done':''}`;
+  mb.textContent=S.done[dayNum]?'✓ Day Completed!':'✓ Mark Day Complete';
+  document.getElementById('dayNotes').value=S.notes[dayNum]||'';
+  document.getElementById('dayModal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeModal(){
+  document.getElementById('dayModal').classList.remove('open');
+  document.body.style.overflow='';curModalDay=null;
+  updDB();rendCal();rendMC();
+}
+function openTodayModal(){openModal(getTodayDN()||1);}
+function togAcc(el){el.classList.toggle('open');el.nextElementSibling.classList.toggle('open');}
+function togTask(dn,i,cb){
+  const k=`${dn}-${i}`;S.tasks[k]=cb.checked;
+  const w=document.getElementById(`tw-${dn}-${i}`);if(w)w.classList.toggle('done',cb.checked);
+  save();
+}
+function markDay(){
+  if(!curModalDay)return;
+  const was=S.done[curModalDay];S.done[curModalDay]=!was;
+  const mb=document.getElementById('markBtn');
+  mb.className=`mark-btn${S.done[curModalDay]?' done':''}`;
+  mb.textContent=S.done[curModalDay]?'✓ Day Completed!':'✓ Mark Day Complete';
+  save();if(!was)showAch(`Day ${curModalDay} completed! Keep the streak going! 🔥`);
+}
+function saveNotes(){if(!curModalDay)return;S.notes[curModalDay]=document.getElementById('dayNotes').value;save();}
+
+/* ═══ TIMELINE ═══════════════════════════════════════════ */
+function rendTL(){
+  const dn=getTodayDN()||0;
+  document.getElementById('tlCont').innerHTML=MILESTONES.map(m=>{
+    const done=m.day<=dn&&S.done[m.day],isCur=!done&&m.day>=dn;
+    return `<div class="tl-item ${done?'done':''} ${isCur?'cur':''}">
+      <div class="tl-dot"></div>
+      <div class="tl-date">${m.date} · Day ${m.day}</div>
+      <div class="tl-name">${done?'✓ ':''}${m.name}</div>
+      <div class="tl-desc">${m.desc}</div>
+    </div>`;
+  }).join('');
+}
+
+/* ═══ SEARCH ════════════════════════════════════════════ */
+function doSearch(){
+  S.q=document.getElementById('srchInput').value.toLowerCase();
+  const f=S.filter,q=S.q,res=[];
+  for(let d=1;d<=TOTAL;d++){
+    const day=RM[d];
+    if(f!=='all'&&!(day.tags||[]).includes(f))continue;
+    const txt=[day.slots?.map(s=>s.t+' '+s.c).join(' '),day.tasks?.join(' '),day.practice,day.project].filter(Boolean).join(' ').toLowerCase();
+    if(!q||txt.includes(q))res.push(day);
+  }
+  const c=document.getElementById('srchRes');
+  if(!res.length){c.innerHTML='<div class="empty">🔍 No results. Try a different term or filter.</div>';return;}
+  c.innerHTML=res.slice(0,60).map(day=>{
+    const ph=PHASES[day.phase-1];
+    const topics=day.slots?.map(s=>s.t.split(':').slice(-1)[0].trim()).join(' · ')||'';
+    return `<div class="rcard" onclick="openModal(${day.dayNum})">
+      <div class="rc-date">Day ${day.dayNum} · ${day.dateF?.split(',').slice(0,-1).join(',')}</div>
+      <div class="rc-title">${day.isSun?'🌿 Rest & Revision':ph?.name||''}</div>
+      <div class="rc-topics">${topics}</div>
+      <div style="margin-top:5px">${(day.tags||[]).map(t=>`<span class="tag" style="background:${ph?.color||'#666'}18;color:${ph?.color||'#666'}">${t}</span>`).join('')}</div>
+    </div>`;
+  }).join('');
+}
+function setF(f,el){
+  document.querySelectorAll('.fchip').forEach(c=>c.classList.remove('active'));
+  if(el)el.classList.add('active');S.filter=f;doSearch();
+}
+
+/* ═══ POMODORO ═══════════════════════════════════════════ */
+function updPom(){
+  const m=String(Math.floor(pomSec/60)).padStart(2,'0'),s=String(pomSec%60).padStart(2,'0');
+  document.getElementById('pomDisp').textContent=`${m}:${s}`;
+  const circ=2*Math.PI*85;
+  document.getElementById('pomRing').style.strokeDashoffset=circ*(1-pomSec/pomTotal);
+  document.getElementById('pomRing').style.strokeDasharray=circ;
+  document.getElementById('pomLbl').textContent=pomBreak?'☕ Break Time':'🎯 Work Session';
+  document.getElementById('pomRing').style.stroke=pomBreak?'var(--grn)':'var(--acc)';
+}
+function pomToggle(){
+  if(pomOn){clearInterval(pomTimer);pomOn=false;document.getElementById('pomBtn').textContent='▶ Resume';}
+  else{
+    pomOn=true;document.getElementById('pomBtn').textContent='⏸ Pause';
+    pomTimer=setInterval(()=>{pomSec--;updPom();
+      if(pomSec<=0){clearInterval(pomTimer);pomOn=false;
+        if(!pomBreak){S.pSess=(S.pSess||0)+1;save();document.getElementById('pomSess').textContent=`Sessions: ${S.pSess} 🍅`;showAch('Pomodoro complete! Take a break 🍅');}
+        pomBreak=!pomBreak;pomReset();}
+    },1000);
+  }
+}
+function pomReset(){clearInterval(pomTimer);pomOn=false;
+  pomTotal=(pomBreak?parseInt(document.getElementById('pbMin').value)||5:parseInt(document.getElementById('pwMin').value)||25)*60;
+  pomSec=pomTotal;document.getElementById('pomBtn').textContent='▶ Start';updPom();}
+function pomSkip(){clearInterval(pomTimer);pomOn=false;pomBreak=!pomBreak;pomReset();}
+
+/* ═══ QUOTES ════════════════════════════════════════════ */
+function refreshQuote(){
+  qIdx=(qIdx+1)%QUOTES.length;
+  document.getElementById('qTxt').textContent=QUOTES[qIdx].t;
+  document.getElementById('qAuth').textContent=QUOTES[qIdx].a;
+}
+
+/* ═══ ACHIEVEMENT ════════════════════════════════════════ */
+function showAch(msg){
+  const p=document.getElementById('achPop');
+  document.getElementById('achMsg').textContent=msg;
+  p.classList.add('show');setTimeout(()=>p.classList.remove('show'),4000);
+}
+
+/* ═══ EXPORT / IMPORT / RESET ════════════════════════════ */
+function expData(){
+  const b=new Blob([JSON.stringify(S,null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(b);
+  a.download=`mlrm-progress-${new Date().toISOString().split('T')[0]}.json`;a.click();
+}
+function impData(e){
+  const f=e.target.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=ev=>{try{Object.assign(S,JSON.parse(ev.target.result));save();updDB();rendCal();rendMC();showAch('Progress imported! 🎉');}catch{alert('Invalid JSON.');}};
+  r.readAsText(f);
+}
+function resetAll(){
+  const cs=S.customSlots||{};  // preserve custom slots on progress reset
+  S={done:{},tasks:{},notes:{},pSess:0,filter:'all',q:'',customSlots:cs};
+  save();updDB();rendCal();rendMC();showAch('Reset complete. Fresh start! 🚀');
+}
+
+/* ═══ KEYBOARD ═══════════════════════════════════════════ */
+document.addEventListener('keydown',e=>{
+  if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')return;
+  const ni=document.querySelectorAll('.nav-item');
+  ({d:()=>goPage('dashboard',ni[0]),c:()=>goPage('calendar',ni[1]),
+    s:()=>goPage('search',ni[3]),t:()=>goPage('timeline',ni[4]),
+    p:()=>goPage('pomodoro',ni[5]),Escape:closeModal})[e.key]?.();
+});
+
+/* ═══ CUSTOM SLOTS ═══════════════════════════════════════ */
+
+/** Sanitize a string for safe insertion into innerHTML */
+function sanitizeHTML(str){
+  const d=document.createElement('div');
+  d.appendChild(document.createTextNode(String(str)));
+  return d.innerHTML;
+}
+
+/** Ensure S.customSlots exists */
+function ensureCS(){if(!S.customSlots)S.customSlots={};}
+
+/** Open/close the inline add-slot dialog */
+function toggleSlotDialog(){
+  const dlg=document.getElementById('slotDialog');
+  if(dlg.classList.contains('open')){closeSlotDialog();}
+  else{
+    dlg.classList.add('open');
+    document.getElementById('slotTitle').value='';
+    document.getElementById('slotBody').value='';
+    clearSlotErr();
+    setTimeout(()=>document.getElementById('slotTitle').focus(),50);
+    document.getElementById('addSlotBtn').textContent='✕ Cancel';
+  }
+}
+function closeSlotDialog(){
+  document.getElementById('slotDialog').classList.remove('open');
+  document.getElementById('addSlotBtn').textContent='＋ Add Slot';
+  clearSlotErr();
+}
+function clearSlotErr(){
+  ['slotTitle','slotBody'].forEach(id=>document.getElementById(id).classList.remove('slot-inp-err'));
+  ['slotTitleErr','slotBodyErr'].forEach(id=>document.getElementById(id).classList.remove('show'));
+}
+function slotKeydown(e){
+  if(e.key==='Escape'){e.preventDefault();closeSlotDialog();}
+  if(e.key==='Enter'&&e.ctrlKey){e.preventDefault();saveCustomSlot();}
+}
+
+/** Validate, sanitize, persist, and render a new custom slot */
+function saveCustomSlot(){
+  if(!curModalDay)return;
+  const titleEl=document.getElementById('slotTitle');
+  const bodyEl=document.getElementById('slotBody');
+  const title=titleEl.value.trim();
+  const body=bodyEl.value.trim();
+  let valid=true;
+  if(!title){
+    titleEl.classList.add('slot-inp-err');
+    document.getElementById('slotTitleErr').classList.add('show');
+    valid=false;
+  }
+  if(!body){
+    bodyEl.classList.add('slot-inp-err');
+    document.getElementById('slotBodyErr').classList.add('show');
+    valid=false;
+  }
+  if(!valid)return;
+
+  ensureCS();
+  if(!S.customSlots[curModalDay])S.customSlots[curModalDay]=[];
+  // Store sanitized raw text (sanitize on render)
+  S.customSlots[curModalDay].push({t:title,c:body});
+  save();
+  closeSlotDialog();
+
+  // Append the new slot directly to #mAccs — no full modal re-render
+  const idx=S.customSlots[curModalDay].length-1;
+  const wrap=document.getElementById('mAccs');
+  const node=document.createElement('div');
+  node.className='acc custom-slot';
+  node.dataset.csDay=curModalDay;
+  node.dataset.csIdx=idx;
+  node.innerHTML=`<div class="acc-hdr" onclick="togAcc(this)">
+    <span class="cs-title-text">${sanitizeHTML(title)}</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <button class="cs-remove-btn" onclick="event.stopPropagation();removeCustomSlot(${+curModalDay},${idx})" title="Remove slot">✕</button>
+      <span class="acc-arr">▾</span>
+    </span>
+  </div>
+  <div class="acc-body" style="white-space:pre-wrap">${sanitizeHTML(body)}</div>`;
+  wrap.appendChild(node);
+  // Scroll new slot into view
+  node.scrollIntoView({behavior:'smooth',block:'nearest'});
+  showAch('Custom slot added! 📌');
+}
+
+/** Remove a custom slot by day and index, then re-render accordions */
+function removeCustomSlot(dayNum,idx){
+  ensureCS();
+  if(!S.customSlots[dayNum])return;
+  S.customSlots[dayNum].splice(idx,1);
+  save();
+  // Re-render only the accordion section, not the whole modal
+  _renderModalAccs(dayNum);
+}
+
+/** Re-render just the #mAccs content for a given day (used after removal) */
+function _renderModalAccs(dayNum){
+  const day=RM[dayNum];if(!day)return;
+  const customSlots=(S.customSlots&&S.customSlots[dayNum])?S.customSlots[dayNum]:[];
+  document.getElementById('mAccs').innerHTML=
+    (day.slots||[]).map(sl=>`<div class="acc"><div class="acc-hdr" onclick="togAcc(this)"><span>${sanitizeHTML(sl.t)}</span><span class="acc-arr">▾</span></div><div class="acc-body" style="white-space:pre-wrap">${sanitizeHTML(sl.c)}</div></div>`).join('')
+    +(day.practice?`<div class="acc"><div class="acc-hdr" onclick="togAcc(this)"><span>💻 Practice</span><span class="acc-arr">▾</span></div><div class="acc-body" style="white-space:pre-wrap">${sanitizeHTML(day.practice)}</div></div>`:'')
+    +(day.project?`<div class="acc"><div class="acc-hdr" onclick="togAcc(this)"><span>🚀 Project</span><span class="acc-arr">▾</span></div><div class="acc-body" style="white-space:pre-wrap">${sanitizeHTML(day.project)}</div></div>`:'')
+    +(day.revision?`<div class="acc"><div class="acc-hdr" onclick="togAcc(this)"><span>📚 Revision</span><span class="acc-arr">▾</span></div><div class="acc-body" style="white-space:pre-wrap">${sanitizeHTML(day.revision)}</div></div>`:'')
+    +customSlots.map((cs,ci)=>`<div class="acc custom-slot" data-cs-day="${dayNum}" data-cs-idx="${ci}">
+      <div class="acc-hdr" onclick="togAcc(this)">
+        <span class="cs-title-text">${sanitizeHTML(cs.t)}</span>
+        <span style="display:flex;gap:6px;align-items:center">
+          <button class="cs-remove-btn" onclick="event.stopPropagation();removeCustomSlot(${+dayNum},${ci})" title="Remove slot">✕</button>
+          <span class="acc-arr">▾</span>
+        </span>
+      </div>
+      <div class="acc-body" style="white-space:pre-wrap">${sanitizeHTML(cs.c)}</div>
+    </div>`).join('');
+}
+
+/** Legacy stub — kept so any old onclick="addCustomSlot()" references don't break */
+function addCustomSlot(){toggleSlotDialog();}
+
+/* ═══ INIT ═══════════════════════════════════════════════ */
+function init(){
+  load();
+  // clock — runs every second, 100% offline
+  tick();setInterval(tick,1000);
+  // mini cal defaults to today's month
+  const now=new Date();mcY=now.getFullYear();mcM=now.getMonth();
+  // quote
+  document.getElementById('qTxt').textContent=QUOTES[qIdx].t;
+  document.getElementById('qAuth').textContent=QUOTES[qIdx].a;
+  // renders
+  updDB();rendCal();rendMC();rendTL();updPom();doSearch();
+  document.getElementById('pomSess').textContent=`Sessions: ${S.pSess||0} 🍅`;
+  // auto-open today if day is active
+  const dn=getTodayDN();
+  if(dn&&!S.done[dn]){
+    // subtle nudge via hero — don't force modal open
+  }
+}
+init();
+</script>
+</body>
+</html>
