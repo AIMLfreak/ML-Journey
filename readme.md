@@ -19,7 +19,7 @@ Built with modern frontend technologies and a production-first engineering minds
 ## 🚀 Live Demo
 
 ```bash
-https://aimlfreak.github.io/<repository-name>/
+https://aimlfreak.github.io/<ML-Journey/
 ```
 
 ---
