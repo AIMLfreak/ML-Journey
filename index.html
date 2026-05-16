@@ -530,7 +530,7 @@ textarea.slot-inp{min-height:72px;resize:vertical}
       <div class="prog-hdr"><div class="prog-title">Overall Progress</div><div class="prog-pct" id="ppct">0%</div></div>
       <div class="prog-bg"><div class="prog-fill" id="pbar" style="width:0%"></div></div>
       <div style="display:flex;justify-content:space-between;margin-top:7px;font-size:10px;color:var(--txt3)">
-        <span>Day 1 · 14 May 2026</span><span>Day 75 · 27 Jul 2026</span></div>
+        <span>Day 1 · 18 May 2026</span><span>Day 75 · 31 Jul 2026</span></div>
     </div>
 
     <div class="sec-title">Week Milestones</div>
@@ -559,7 +559,7 @@ textarea.slot-inp{min-height:72px;resize:vertical}
         <div class="cal-wrap">
           <div class="cal-hdr">
             <div class="cal-title">75-Day Tracker</div>
-            <div style="font-size:11px;color:var(--txt3)">14 May → 27 Jul 2026</div>
+            <div style="font-size:11px;color:var(--txt3)">18 May → 31 Jul 2026</div>
           </div>
           <div id="calCont"></div>
           <div class="cal-legend">
@@ -715,7 +715,7 @@ textarea.slot-inp{min-height:72px;resize:vertical}
 /* ═══════════════════════════════════════════════════════════
    CONSTANTS & DATA
 ═══════════════════════════════════════════════════════════ */
-const START = new Date(2026,4,14); // 14 May 2026
+const START = new Date(2026,4,18); // 18 May 2026
 const TOTAL = 75;
 const END = new Date(START); END.setDate(END.getDate()+TOTAL-1);
 
@@ -728,11 +728,11 @@ const PHASES=[
   {id:6,name:'Capstone & Career Mastery',    color:'#ffd43b',days:[71,75],weeks:'11',filter:'Projects'},
 ];
 const MILESTONES=[
-  {date:'26 May 2026',name:'Mathematical Bedrock Verified',desc:'Comfortable with Linear Algebra, Calculus foundations.',day:13},
-  {date:'07 Jun 2026',name:'Technical Pipeline Master',desc:'Automated data cleaning and visualization pipelines.',day:25},
-  {date:'21 Jun 2026',name:'Classical ML Expert',desc:'Production-ready XGBoost and ensemble skills.',day:39},
-  {date:'12 Jul 2026',name:'Deep Learning & Transformers',desc:'Build and fine-tune complex neural architectures.',day:60},
-  {date:'27 Jul 2026',name:'Full-Scale AI Engineer',desc:'Job-ready with a portfolio of production GenAI systems.',day:75},
+  {date:'30 May 2026',name:'Mathematical Bedrock Verified',desc:'Comfortable with Linear Algebra, Calculus foundations.',day:13},
+  {date:'11 Jun 2026',name:'Technical Pipeline Master',desc:'Automated data cleaning and visualization pipelines.',day:25},
+  {date:'25 Jun 2026',name:'Classical ML Expert',desc:'Production-ready XGBoost and ensemble skills.',day:39},
+  {date:'16 Jul 2026',name:'Deep Learning & Transformers',desc:'Build and fine-tune complex neural architectures.',day:60},
+  {date:'31 Jul 2026',name:'Full-Scale AI Engineer',desc:'Job-ready with a portfolio of production GenAI systems.',day:75},
 ];
 const QUOTES=[
   {t:"The best way to predict the future is to invent it.",a:"— Alan Kay"},
@@ -1435,7 +1435,7 @@ function tick(){
     now.setHours(0,0,0,0);
     const e=new Date(END); e.setHours(0,0,0,0);
     if(now>e){badge.textContent='🎉 Journey Complete!';}
-    else{badge.textContent='⏳ Starts 14 May 2026';}
+    else{badge.textContent='⏳ Starts 18 May 2026';}
   }
   // countdown
   const endD=new Date(END); endD.setHours(23,59,59,999);
@@ -1514,7 +1514,7 @@ function updDB(){
        ${S.done[dn]?'<div class="th-tag" style="color:var(--grn);border-color:rgba(64,192,87,.4)">✓ Completed</div>':''}`;
   } else {
     document.getElementById('th-title').textContent='Journey Not Started / Complete';
-    document.getElementById('th-sub').textContent='Starts 14 May 2026';
+    document.getElementById('th-sub').textContent='Starts 18 May 2026';
     document.getElementById('w-phase').textContent='—';
     document.getElementById('th-meta').innerHTML='';
   }
